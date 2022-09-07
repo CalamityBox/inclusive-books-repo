@@ -1,7 +1,7 @@
 export interface MenuPath {
     name: string;
     path: string;
-    nestedPaths?: { name: string, path: string}[]
+    nestedPaths?: { name: string, path: string }[]
 }
 
 export const menuPaths : MenuPath[] = [

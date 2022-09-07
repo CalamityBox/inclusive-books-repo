@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
 
 // Components
 import Autocomplete from '@mui/material/Autocomplete'
@@ -6,28 +6,34 @@ import Pagination from '@mui/material/Pagination'
 import Container from '@mui/system/Container'
 import TextField from '@mui/material/TextField'
 
+// Utils
+import { matchSorter } from 'match-sorter'
+
 // Data
 import booksList from '../data/booksList'
 
 export default function PaginatedBookResults() {
-
+    
     const [searchText, setSearchText] = React.useState('')
+
+    const options = [... new Set( booksList.map(book => `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`) )]
+    const filterOptions = (options : string[], { inputValue } : any) => matchSorter(options, inputValue)
+
 
     function handleChange(event: React.SyntheticEvent, value: string, reason: string) {
         setSearchText(value)
     }
-
-    console.log('search text: ' + searchText)
 
     return (
         <Container>
 
             <Autocomplete
                 options={
-                    [... new Set( booksList.map(book => `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`) )] // Massive hack to fix bug with duplicate values in autocomplete. Revisit data/booksList 
+                    options // Massive hack to fix bug with duplicate values in autocomplete. Revisit data/booksList 
                 }
                 onInputChange={handleChange}
                 renderInput={(params) => <TextField {...params} label="Book" />}
+                filterOptions={filterOptions}
             />
 
 
