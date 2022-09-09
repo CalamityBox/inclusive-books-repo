@@ -11,6 +11,7 @@ export default function QuickSearch() {
 
     return (
         <Container>
+            
             <Typography variant='h4' component='h1' color='primary'>
                 Quick Search Component
             </Typography>
