@@ -12,13 +12,13 @@ import { matchSorter } from 'match-sorter'
 // Data
 import booksList from '../data/booksList'
 
+
 export default function PaginatedBookResults() {
     
     const [searchText, setSearchText] = React.useState('')
 
-    const options = [... new Set( booksList.map(book => `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`) )]
+    const options = [... new Set( booksList.map(book => `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`) )] // Massive hack to fix bug with duplicate values in autocomplete. Revisit data/booksList 
     const filterOptions = (options : string[], { inputValue } : any) => matchSorter(options, inputValue)
-
 
     function handleChange(event: React.SyntheticEvent, value: string, reason: string) {
         setSearchText(value)
@@ -28,9 +28,7 @@ export default function PaginatedBookResults() {
         <Container>
 
             <Autocomplete
-                options={
-                    options // Massive hack to fix bug with duplicate values in autocomplete. Revisit data/booksList 
-                }
+                options={options}
                 onInputChange={handleChange}
                 renderInput={(params) => <TextField {...params} label="Book" />}
                 filterOptions={filterOptions}
