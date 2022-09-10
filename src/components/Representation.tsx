@@ -1,0 +1,57 @@
+import React, { ReactComponentElement } from "react"
+
+// Components
+import Chip from "@mui/material/Chip"
+import Typography from "@mui/material/Typography"
+import Stack from "@mui/material/Stack";
+import { Grid } from "@mui/material";
+
+interface RepresentationInterface {
+    type: string;
+    identity: string[];
+    content: string[];
+}
+
+export default function Representation(props : { representation: RepresentationInterface[] }) {
+
+    // -------- Wasn't loving using different colored chips for each type of representation. Didn't look great but also could potentially be offensive. Probably going to leave as gray but leaving function here for now
+    // function getBackgroundColor(type : string) {
+    //     switch (type) {
+    //         case 'Race / Culture':
+    //             return '#00b894'
+    //         case 'Nationality / Ethnicity / Tribal Affiliation':
+    //             return '#00b894'
+    //         case 'Gender / Sexuality':
+    //             return '#0984e3'
+    //         case 'Family Structure':
+    //             return '#6c5ce7'
+    //         case 'Neurodivergent':
+    //             return '#fdcb6e'
+    //         case 'Body':
+    //             return '#e17055'
+    //         case 'Disability':
+    //             return '#e84393'
+    //         default:
+    //             return ''
+    //     }
+    // }
+    
+    const chips : any = []
+    
+    const representation = props.representation
+        .filter(rep => rep.identity.length > 0)
+
+    representation.forEach(
+        rep => rep.identity.map(
+            identity => chips.push(
+                <Grid item> <Chip label={identity} /> </Grid>
+            )
+        )
+    )
+
+    return (
+        <Grid container spacing={1}>
+            {chips}
+        </Grid>
+    )
+}

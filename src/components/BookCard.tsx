@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia"
 import CardHeader  from "@mui/material/CardHeader"
 import Box from "@mui/material/Box"
 import Contributors from "./Contributors"
+import Representation from "./Representation"
 
 export default function BookCard(props: any) {
     return (
@@ -47,7 +48,10 @@ export default function BookCard(props: any) {
                 />
 
                 <Contributors type='Author' contributors={props.authors} />
-                { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> } 
+                { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
+
+                <Representation representation={props.representation} />
+
             </Box>
 
 

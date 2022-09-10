@@ -25,7 +25,9 @@ export default function Contributors(props : { type: 'Author' | 'Illustrator', c
 
     return (
         <>
-            <Typography>
+            <Typography
+                variant='body1'
+            >
                 {props.type}{contributors.length > 1 && 's'}: {contributors}
             </Typography>
         </>
