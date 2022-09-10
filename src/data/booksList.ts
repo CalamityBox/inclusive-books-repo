@@ -2727,7 +2727,7 @@ export default [
         },
     
         isbn: ["978136806577150000"],
-        coverUrl: ["http://cdn.shopify.com/s/files/1/1160/4950/products/uKvsjnPhQBi3vmoiHzno_size500_book_DrawnTogether_cover1_1000_1024x1024.jpg?v=1575931707"] 
+        coverUrl: ["https://images-na.ssl-images-amazon.com/images/I/81YxVTlXZ4L.jpg"] 
     },
     {
         id: 36,

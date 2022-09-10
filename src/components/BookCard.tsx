@@ -33,7 +33,7 @@ export default function BookCard(props: any) {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'flex-start',
-                    rowGap: 2,
+                    rowGap: 1,
                     ml: 3,
                     mt: 3
                 }}
@@ -47,7 +47,7 @@ export default function BookCard(props: any) {
                 />
 
                 <Contributors type='Author' contributors={props.authors} />
-                <Contributors type='Illustrator' contributors={props.illustrators} />
+                { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> } 
             </Box>
 
 

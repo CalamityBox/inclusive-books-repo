@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 // Routing
 import { Link } from 'react-router-dom'
 
-export default function Contributors(props : { type: string, contributors: string[] }) {
+export default function Contributors(props : { type: 'Author' | 'Illustrator', contributors: string[] }) {
 
     const contributors = props.contributors
         .map( 

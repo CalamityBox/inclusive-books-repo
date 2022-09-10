@@ -24,21 +24,20 @@ export default function PaginatedBookResults() {
 
     function handleChange(event: React.SyntheticEvent, value: string, reason: string) {
         setSearchText(value)
+        setPage(1) // Set search page to 1 whenever search text changes otherwise a completely new search might start on page 3, which is not obvious and confusing for the user
     }
 
-    const results = matchSorter(booksList, searchText, {keys: ['title', 'subtitle']})
+    const results = matchSorter(booksList, searchText, {keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
         .map(book => <BookCard {...book} />)
 
     
     // Handle pagination
     const BOOKS_PER_PAGE = 10
 
-    const [pagination, setPagination] = React.useState(0)
+    const [page, setPage] = React.useState(1)
 
-    function handlePageChange(event : React.ChangeEvent<unknown>, page : number) {
-        setPagination(
-            (page - 1) * BOOKS_PER_PAGE
-        )
+    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
+        setPage(value)
     }
 
 
@@ -69,7 +68,7 @@ export default function PaginatedBookResults() {
             >
                 {
                 results.length > BOOKS_PER_PAGE ?
-                    results.slice(pagination, pagination + BOOKS_PER_PAGE) : 
+                    results.slice((page - 1) * BOOKS_PER_PAGE, (page - 1) * BOOKS_PER_PAGE + BOOKS_PER_PAGE) : 
                     results
                 }
             </Container>
@@ -78,6 +77,7 @@ export default function PaginatedBookResults() {
                 color='primary' 
                 count={Math.ceil(results.length / BOOKS_PER_PAGE)}
                 onChange={handlePageChange}
+                page={page}
                 sx={{
                     margin: 'auto'
                 }}
