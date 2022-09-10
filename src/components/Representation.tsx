@@ -1,10 +1,11 @@
-import React, { ReactComponentElement } from "react"
+import React from "react"
 
 // Components
 import Chip from "@mui/material/Chip"
-import Typography from "@mui/material/Typography"
-import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid"
+
+// Utils
+import { nanoid } from 'nanoid'
 
 interface RepresentationInterface {
     type: string;
@@ -44,7 +45,7 @@ export default function Representation(props : { representation: RepresentationI
     representation.forEach(
         rep => rep.identity.map(
             identity => chips.push(
-                <Grid item> <Chip label={identity} /> </Grid>
+                <Grid item key={nanoid()}> <Chip label={identity} /> </Grid>
             )
         )
     )

@@ -7,6 +7,9 @@ import { MenuPath } from '../utils/menuPaths';
 // Routing
 import { Link } from 'react-router-dom'
 
+// Utils
+import { nanoid } from 'nanoid';
+
 export default function NavMenuItem(props : { name: string, path: string, nestedPaths: MenuPath[] | undefined }) {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -47,7 +50,7 @@ export default function NavMenuItem(props : { name: string, path: string, nested
             {
                 props.nestedPaths.map(
                     item => (
-                      <Link to={`${props.path}/${item.path}`}>
+                      <Link key={nanoid()} to={`${props.path}/${item.path}`}>
                         <MenuItem onClick={handleClose}>{item.name}</MenuItem>
                       </Link>
                     )

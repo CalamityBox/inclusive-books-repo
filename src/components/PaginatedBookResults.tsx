@@ -9,6 +9,7 @@ import BookCard from './BookCard'
 
 // Utils
 import { matchSorter } from 'match-sorter'
+import { nanoid } from 'nanoid'
 
 // Data
 import booksList from '../data/booksList'
@@ -28,7 +29,7 @@ export default function PaginatedBookResults() {
     }
 
     const results = matchSorter(booksList, searchText, {keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-        .map(book => <BookCard {...book} />)
+        .map(book => <BookCard key={nanoid()} {...book} />)
 
     
     // Handle pagination

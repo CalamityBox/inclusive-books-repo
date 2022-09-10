@@ -6,12 +6,15 @@ import Typography from "@mui/material/Typography"
 // Routing
 import { Link } from 'react-router-dom'
 
+// Utils
+import { nanoid } from "nanoid"
+
 export default function Contributors(props : { type: 'Author' | 'Illustrator', contributors: string[] }) {
 
     const contributors = props.contributors
         .map( 
             (name : string, index : number) => (
-                <>
+                <div key={nanoid()}>
                     <Link to={`/books/authors-and-illustrators/${name}`}>
                         {name}
                     </Link>
@@ -19,7 +22,7 @@ export default function Contributors(props : { type: 'Author' | 'Illustrator', c
                         ', and ' :
                         index < props.contributors.length - 1 && ', '
                     }
-                </>
+                </div>
             )
         )
 
@@ -27,6 +30,7 @@ export default function Contributors(props : { type: 'Author' | 'Illustrator', c
         <>
             <Typography
                 variant='body1'
+                component='div'
             >
                 {props.type}{contributors.length > 1 && 's'}: {contributors}
             </Typography>
