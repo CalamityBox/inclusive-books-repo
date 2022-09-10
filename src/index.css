@@ -17,6 +17,6 @@ a {
   text-decoration: none;
 }
 
-a:visited {
+.nav-bar > a:visited {
   color: inherit;
 }

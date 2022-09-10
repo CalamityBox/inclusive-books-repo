@@ -27,7 +27,9 @@ export default function MainRouting() {
             <Route path='books' element={<Books />}>
                 <Route path='quick-search' element={<QuickSearch />} />
                 <Route path='advanced-search' element={<AdvancedSearch />} />
-                <Route path='authors-and-illustrators' element={<AuthorsAndIllustrators />} />
+                <Route path='authors-and-illustrators' element={<AuthorsAndIllustrators />} >
+                    <Route path=':id' element={<div>Specific author or illustator component</div>} />
+                </Route>
             </Route>
             
             <Route path='about' element={<About />}>

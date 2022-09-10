@@ -3,8 +3,9 @@ import React from "react"
 // Components
 import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
+import CardHeader  from "@mui/material/CardHeader"
 import Box from "@mui/material/Box"
-import { CardHeader, Typography } from "@mui/material"
+import Contributors from "./Contributors"
 
 export default function BookCard(props: any) {
     return (
@@ -27,11 +28,28 @@ export default function BookCard(props: any) {
                 />
             </Box>
 
-            <CardHeader
-                title={
-                    <Typography variant='h4' component='h3'>{props.title}</Typography>
-                }            
-            />
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    rowGap: 2,
+                    ml: 3,
+                    mt: 3
+                }}
+            >
+                <CardHeader
+                    title={props.title}    
+                    titleTypographyProps={{ variant: 'h4', component: 'h3', align: 'left' }}
+                    subheader={props.subtitle}       
+                    subheaderTypographyProps={{ variant: 'h6', component: 'h4', align: 'left' }}
+                    sx={{ margin: '0', padding: '0', }}
+                />
+
+                <Contributors type='Author' contributors={props.authors} />
+                <Contributors type='Illustrator' contributors={props.illustrators} />
+            </Box>
+
 
         </Card>
     )

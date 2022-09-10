@@ -13,6 +13,7 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
     return (
         <AppBar
             position='fixed'
+            className='nav-bar'
         >
             <Toolbar            >
 
