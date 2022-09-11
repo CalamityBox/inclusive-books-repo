@@ -14,7 +14,7 @@ export default function Contributors(props : { type: 'Author' | 'Illustrator', c
     const contributors = props.contributors
         .map( 
             (name : string, index : number) => (
-                <div key={nanoid()}>
+                <div key={nanoid()} style={{ display: 'inline' }}>
                     <Link to={`/books/authors-and-illustrators/${name}`}>
                         {name}
                     </Link>

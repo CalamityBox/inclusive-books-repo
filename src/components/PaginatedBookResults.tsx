@@ -13,10 +13,79 @@ import { nanoid } from 'nanoid'
 
 // Data
 import booksList from '../data/booksList'
+import { Chip, Grid } from '@mui/material'
 
 
 export default function PaginatedBookResults() {
     
+    // Handle chip filters
+    const [chips, setChips] = React.useState([
+        { key: 0, label: 'Black / African' },
+        { key: 1, label: 'Lesbian' },
+        { key: 2, label: 'Wheelchair' }
+    ])
+
+    function handleChipClick( chipToAdd : string ) : void {
+        
+        console.log(chipToAdd)
+
+        setChips(
+            prevChips => {
+
+                if ( prevChips.filter(chip => chip.label === chipToAdd).length === 0 ) {
+                    return [...prevChips,{ key: prevChips.length, label: chipToAdd }]
+                } else {
+                    return prevChips
+                }
+
+            }
+        )
+
+    }
+
+    function handleChipDelete(chipToDelete: { key: number, label: string }) : void {
+
+        setChips(
+            prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label)
+        )
+
+    }
+
+    function filterResults(book : any): boolean {
+
+        console.log('book: ',book)
+
+        // if there are no filters active, return true because every book is allowed
+        if (chips.length === 0) {
+            console.log('no filters active, returning true')
+            return true
+        }
+        
+        // Unpack representation array of objects into one array that lists all representation identities as strings
+        const representation : string[] = []
+
+        book.representation.forEach(
+            (rep : any) => {
+                console.log('rep.identity is: ',rep.identity)
+                representation.push(...rep.identity)
+            }
+        )
+
+        console.log('generated representation array is: ',representation)
+
+        // Loop through every chip filter to see if the book's representation includes that identity
+        for (let [index, chip] of chips.entries()) {
+            if ( !representation.includes(chip.label) ) {
+                console.log(representation,' does not include ',chip.label,'returning false')
+                return false
+            }
+        }
+
+        console.log('returning true')
+        return true
+
+    }
+
     // Get and handle search results
     const [searchText, setSearchText] = React.useState('')
 
@@ -29,7 +98,8 @@ export default function PaginatedBookResults() {
     }
 
     const results = matchSorter(booksList, searchText, {keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-        .map(book => <BookCard key={nanoid()} {...book} />)
+        .filter( element => filterResults(element) )
+        .map(book => <BookCard key={nanoid()} handleClick={handleChipClick} {...book} />)
 
     
     // Handle pagination
@@ -40,6 +110,8 @@ export default function PaginatedBookResults() {
     function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
         setPage(value)
     }
+
+
 
 
     return (
@@ -60,6 +132,20 @@ export default function PaginatedBookResults() {
                 filterOptions={filterOptions}
             />
 
+            <Grid container spacing={1} justifyContent='center'>
+                {chips.map(
+                    chip => (
+                        <Grid item key={chip.key}>
+                            <Chip 
+                                label={chip.label}
+                                onDelete={() => handleChipDelete(chip)} 
+                                color='primary' 
+                            />
+                        </Grid>
+                    )
+                )}
+            </Grid>
+
             <Container
                 sx={{
                     display: 'flex',
@@ -67,22 +153,23 @@ export default function PaginatedBookResults() {
                     rowGap: '30px'
                 }}
             >
+
                 {
                 results.length > BOOKS_PER_PAGE ?
                     results.slice((page - 1) * BOOKS_PER_PAGE, (page - 1) * BOOKS_PER_PAGE + BOOKS_PER_PAGE) : 
                     results
                 }
+
+                <Pagination 
+                    color='primary' 
+                    count={Math.ceil(results.length / BOOKS_PER_PAGE)}
+                    onChange={handlePageChange}
+                    page={page}
+                    sx={{ margin: 'auto' }}
+                />
+
             </Container>
 
-            <Pagination 
-                color='primary' 
-                count={Math.ceil(results.length / BOOKS_PER_PAGE)}
-                onChange={handlePageChange}
-                page={page}
-                sx={{
-                    margin: 'auto'
-                }}
-            />
 
         </Container>
     )

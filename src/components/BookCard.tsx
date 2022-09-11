@@ -24,7 +24,7 @@ export default function BookCard(props: any) {
             >
                 <CardMedia
                     component='img'
-                    image={props.coverUrl}
+                    image={props.coverUrl[0]} // Default to first provided url. Come back to this to handle multiple editions, or to error check if first url doesn't load
                     alt={`The cover image of the book ${props.title}`}
                 />
             </Box>
@@ -50,7 +50,7 @@ export default function BookCard(props: any) {
                 <Contributors type='Author' contributors={props.authors} />
                 { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
 
-                <Representation representation={props.representation} />
+                <Representation representation={props.representation} handleClick={props.handleClick} />
 
             </Box>
 

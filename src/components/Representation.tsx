@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid"
 
 // Utils
 import { nanoid } from 'nanoid'
+import { Tooltip } from "@mui/material";
 
 interface RepresentationInterface {
     type: string;
@@ -13,7 +14,7 @@ interface RepresentationInterface {
     content: string[];
 }
 
-export default function Representation(props : { representation: RepresentationInterface[] }) {
+export default function Representation(props : { representation: RepresentationInterface[], handleClick: Function }) {
 
     // -------- Wasn't loving using different colored chips for each type of representation. Didn't look great but also could potentially be offensive. Probably going to leave as gray but leaving function here for now
     // function getBackgroundColor(type : string) {
@@ -45,7 +46,11 @@ export default function Representation(props : { representation: RepresentationI
     representation.forEach(
         rep => rep.identity.map(
             identity => chips.push(
-                <Grid item key={nanoid()}> <Chip label={identity} /> </Grid>
+                <Grid item key={nanoid()}>
+                    <Tooltip title='Click me to search for more books like this.' arrow>
+                        <Chip label={identity} onClick={() => props.handleClick(identity)} />
+                    </Tooltip>
+                </Grid>
             )
         )
     )
