@@ -56,7 +56,7 @@ export default function Representation(props : { representation: RepresentationI
     )
 
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={1} >
             {chips}
         </Grid>
     )

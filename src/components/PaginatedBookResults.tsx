@@ -19,20 +19,16 @@ import { Chip, Grid } from '@mui/material'
 export default function PaginatedBookResults() {
     
     // Handle chip filters
-    const [chips, setChips] = React.useState([
-        { key: 0, label: 'Black / African' },
-        { key: 1, label: 'Lesbian' },
-        { key: 2, label: 'Wheelchair' }
-    ])
+    const [chips, setChips] = React.useState< { key: number, label: string }[] | [] >([])
 
     function handleChipClick( chipToAdd : string ) : void {
-        
-        console.log(chipToAdd)
 
         setChips(
             prevChips => {
 
-                if ( prevChips.filter(chip => chip.label === chipToAdd).length === 0 ) {
+                if (prevChips.length === 0) {
+                    return [{ key: prevChips.length, label: chipToAdd }]
+                } else if ( prevChips.filter(chip => chip.label === chipToAdd).length === 0 ) {
                     return [...prevChips,{ key: prevChips.length, label: chipToAdd }]
                 } else {
                     return prevChips
@@ -41,6 +37,10 @@ export default function PaginatedBookResults() {
             }
         )
 
+        setPage(1)
+
+        window.scrollTo(0, 0)
+
     }
 
     function handleChipDelete(chipToDelete: { key: number, label: string }) : void {
@@ -48,6 +48,8 @@ export default function PaginatedBookResults() {
         setChips(
             prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label)
         )
+
+        setPage(1)
 
     }
 
@@ -112,8 +114,6 @@ export default function PaginatedBookResults() {
     }
 
 
-
-
     return (
         <Container
             sx={{
@@ -169,7 +169,6 @@ export default function PaginatedBookResults() {
                 />
 
             </Container>
-
 
         </Container>
     )

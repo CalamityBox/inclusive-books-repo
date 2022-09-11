@@ -11,6 +11,7 @@ import Representation from "./Representation"
 export default function BookCard(props: any) {
     return (
         <Card
+            variant='outlined'
             sx={{
                 maxHeight: '400px',
                 display: 'flex',
@@ -35,8 +36,8 @@ export default function BookCard(props: any) {
                     flexDirection: 'column',
                     alignItems: 'flex-start',
                     rowGap: 1,
-                    ml: 3,
-                    mt: 3
+                    padding: 3,
+                    maxWidth: '60%'
                 }}
             >
                 <CardHeader
