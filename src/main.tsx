@@ -15,8 +15,17 @@ import './index.css'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react'
 
-let theme = createTheme();
-theme = responsiveFontSizes(theme);
+let theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#6c5ce7'
+    },
+    secondary: {
+      main: '#00b894'
+    }
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
