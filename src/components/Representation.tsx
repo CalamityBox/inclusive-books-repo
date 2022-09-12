@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid"
 
 // Utils
 import { nanoid } from 'nanoid'
-import { Tooltip } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 
 interface RepresentationInterface {
     type: string;

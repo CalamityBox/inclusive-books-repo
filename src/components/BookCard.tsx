@@ -7,6 +7,7 @@ import CardHeader  from "@mui/material/CardHeader"
 import Box from "@mui/material/Box"
 import Contributors from "./Contributors"
 import Representation from "./Representation"
+import Awards from "./BookCardActions"
 
 export default function BookCard(props: any) {
     return (
@@ -35,7 +36,7 @@ export default function BookCard(props: any) {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'flex-start',
-                    rowGap: 1,
+                    rowGap: 2,
                     padding: 3,
                     maxWidth: '60%'
                 }}
@@ -48,13 +49,17 @@ export default function BookCard(props: any) {
                     sx={{ margin: '0', padding: '0', }}
                 />
 
-                <Contributors type='Author' contributors={props.authors} />
-                { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: 0 }}>
+                    <Contributors type='Author' contributors={props.authors} />
+                    { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
+                </Box>
 
                 <Representation representation={props.representation} handleClick={props.handleClick} />
 
+
             </Box>
 
+            <Awards awards={props.awards} />
 
         </Card>
     )
