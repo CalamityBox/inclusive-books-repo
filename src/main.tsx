@@ -14,10 +14,14 @@ import './index.css'
 // Theme
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react'
+import { CssBaseline } from '@mui/material'
 
 let theme = createTheme({
   palette: {
     mode: 'light',
+    background: {
+      default: '#fbfbfb'
+    },
     primary: {
       main: '#6c5ce7'
     },
@@ -30,6 +34,7 @@ let theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <App />
       </BrowserRouter>

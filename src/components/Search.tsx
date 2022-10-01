@@ -24,6 +24,8 @@ export default function Search(props : { value: string, handleChange: Function, 
             value={props.value}
             onChange={(event) => props.handleChange(event)}
 
+            sx={{ backgroundColor: 'white' }}
+
             InputProps={{
                 startAdornment: (
                     <InputAdornment position='start'>
