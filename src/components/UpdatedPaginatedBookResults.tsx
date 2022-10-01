@@ -12,12 +12,14 @@ import { matchSorter } from "match-sorter"
 // Data
 import booksList from "../data/booksList"
 import ChipGrid from "./ChipGrid"
+import { nanoid } from 'nanoid'
+import BookCard from './BookCard'
 
 
 export default function UpdatedPaginatedBookResults(props : any) {
     
     const [searchText, setSearchText] = React.useState('')
-    const [results, setResults] = React.useState(booksList)
+    const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> ) )
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         setSearchText(event.target.value)
@@ -78,12 +80,17 @@ export default function UpdatedPaginatedBookResults(props : any) {
         const timer = setTimeout(() => {
             console.log('running effect')
 
-            setResults( matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']}) )
-        }, 400)
+            setResults( 
+                matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
+                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
+            )
+        }, 200)
 
         return () => clearTimeout(timer)
 
     }, [searchText])
+
+    console.log('results: ',results)
     
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >    

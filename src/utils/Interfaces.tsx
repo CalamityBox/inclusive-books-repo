@@ -53,7 +53,7 @@ export interface BookInterface {
 
 // Book Cards
 export interface BookCardInterface {
-    books: BookInterface[];
+    books: React.ReactElement[];
     page: number;
     booksPerPage: number;
     handleChipClick: Function;
