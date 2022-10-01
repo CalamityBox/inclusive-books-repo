@@ -3,10 +3,9 @@ import React from 'react'
 // Components
 import Container from '@mui/system/Container'
 import Typography from '@mui/material/Typography'
+import PaginatedBookResults from '../../components/PaginatedBookResults'
 
 // Data
-import PaginatedBookResults from '../../components/PaginatedBookResults'
-import UpdatedPaginatedBookResults from '../../components/UpdatedPaginatedBookResults'
 
 export default function QuickSearch() {
 
@@ -17,11 +16,7 @@ export default function QuickSearch() {
                 Quick Search Component
             </Typography>
 
-            <Typography variant='subtitle1' component='p'>
-                Start typing the title of a book to view books in the collection.
-            </Typography>
-
-            <UpdatedPaginatedBookResults />
+            <PaginatedBookResults />
 
         </Container>
     )

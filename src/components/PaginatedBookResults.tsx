@@ -1,27 +1,54 @@
 import React from 'react'
 
 // Components
-import Autocomplete from '@mui/material/Autocomplete'
+import Container from '@mui/material/Container'
 import Pagination from '@mui/material/Pagination'
-import Container from '@mui/system/Container'
-import TextField from '@mui/material/TextField'
-import BookCard from './BookCard'
+import DisplayBookCards from "./DisplayBookCards"
+import Search from "./Search"
 
 // Utils
-import { matchSorter } from 'match-sorter'
-import { nanoid } from 'nanoid'
+import { matchSorter } from "match-sorter"
 
 // Data
-import booksList from '../data/booksList'
-import { Chip, Grid } from '@mui/material'
+import booksList from "../data/booksList"
+import ChipGrid from "./ChipGrid"
+import { nanoid } from 'nanoid'
+import BookCard from './BookCard'
 
 
-export default function PaginatedBookResults() {
+export default function UpdatedPaginatedBookResults(props : any) {
     
-    // Handle chip filters
+    const [searchText, setSearchText] = React.useState('')
+    const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> ) )
+
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setSearchText(event.target.value)
+        if (page !== 1) {
+            setPage(1) // Set search page to 1 whenever search text changes otherwise a completely new search might start on page 3, which is not obvious and confusing for the user
+        }
+    }
+
+    function handleClear() {
+        setSearchText('')
+        setPage(1)
+    }
+
+    // Handle pagination ----------------
+    const BOOKS_PER_PAGE = 10
+
+    const [page, setPage] = React.useState(1)
+
+    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
+        setPage(value)
+        window.scrollTo(0, 0)
+    }
+
+    // Handle chip filters ----------------
     const [chips, setChips] = React.useState< { key: number, label: string }[] | [] >([])
 
     function handleChipClick( chipToAdd : string ) : void {
+
+        setSearchText('') // Might change this back. Think it makes the most sense to clear search text when you click on a new filter here
 
         setChips(
             prevChips => {
@@ -38,137 +65,50 @@ export default function PaginatedBookResults() {
         )
 
         setPage(1)
-
         window.scrollTo(0, 0)
 
     }
 
     function handleChipDelete(chipToDelete: { key: number, label: string }) : void {
-
-        setChips(
-            prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label)
-        )
-
+        setChips( prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label) )
         setPage(1)
-
     }
 
-    function filterResults(book : any): boolean {
+    // Only run filter function when user has stopped typing ----------------
+    React.useEffect(() => {
 
-        console.log('book: ',book)
+        const timer = setTimeout(() => {
+            console.log('running effect')
 
-        // if there are no filters active, return true because every book is allowed
-        if (chips.length === 0) {
-            console.log('no filters active, returning true')
-            return true
-        }
-        
-        // Unpack representation array of objects into one array that lists all representation identities as strings
-        const representation : string[] = []
+            setResults( 
+                matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
+                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
+            )
+        }, 200)
 
-        book.representation.forEach(
-            (rep : any) => {
-                console.log('rep.identity is: ',rep.identity)
-                representation.push(...rep.identity)
-            }
-        )
+        return () => clearTimeout(timer)
 
-        console.log('generated representation array is: ',representation)
+    }, [searchText])
 
-        // Loop through every chip filter to see if the book's representation includes that identity
-        for (let [index, chip] of chips.entries()) {
-            if ( !representation.includes(chip.label) ) {
-                console.log(representation,' does not include ',chip.label,'returning false')
-                return false
-            }
-        }
-
-        console.log('returning true')
-        return true
-
-    }
-
-    // Get and handle search results
-    const [searchText, setSearchText] = React.useState('')
-
-    const options = [... new Set( booksList.map(book => `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`) )] // Massive hack to fix bug with duplicate values in autocomplete. Revisit data/booksList 
-    const filterOptions = (options : string[], { inputValue } : any) => matchSorter(options, inputValue)
-
-    function handleChange(event: React.SyntheticEvent, value: string, reason: string) {
-        setSearchText(value)
-        setPage(1) // Set search page to 1 whenever search text changes otherwise a completely new search might start on page 3, which is not obvious and confusing for the user
-    }
-
-    const results = matchSorter(booksList, searchText, {keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-        .filter( element => filterResults(element) )
-        .map(book => <BookCard key={nanoid()} handleClick={handleChipClick} {...book} />)
-
+    console.log('results: ',results)
     
-    // Handle pagination
-    const BOOKS_PER_PAGE = 10
-
-    const [page, setPage] = React.useState(1)
-
-    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
-        setPage(value)
-    }
-
-
     return (
-        <Container
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                rowGap: '30px'
-            }}
-        >
+        <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >    
 
-            <Autocomplete
-                clearOnBlur={false}
-                options={options}
-                onInputChange={handleChange}
-                renderInput={(params) => <TextField {...params} label="Book" />}
-                filterOptions={filterOptions}
-            />
-
-            <Grid container spacing={1} justifyContent='center'>
-                {chips.map(
-                    chip => (
-                        <Grid item key={chip.key}>
-                            <Chip 
-                                label={chip.label}
-                                onDelete={() => handleChipDelete(chip)} 
-                                color='primary' 
-                            />
-                        </Grid>
-                    )
-                )}
-            </Grid>
-
-            <Container
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    rowGap: '30px'
-                }}
-            >
-
-                {
-                results.length > BOOKS_PER_PAGE ?
-                    results.slice((page - 1) * BOOKS_PER_PAGE, (page - 1) * BOOKS_PER_PAGE + BOOKS_PER_PAGE) : 
-                    results
-                }
-
-                <Pagination 
-                    color='primary' 
-                    count={Math.ceil(results.length / BOOKS_PER_PAGE)}
-                    onChange={handlePageChange}
-                    page={page}
-                    sx={{ margin: 'auto' }}
-                />
-
+            <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >
+                <Search value={searchText} handleChange={handleChange} handleClear={handleClear} />
+                <ChipGrid chips={chips} handleChipDelete={handleChipDelete} />
             </Container>
+
+            <DisplayBookCards books={results} page={page} booksPerPage={BOOKS_PER_PAGE} handleChipClick={handleChipClick} />
+
+            <Pagination 
+                color='primary' 
+                count={Math.ceil(results.length / BOOKS_PER_PAGE)}
+                onChange={handlePageChange}
+                page={page}
+                sx={{ margin: 'auto' }}
+            />
 
         </Container>
     )
