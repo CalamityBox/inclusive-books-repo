@@ -21,7 +21,8 @@ export default function PaginatedBookResults(props : any) {
     
     const [searchText, setSearchText] = React.useState('')
     const [isSearchReadOnly,setIsSearchReadOnly] = React.useState(false)
-    const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> ) )
+    const [chips, setChips] = React.useState< { key: number, label: string }[] | [] >([])
+    const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> ) )
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         setSearchText(event.target.value)
@@ -46,7 +47,6 @@ export default function PaginatedBookResults(props : any) {
     }
 
     // Handle chip filters ----------------
-    const [chips, setChips] = React.useState< { key: number, label: string }[] | [] >([])
 
     function handleChipClick( chipToAdd : string ) : void {
 
@@ -93,7 +93,7 @@ export default function PaginatedBookResults(props : any) {
         setResults(
             booksList
                 .filter( book => chipFilter(book) )
-                .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
+                .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
         )
 
         setIsSearchReadOnly(chips.length > 0)
@@ -112,7 +112,7 @@ export default function PaginatedBookResults(props : any) {
 
             setResults( 
                 matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
+                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
             )
 
         }, 200)

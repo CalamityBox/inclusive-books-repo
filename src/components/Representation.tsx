@@ -14,29 +14,10 @@ interface RepresentationInterface {
     content: string[];
 }
 
-export default function Representation(props : { representation: RepresentationInterface[], handleClick: Function }) {
+export default function Representation(props : { representation: RepresentationInterface[], handleClick: Function, activeChips: { key: number, label: string }[] }) {
 
-    // -------- Wasn't loving using different colored chips for each type of representation. Didn't look great but also could potentially be offensive. Probably going to leave as gray but leaving function here for now
-    // function getBackgroundColor(type : string) {
-    //     switch (type) {
-    //         case 'Race / Culture':
-    //             return '#00b894'
-    //         case 'Nationality / Ethnicity / Tribal Affiliation':
-    //             return '#00b894'
-    //         case 'Gender / Sexuality':
-    //             return '#0984e3'
-    //         case 'Family Structure':
-    //             return '#6c5ce7'
-    //         case 'Neurodivergent':
-    //             return '#fdcb6e'
-    //         case 'Body':
-    //             return '#e17055'
-    //         case 'Disability':
-    //             return '#e84393'
-    //         default:
-    //             return ''
-    //     }
-    // }
+    const activeChipIdentities : string[] = []
+    props.activeChips.forEach(chip => activeChipIdentities.push(chip.label))
     
     const chips : any = []
     
@@ -47,8 +28,8 @@ export default function Representation(props : { representation: RepresentationI
         rep => rep.identity.map(
             identity => chips.push(
                 <Grid item key={nanoid()}>
-                    <Tooltip title='Click me to search for more books like this.' arrow>
-                        <Chip label={identity} onClick={() => props.handleClick(identity)} />
+                    <Tooltip title={activeChipIdentities.includes(identity) ? 'Showing books with this identity.' : 'Click me to search for more books like this.'} arrow>
+                        <Chip label={identity} onClick={() => props.handleClick(identity)} color={activeChipIdentities.includes(identity) ? 'primary' : 'default'} />
                     </Tooltip>
                 </Grid>
             )
