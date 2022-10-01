@@ -16,7 +16,7 @@ import { nanoid } from 'nanoid'
 import BookCard from './BookCard'
 
 
-export default function UpdatedPaginatedBookResults(props : any) {
+export default function PaginatedBookResults(props : any) {
     
     const [searchText, setSearchText] = React.useState('')
     const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> ) )
