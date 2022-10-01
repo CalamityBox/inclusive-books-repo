@@ -12,11 +12,14 @@ import IconButton from '@mui/material/IconButton'
 // Utils
 
 
-export default function Search(props : { value: string, handleChange: Function, handleClear: Function }) {
+export default function Search(props : { value: string, handleChange: Function, handleClear: Function, isReadOnly: boolean}) {
+
+    const placeholderText = props.isReadOnly ? 'Searching is restricted while filters are active' : 'Search for a book by title, author, illustrator, or isbn'
+    const backgroundColor = props.isReadOnly ? '#dfe6e9' : 'white'
 
     return (
         <TextField
-            placeholder='Search for a book by title, author, illustrator, or isbn'
+            placeholder={placeholderText}
             variant='outlined'
             fullWidth
             size='medium'
@@ -24,9 +27,10 @@ export default function Search(props : { value: string, handleChange: Function, 
             value={props.value}
             onChange={(event) => props.handleChange(event)}
 
-            sx={{ backgroundColor: 'white' }}
+            sx={{ backgroundColor: backgroundColor }}
 
             InputProps={{
+                disabled: props.isReadOnly,
                 startAdornment: (
                     <InputAdornment position='start'>
                         <SearchIcon />

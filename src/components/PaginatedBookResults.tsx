@@ -14,11 +14,13 @@ import { nanoid } from 'nanoid'
 
 // Data
 import booksList from "../data/booksList"
+import { BookInterface } from '../utils/Interfaces'
 
 
 export default function PaginatedBookResults(props : any) {
     
     const [searchText, setSearchText] = React.useState('')
+    const [isSearchReadOnly,setIsSearchReadOnly] = React.useState(false)
     const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> ) )
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -70,26 +72,31 @@ export default function PaginatedBookResults(props : any) {
     }
 
     // Update results when chips changes
+    function chipFilter(book : BookInterface) {
+
+        if (chips.length === 0) {
+            return true
+        }
+
+        const representation : string[] = []
+        book.representation.forEach( rep => representation.push(...rep.identity) )
+
+        const identities : string[] = []
+        chips.forEach(chip => identities.push(chip.label))
+
+        return identities.every(value => representation.includes(value))
+
+    }
+
     React.useEffect(() => {
 
         setResults(
             booksList
-                .filter( book => {
-
-                    if (chips.length === 0) {
-                        return true
-                    }
-
-                    const representation : string[] = []
-                    book.representation.forEach( rep => representation.push(...rep.identity) )
-
-                    const identities : string[] = []
-                    chips.forEach(chip => identities.push(chip.label))
-
-                    return identities.every(value => representation.includes(value))
-                })
+                .filter( book => chipFilter(book) )
                 .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
         )
+
+        setIsSearchReadOnly(chips.length > 0)
 
     },[chips])
 
@@ -118,7 +125,7 @@ export default function PaginatedBookResults(props : any) {
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >    
 
             <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >
-                <Search value={searchText} handleChange={handleChange} handleClear={handleClear} />
+                <Search value={searchText} handleChange={handleChange} handleClear={handleClear} isReadOnly={isSearchReadOnly} />
                 <ChipGrid chips={chips} handleChipDelete={handleChipDelete} />
             </Container>
 
