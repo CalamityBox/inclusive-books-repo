@@ -54,7 +54,7 @@ export default function BookCard(props: any) {
                     { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
                 </Box>
 
-                <Representation representation={props.representation} handleClick={props.handleClick} />
+                <Representation representation={props.representation} handleClick={props.handleChipClick} />
 
 
             </Box>

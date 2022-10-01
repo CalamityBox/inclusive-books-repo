@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 
 // Data
 import PaginatedBookResults from '../../components/PaginatedBookResults'
+import UpdatedPaginatedBookResults from '../../components/UpdatedPaginatedBookResults'
 
 export default function QuickSearch() {
 
@@ -20,7 +21,7 @@ export default function QuickSearch() {
                 Start typing the title of a book to view books in the collection.
             </Typography>
 
-            <PaginatedBookResults />
+            <UpdatedPaginatedBookResults />
 
         </Container>
     )
