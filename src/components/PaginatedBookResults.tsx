@@ -5,15 +5,15 @@ import Container from '@mui/material/Container'
 import Pagination from '@mui/material/Pagination'
 import DisplayBookCards from "./DisplayBookCards"
 import Search from "./Search"
+import ChipGrid from "./ChipGrid"
+import BookCard from './BookCard'
 
 // Utils
 import { matchSorter } from "match-sorter"
+import { nanoid } from 'nanoid'
 
 // Data
 import booksList from "../data/booksList"
-import ChipGrid from "./ChipGrid"
-import { nanoid } from 'nanoid'
-import BookCard from './BookCard'
 
 
 export default function PaginatedBookResults(props : any) {
@@ -69,6 +69,30 @@ export default function PaginatedBookResults(props : any) {
 
     }
 
+    // Update results when chips changes
+    React.useEffect(() => {
+
+        setResults(
+            booksList
+                .filter( book => {
+
+                    if (chips.length === 0) {
+                        return true
+                    }
+
+                    const representation : string[] = []
+                    book.representation.forEach( rep => representation.push(...rep.identity) )
+
+                    const identities : string[] = []
+                    chips.forEach(chip => identities.push(chip.label))
+
+                    return identities.every(value => representation.includes(value))
+                })
+                .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
+        )
+
+    },[chips])
+
     function handleChipDelete(chipToDelete: { key: number, label: string }) : void {
         setChips( prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label) )
         setPage(1)
@@ -78,19 +102,17 @@ export default function PaginatedBookResults(props : any) {
     React.useEffect(() => {
 
         const timer = setTimeout(() => {
-            console.log('running effect')
 
             setResults( 
                 matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
                     .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} /> )
             )
+
         }, 200)
 
         return () => clearTimeout(timer)
 
     }, [searchText])
-
-    console.log('results: ',results)
     
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >    

@@ -25,7 +25,6 @@ function App() {
           mt: 10
         }}
       >
-        Main App Component  
       </Container>
 
       <MainRouting />

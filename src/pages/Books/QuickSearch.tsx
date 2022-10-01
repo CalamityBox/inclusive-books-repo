@@ -12,8 +12,8 @@ export default function QuickSearch() {
     return (
         <Container>
             
-            <Typography variant='h4' component='h1' color='primary'>
-                Quick Search Component
+            <Typography variant='h4' component='h1' color='primary' marginBottom={2}>
+                Quick Search
             </Typography>
 
             <PaginatedBookResults />
