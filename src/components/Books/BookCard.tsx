@@ -8,8 +8,11 @@ import Box from "@mui/material/Box"
 import Contributors from "./Contributors"
 import Representation from "./Representation"
 import Awards from "./BookCardActions"
+import { Link } from "react-router-dom"
+import { Typography } from "@mui/material"
 
 export default function BookCard(props: any) {
+
     return (
         <Card
             variant='outlined'
@@ -41,13 +44,15 @@ export default function BookCard(props: any) {
                     maxWidth: '60%'
                 }}
             >
-                <CardHeader
-                    title={props.title}    
-                    titleTypographyProps={{ variant: 'h4', component: 'h3', align: 'left' }}
-                    subheader={props.subtitle}       
-                    subheaderTypographyProps={{ variant: 'h6', component: 'h4', align: 'left' }}
-                    sx={{ margin: '0', padding: '0', }}
-                />
+                <Link to={`/books/${props.title}`} state={{ fiddleSticks: 'test data' }}>
+                    <CardHeader
+                        title={props.title}    
+                        titleTypographyProps={{ variant: 'h4', component: 'h3', align: 'left' }}
+                        subheader={props.subtitle}       
+                        subheaderTypographyProps={{ variant: 'h6', component: 'h4', align: 'left' }}
+                        sx={{ margin: '0', padding: '0', }}
+                    />
+                </Link>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: 0 }}>
                     <Contributors type='Author' contributors={props.authors} />
@@ -55,6 +60,8 @@ export default function BookCard(props: any) {
                 </Box>
 
                 <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
+
+                {props.description.length > 0 && <Typography align='left'>{props.description}</Typography>}
 
 
             </Box>

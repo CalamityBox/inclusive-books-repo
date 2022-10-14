@@ -3,7 +3,7 @@ import React from 'react'
 // Components
 import Container from '@mui/system/Container'
 import Typography from '@mui/material/Typography'
-import PaginatedBookResults from '../../components/PaginatedBookResults'
+import PaginatedBookResults from '../../components/Books/PaginatedBookResults'
 
 // Data
 

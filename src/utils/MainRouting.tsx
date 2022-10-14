@@ -18,6 +18,9 @@ import Profile from '../pages/User/Profile'
 import Settings from '../pages/User/Settings'
 import User from '../pages/User/User'
 
+// Components
+import Book from '../components/Books/Book'
+
 export default function MainRouting() {
     return (
         <Routes>
@@ -28,8 +31,9 @@ export default function MainRouting() {
                 <Route path='quick-search' element={<QuickSearch />} />
                 <Route path='advanced-search' element={<AdvancedSearch />} />
                 <Route path='authors-and-illustrators' element={<AuthorsAndIllustrators />} >
-                    <Route path=':id' element={<div>Specific author or illustator component</div>} />
+                    <Route path=':id' element={<div>Individual author page</div>} />
                 </Route>
+                <Route path=':id' element={<Book />} />
             </Route>
             
             <Route path='about' element={<About />}>

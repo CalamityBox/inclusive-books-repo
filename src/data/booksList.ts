@@ -17,7 +17,7 @@ export default [
         gradeLevels: ["Pre-K"],
         arLevel: "",
     
-        description: "",
+        description: `This love letter from mother to daughter inspires young girls to follow their dreams, no matter what challenges life may bring. Young readers will be reminded that love and support from home will follow them as they venture out into the world.`,
     
         identityBased: "",
         joyBased: "",
@@ -485,7 +485,9 @@ export default [
         gradeLevels: ["Pre-K"],
         arLevel: "",
     
-        description: "",
+        description: `Meet Tallulah. She’s the Tooth Fairy CEO. Tallulah knows practically everything about being a tooth fairy. How to collect teeth. Dispense money. Train other fairies. And it’s all in the Teeth Titans Incorporated Employee Manual.
+
+        But when something happens that’s not covered in the manual, what's a fairy to do?`,
     
         identityBased: "",
         joyBased: "",

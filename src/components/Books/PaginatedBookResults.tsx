@@ -4,7 +4,7 @@ import React from 'react'
 import Container from '@mui/material/Container'
 import Pagination from '@mui/material/Pagination'
 import DisplayBookCards from "./DisplayBookCards"
-import Search from "./Search"
+import Search from "../Search"
 import ChipGrid from "./ChipGrid"
 import BookCard from './BookCard'
 
@@ -13,8 +13,8 @@ import { matchSorter } from "match-sorter"
 import { nanoid } from 'nanoid'
 
 // Data
-import booksList from "../data/booksList"
-import { BookInterface } from '../utils/Interfaces'
+import booksList from "../../data/booksList"
+import { BookInterface } from '../../utils/Interfaces'
 
 
 export default function PaginatedBookResults(props : any) {

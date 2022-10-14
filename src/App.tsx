@@ -7,7 +7,7 @@ import MainRouting from './utils/MainRouting'
 import './App.css'
 
 // Components
-import Nav from './components/Nav'
+import Nav from './components/Navigation/Nav'
 
 // Utils
 import { menuPaths } from './utils/menuPaths'
