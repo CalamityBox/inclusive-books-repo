@@ -21,7 +21,7 @@ export default function BookCardActions(props : any) {
     }
 
     return (
-        <CardActions sx={{ marginLeft: 'auto' }}>
+        <CardActions sx={{ margin: 0, padding: 0 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}> {/* For some reason, putting this sx in CardActions doesn't align properly */}
 
                 <Tooltip title='Favorite' placement='right'>
@@ -31,13 +31,13 @@ export default function BookCardActions(props : any) {
                 </Tooltip>
                 
                 <Tooltip title='Add to my collections' placement='right'>
-                    <IconButton color='default' aria-label='Toggle favorite'>
+                    <IconButton color='default' aria-label='Add book to collection'>
                         <AddCircleOutlineIcon fontSize='large' />
                     </IconButton>
                 </Tooltip>
                 
                 <Tooltip title='Reviews' placement='right'>
-                    <IconButton color='default' aria-label='Toggle favorite'>
+                    <IconButton color='default' aria-label='Read and write reviews for this book'>
                         <RateReviewOutlinedIcon fontSize='large' />
                     </IconButton>
                 </Tooltip>

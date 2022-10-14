@@ -50,8 +50,6 @@ export default function PaginatedBookResults(props : any) {
 
     function handleChipClick( chipToAdd : string ) : void {
 
-        setSearchText('') // Might change this back. Think it makes the most sense to clear search text when you click on a new filter here
-
         setChips(
             prevChips => {
 
@@ -90,11 +88,20 @@ export default function PaginatedBookResults(props : any) {
 
     React.useEffect(() => {
 
-        setResults(
-            booksList
-                .filter( book => chipFilter(book) )
-                .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
-        )
+        if (chips.length > 0) {
+            console.log('setting results based on chips')
+            setResults(
+                booksList
+                    .filter( book => chipFilter(book) )
+                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+            )
+        } else {
+            console.log('setting results based on search query: ',searchText)
+            setResults( 
+                matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
+                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+            )
+        }
 
         setIsSearchReadOnly(chips.length > 0)
 
@@ -109,6 +116,8 @@ export default function PaginatedBookResults(props : any) {
     React.useEffect(() => {
 
         const timer = setTimeout(() => {
+
+            console.log('setting results based on search query: ',searchText)
 
             setResults( 
                 matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})

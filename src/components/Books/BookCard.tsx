@@ -10,6 +10,7 @@ import Representation from "./Representation"
 import Awards from "./BookCardActions"
 import { Link } from "react-router-dom"
 import { Typography } from "@mui/material"
+import BookCardInfo from "./BookCardInfo"
 
 export default function BookCard(props: any) {
 
@@ -24,7 +25,8 @@ export default function BookCard(props: any) {
         >
             <Box
                 sx={{
-                    width: '250px'
+                    minWidth: '250px',
+                    maxWidth: '250px'
                 }}
             >
                 <CardMedia
@@ -37,36 +39,18 @@ export default function BookCard(props: any) {
             <Box
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    justifyContent: 'space-between',
                     alignItems: 'flex-start',
-                    rowGap: 2,
-                    padding: 3,
-                    maxWidth: '60%'
+                    width: '100%',
+                    paddingRight: 1,
+                    paddingLeft: 3,
+                    paddingY: 2
                 }}
             >
-                <Link to={`/books/${props.title}`} state={{ fiddleSticks: 'test data' }}>
-                    <CardHeader
-                        title={props.title}    
-                        titleTypographyProps={{ variant: 'h4', component: 'h3', align: 'left' }}
-                        subheader={props.subtitle}       
-                        subheaderTypographyProps={{ variant: 'h6', component: 'h4', align: 'left' }}
-                        sx={{ margin: '0', padding: '0', }}
-                    />
-                </Link>
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: 0 }}>
-                    <Contributors type='Author' contributors={props.authors} />
-                    { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
-                </Box>
-
-                <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
-
-                {props.description.length > 0 && <Typography align='left'>{props.description}</Typography>}
-
-
+                <BookCardInfo {...props} />
+                <Awards awards={props.awards} />
             </Box>
 
-            <Awards awards={props.awards} />
 
         </Card>
     )
