@@ -38,7 +38,7 @@ export default function BookCardInfo(props : any) {
 
             <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
 
-            {props.description.length > 0 && <Typography align='left'>{props.description}</Typography>}  
+            {props.description.length > 0 && <Typography align='left' variant='body1' >{props.description}</Typography>}  
 
         </Box>
     )
