@@ -11,10 +11,8 @@ import { nanoid } from 'nanoid'
 
 export default function FilterGroup(props : any) {
 
-    console.log('props.options is: ',props.options)
-
     const options = props.options.map(
-        (option : any) => <FilterCheckBox key={nanoid()} {...option} handleChange={props.handleChange} />
+        (option : any) => <FilterCheckBox key={nanoid()} {...option} handleChange={props.handleChange} isIndeterminate={props.checkIsIndeterminate(option)} />
     )
 
     return (
