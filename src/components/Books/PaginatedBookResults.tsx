@@ -11,6 +11,7 @@ import BookCard from './BookCard'
 // Utils
 import { matchSorter } from "match-sorter"
 import { nanoid } from 'nanoid'
+import usePaginationCustom from '../../utils/usePaginationCustom'
 
 // Data
 import booksList from "../../data/booksList"
@@ -37,14 +38,7 @@ export default function PaginatedBookResults(props : any) {
     }
 
     // Handle pagination ----------------
-    const BOOKS_PER_PAGE = 10
-
-    const [page, setPage] = React.useState(1)
-
-    function handlePageChange(event: React.ChangeEvent<unknown>, value: number) {
-        setPage(value)
-        window.scrollTo(0, 0)
-    }
+    const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)
 
     // Handle chip filters ----------------
 

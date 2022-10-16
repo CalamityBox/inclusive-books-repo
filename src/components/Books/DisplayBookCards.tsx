@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import React from 'react'
 
 // utils
-import {BookCardInterface} from '../utils/Interfaces'
+import {BookCardInterface} from '../../utils/Interfaces'
 
 export default function DisplayBookCards(props : BookCardInterface) {
 
