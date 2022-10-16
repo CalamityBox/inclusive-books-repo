@@ -15,14 +15,15 @@ import usePaginationCustom from '../../utils/usePaginationCustom'
 
 // Data
 import booksList from "../../data/booksList"
-import { BookInterface } from '../../utils/Interfaces'
+import useChipsCustom from '../../utils/useChipsCustom'
 
 
 export default function PaginatedBookResults(props : any) {
     
     const [searchText, setSearchText] = React.useState('')
     const [isSearchReadOnly,setIsSearchReadOnly] = React.useState(false)
-    const [chips, setChips] = React.useState< { key: number, label: string }[] | [] >([])
+    const [chips, setChips, handleChipClick, handleChipDelete, chipFilter] = useChipsCustom()
+    const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)
     const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> ) )
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -37,50 +38,10 @@ export default function PaginatedBookResults(props : any) {
         setPage(1)
     }
 
-    // Handle pagination ----------------
-    const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)
-
-    // Handle chip filters ----------------
-
-    function handleChipClick( chipToAdd : string ) : void {
-
-        setChips(
-            prevChips => {
-
-                if (prevChips.length === 0) {
-                    return [{ key: prevChips.length, label: chipToAdd }]
-                } else if ( prevChips.filter(chip => chip.label === chipToAdd).length === 0 ) {
-                    return [...prevChips,{ key: prevChips.length, label: chipToAdd }]
-                } else {
-                    return prevChips
-                }
-
-            }
-        )
+    React.useEffect(() => {
 
         setPage(1)
         window.scrollTo(0, 0)
-
-    }
-
-    // Update results when chips changes
-    function chipFilter(book : BookInterface) {
-
-        if (chips.length === 0) {
-            return true
-        }
-
-        const representation : string[] = []
-        book.representation.forEach( rep => representation.push(...rep.identity) )
-
-        const identities : string[] = []
-        chips.forEach(chip => identities.push(chip.label))
-
-        return identities.every(value => representation.includes(value))
-
-    }
-
-    React.useEffect(() => {
 
         if (chips.length > 0) {
             console.log('setting results based on chips')
@@ -100,11 +61,6 @@ export default function PaginatedBookResults(props : any) {
         setIsSearchReadOnly(chips.length > 0)
 
     },[chips])
-
-    function handleChipDelete(chipToDelete: { key: number, label: string }) : void {
-        setChips( prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label) )
-        setPage(1)
-    }
 
     // Only run filter function when user has stopped typing ----------------
     React.useEffect(() => {
