@@ -18,7 +18,7 @@ export default function FilterGroup(props : any) {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: 3 }}>
 
-            <Typography variant='h6' component='h3'>Race and Culture</Typography>
+            <Typography variant='h6' component='h3'>{props.name}</Typography>
 
             <FormGroup>
                 {options}

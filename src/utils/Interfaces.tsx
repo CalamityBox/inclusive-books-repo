@@ -58,3 +58,11 @@ export interface BookCardInterface {
     booksPerPage: number;
     handleChipClick: Function;
 }
+
+// Filters
+export interface filterCategoryInterface {
+    label: string;
+    checked: boolean;
+    indeterminate: boolean;
+    subOptions: [] | { label: string; checked: boolean }[]
+}

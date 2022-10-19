@@ -14,157 +14,42 @@ import Pagination from '@mui/material/Pagination'
 // Utils
 import usePaginationCustom from '../../utils/usePaginationCustom'
 import { nanoid } from 'nanoid'
+import useFilterOptions from '../../utils/useFilterOptions'
 
 export default function AdvancedSearch() {
 
-    function updateChildCheckBoxes(subOptions : any, isOn : boolean) {
-        return subOptions.map(
-            (option : any) => ({ ...option, checked: isOn })
-        )
-    }
-
-    function updateOptions(options : any, labelToUpdate : string) {
-        
-        return options.map(
-            (option : any) => {
-
-                const isParent = 'subOptions' in option && option.subOptions.length > 0
-
-                if (option.label === labelToUpdate) {
-                    if (isParent) {
-                        return {
-                            ...option,
-                            checked: !option.checked,
-                            subOptions: updateChildCheckBoxes(option.subOptions, !option.checked)
-                        }
-                    } else {
-                        return {
-                            ...option,
-                            checked: !option.checked
-                        }
-                    }
-                } else if (isParent) {
-                    return {
-                        ...option,
-                        subOptions: updateOptions(option.subOptions, labelToUpdate)
-                    }
-                } else {
-                    return option
-                }
-
-
-            }
-        )
-
-    }
-
-    function handleChange(event : any) {
-        console.log('value of this event is:',event.target.value)
-        setRaceCultureOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-    }
-
-    const raceCultureOptionsDefault = [
-        {
-            label: 'Asian',
-            checked: false,
-            indeterminate: false,
-            subOptions: [
-                {
-                    label: 'East Asian',
-                    checked: false
-                },
-                {
-                    label: 'West Asian',
-                    checked: false
-                },
-                {
-                    label: 'South Asian',
-                    checked: false
-                },
-                {
-                    label: 'Southeast Asian',
-                    checked: false
-                }
-            ]
-        },
-        {
-            label: 'Black / African',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Indigenous',
-            checked: false,
-            indeterminate: false,
-            subOptions: [
-                {
-                    label: 'Native American / First Nations',
-                    checked: false
-                },
-                {
-                    label: 'Inuit',
-                    checked: false
-                },
-                {
-                    label: 'Pacific Islander',
-                    checked: false
-                }
-            ]
-        },
-        {
-            label: 'Latinx',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Middle Eastern',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Jewish',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Muslim',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        }
-    ]
-
-    const [raceCultureOptions, setRaceCultureOptions] = React.useState(raceCultureOptionsDefault)
+    const [
+        raceCultureOptions, setRaceCultureOptions,
+        genderSexualityOptions, setGenderSexualityOptions,
+        familyStructureOptions, setFamilyStructureOptions,
+        neurodivergentOptions, setNeurodivergentOptions,
+        bodyOptions, setBodyOptions,
+        disabilityOptions, setDisabilityOptions,
+        updateChildCheckBoxes, updateOptions, handleChange, getCheckedFilters
+    ] = useFilterOptions()
 
     function isIndeterminate(option : any) {
         return option.subOptions.length === 0 ? false : !option.subOptions.every( (subOption : any) => subOption.checked === option.subOptions[0].checked )
     }
 
     // Handle results
-    const [chips, setChips] = React.useState([])
+    const [chips, setChips] = React.useState<[] | { key: number, label: string}[]>([])
     function handleChipClick() {}
     const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> ) )
 
     function filterBook(book : BookInterface, representationFilters : any) {
-
-        console.log('book is: ',book)
         
-        const representationInBook = book.representation[0].identity
-        console.log('representation in book is: ',book.representation[0].identity)
+        const representationInBook = []
+
+        for (const rep of book.representation) {
+            representationInBook.push(...rep.identity)
+        }
 
         for (const rep of representationFilters) {
             if ( !representationInBook.includes(rep) ) {
-                console.log('returning false')
                 return false
             }
         }
-        console.log('returning true')
         return true
 
     }
@@ -174,17 +59,16 @@ export default function AdvancedSearch() {
 
         const representationFilters : string[] = []
 
-        for (const option of raceCultureOptions) {
-            option.checked && representationFilters.push(option.label)
-            for (const subOption of option.subOptions) {
-                subOption.checked && representationFilters.push(subOption.label)
-            }
-        }
-
-        console.log('representation filters are: ',representationFilters)
+        representationFilters.push(
+            ...getCheckedFilters(raceCultureOptions),
+            ...getCheckedFilters(genderSexualityOptions),
+            ...getCheckedFilters(familyStructureOptions),
+            ...getCheckedFilters(neurodivergentOptions),
+            ...getCheckedFilters(bodyOptions),
+            ...getCheckedFilters(disabilityOptions)
+        )
 
         if (representationFilters.length > 0) {
-            console.log('setting results based on filters')
             setResults(
                 booksList
                     .filter( book => filterBook(book, representationFilters) )
@@ -197,6 +81,8 @@ export default function AdvancedSearch() {
         setPage(1)
 
     },[raceCultureOptions])
+
+    console.log('chips after use effect is: ',chips)
 
     
     // Pagination
@@ -213,7 +99,12 @@ export default function AdvancedSearch() {
 
                 <Card variant='outlined'>
                     <form>
-                        <FilterGroup options={raceCultureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Race and Culture Identity' options={raceCultureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Gender and Sexuality Identity' options={genderSexualityOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Family Structure Identity' options={familyStructureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Neurodivergent Identity' options={neurodivergentOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Body Identity' options={bodyOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Disability Identity' options={disabilityOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
                     </form>
                 </Card>
 
