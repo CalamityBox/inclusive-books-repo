@@ -15,6 +15,8 @@ import Pagination from '@mui/material/Pagination'
 import usePaginationCustom from '../../utils/usePaginationCustom'
 import { nanoid } from 'nanoid'
 import useFilterOptions from '../../utils/useFilterOptions'
+import Slider from '@mui/material/Slider'
+import Box from '@mui/material/Box'
 
 export default function AdvancedSearch() {
 
@@ -88,8 +90,19 @@ export default function AdvancedSearch() {
     // Pagination
     const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)
 
+    // Slider
+    const [value, setValue] = React.useState<number[]>([20, 37])
+
+    function valuetext(value: number) {
+        return `${value}rd Grade`;
+    }
+
+    const handleSliderChange = (event: Event, newValue: number | number[]) => {
+        setValue(newValue as number[]);
+    }
+
     return (
-        <Container sx={{display: 'flex', flexDirection: 'column', rowGap: 3}}>
+        <Container sx={{display: 'flex', flexDirection: 'column', rowGap: 3}} maxWidth='xl'>
             
             <Typography variant='h4' component='h1' color='primary' marginBottom={2}>
                 Advanced Search
@@ -97,14 +110,14 @@ export default function AdvancedSearch() {
 
             <Container disableGutters={true} maxWidth='xl' sx={{ display: 'flex'}}>
 
-                <Card variant='outlined'>
+                <Card variant='outlined' sx={{ padding: 3, display: 'flex', flexDirection: 'column', rowGap: 1 }}>
                     <form>
-                        <FilterGroup name='Race and Culture Identity' options={raceCultureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
-                        <FilterGroup name='Gender and Sexuality Identity' options={genderSexualityOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
-                        <FilterGroup name='Family Structure Identity' options={familyStructureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
-                        <FilterGroup name='Neurodivergent Identity' options={neurodivergentOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
-                        <FilterGroup name='Body Identity' options={bodyOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
-                        <FilterGroup name='Disability Identity' options={disabilityOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Race and Culture' options={raceCultureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Gender and Sexuality' options={genderSexualityOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Family Structure' options={familyStructureOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Neurodivergent' options={neurodivergentOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Body' options={bodyOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
+                        <FilterGroup name='Disability' options={disabilityOptions} handleChange={handleChange} checkIsIndeterminate={isIndeterminate} />
                     </form>
                 </Card>
 
