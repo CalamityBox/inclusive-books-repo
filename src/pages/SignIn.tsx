@@ -3,6 +3,8 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import GoogleButton from 'react-google-button'
 import { UserAuth } from '../contexts/AuthContext'
+import Card from '@mui/material/Card'
+import { Divider } from '@mui/material'
 
 export default function SignIn() {
 
@@ -21,10 +23,11 @@ export default function SignIn() {
     console.log('User:',user)
 
     return (
-        <Container>
-            <Typography>{user?.displayName ? `Hello, ${user.displayName}` : 'Sign in'}</Typography>
+        <Card variant='outlined' sx={{ maxWidth: '50%', m: 'auto', p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: 4 }}>
+            <Typography variant='h4' component='h2' color='primary'>Please sign in to continue</Typography>
+            <Divider component='div' variant='middle' role='presentation' sx={{ width: '100%' }} />
             <GoogleButton onClick={handleGoogleSignIn} />
-        </Container>
+        </Card>
     )
 
 }

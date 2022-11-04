@@ -13,7 +13,8 @@ export function AuthContextProvider(props : any) {
         provider.setCustomParameters({
             hd: 'smartreading.org'
         })
-        signInWithPopup(auth, provider)
+        // signInWithPopup(auth, provider)
+        signInWithRedirect(auth, provider)
     }
 
     function logout() {
