@@ -28,57 +28,39 @@ export default function PaginatedBookResults(props : any) {
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         setSearchText(event.target.value)
-        if (page !== 1) {
-            setPage(1) // Set search page to 1 whenever search text changes otherwise a completely new search might start on page 3, which is not obvious and confusing for the user
-        }
     }
 
     function handleClear() {
         setSearchText('')
-        setPage(1)
     }
 
     React.useEffect(() => {
 
+        const hasChips = chips.length > 0
+
+        setIsSearchReadOnly(hasChips)
         setPage(1)
-        window.scrollTo(0, 0)
-
-        if (chips.length > 0) {
-            console.log('setting results based on chips')
-            setResults(
-                booksList
-                    .filter( book => chipFilter(book) )
-                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
-            )
-        } else {
-            console.log('setting results based on search query: ',searchText)
-            setResults( 
-                matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
-            )
-        }
-
-        setIsSearchReadOnly(chips.length > 0)
-
-    },[chips])
-
-    // Only run filter function when user has stopped typing ----------------
-    React.useEffect(() => {
 
         const timer = setTimeout(() => {
 
-            console.log('setting results based on search query: ',searchText)
-
-            setResults( 
-                matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-                    .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
-            )
-
+            if (hasChips) {
+                setResults(
+                    booksList
+                        .filter( book => chipFilter(book) )
+                        .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+                )
+            } else {
+                setResults( 
+                    matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
+                        .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+                )
+            }
+           
         }, 200)
-
+        
         return () => clearTimeout(timer)
 
-    }, [searchText])
+    },[searchText, chips])
     
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >    
