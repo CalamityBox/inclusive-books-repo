@@ -16,7 +16,7 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
 
     const {googleSignIn, user} = UserAuth()
 
-    const activeStyle = { color: '#6c5ce7', textDecoration: 'underline', textUnderlineOffset: '10px', textDecorationThickness: '2px' }
+    const activeStyle = { color: '#6c5ce7', textDecoration: 'underline', textUnderlineOffset: '10px', textDecorationThickness: '3px' }
     const inactiveStyle = { color: 'black' }
 
     console.log('User:',user)
@@ -29,20 +29,20 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
         >
             <Toolbar sx={{ display: 'flex', justifyContent: 'flex-start', columnGap: 5 }}>
 
-                <Typography color='black'>
+                <Typography variant='h6' color='primary'>
                     SMART Reading Book Search
                 </Typography>
 
                 <NavLink to='/' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
-                    Home
+                    <Typography variant='h6' sx={{ fontWeight: 400 }}>Home</Typography> 
                 </NavLink>
 
                 <NavLink to='/books/quick-search' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
-                    Quick Search
+                    <Typography variant='h6' sx={{ fontWeight: 400 }}>Quick Search</Typography> 
                 </NavLink>
                 
                 <NavLink to='/books/advanced-search' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
-                    Advanced Search
+                    <Typography variant='h6' sx={{ fontWeight: 400 }}>Advanced Search</Typography> 
                 </NavLink>
                 
                 {
