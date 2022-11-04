@@ -20,6 +20,7 @@ import User from '../pages/User/User'
 
 // Components
 import Book from '../components/Books/Book'
+import SignIn from '../pages/SignIn'
 
 export default function MainRouting() {
     return (
@@ -51,6 +52,8 @@ export default function MainRouting() {
                 <Route path='my-collections' element={<MyCollections />} />
                 <Route path='settings' element={<Settings />} />
             </Route>
+
+            <Route path='sign-in' element={<SignIn />} />
 
         </Routes>
     )
