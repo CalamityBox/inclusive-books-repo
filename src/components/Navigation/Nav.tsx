@@ -19,6 +19,8 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
     const activeStyle = { color: '#6c5ce7', textDecoration: 'underline', textUnderlineOffset: '10px', textDecorationThickness: '2px' }
     const inactiveStyle = { color: 'black' }
 
+    console.log('User:',user)
+
     return (
         <AppBar
             position='fixed'
@@ -42,6 +44,11 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
                 <NavLink to='/books/advanced-search' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
                     Advanced Search
                 </NavLink>
+                
+                {
+                    user?.displayName && <NavLink to='/books/cataloging-dashboard' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>Cataloging</NavLink>
+                }
+                
                 
                 {
                     (user?.displayName) ? 

@@ -7,7 +7,7 @@ export default function Protected(props : any) {
 
     const {user} = UserAuth()
 
-    if (!user) {
+    if (user === null) {
         return <Navigate to='/' />
     }
 

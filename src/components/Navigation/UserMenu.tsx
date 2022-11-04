@@ -15,6 +15,14 @@ export default function UserMenu(props : any) {
 
     const {logout} = UserAuth()
 
+    async function handleSignOut() {
+        try {
+            await logout()
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     // Copied from https://mui.com/material-ui/react-menu/
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl)
@@ -101,7 +109,7 @@ export default function UserMenu(props : any) {
                     Settings
                 </MenuItem>
 
-                <MenuItem>
+                <MenuItem onClick={handleSignOut}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>
