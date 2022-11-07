@@ -9,6 +9,7 @@ import Representation from './Representation'
 
 // Routing
 import { Link } from 'react-router-dom'
+import TruncatedDescription from './TruncatedDescription'
 
 export default function BookCardInfo(props : any) {
     return (
@@ -17,7 +18,8 @@ export default function BookCardInfo(props : any) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                rowGap: 2
+                rowGap: 2,
+                textAlign: 'left'
             }}
         >
 
@@ -33,12 +35,12 @@ export default function BookCardInfo(props : any) {
 
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: 0 }}>
                 <Contributors type='Author' contributors={props.contributors.authors} />
-                { props.contributors.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.contributors.illustrators} /> }
+                { props.contributors.illustrators.length > 0 && props.contributors.illustrators[0] !== "" && <Contributors type='Illustrator' contributors={props.contributors.illustrators} /> }
             </Box>
 
             <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
 
-            {props.info.description.length > 0 && <Typography align='left' variant='body1' >{props.info.description}</Typography>}  
+            {props.info.description.length > 0 && <TruncatedDescription description={props.info.description} />}  
 
         </Box>
     )

@@ -5,6 +5,7 @@ import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
 import Box from "@mui/material/Box"
 import BookCardInfo from "./BookCardInfo"
+import BookCardActions from "./BookCardActions"
 
 export default function BookCard(props: any) {
 
@@ -45,6 +46,9 @@ export default function BookCard(props: any) {
             >
                 <BookCardInfo {...props} />
                 {/* <Awards awards={props.awards} /> */}
+
+                <BookCardActions />
+
             </Box>
 
 
