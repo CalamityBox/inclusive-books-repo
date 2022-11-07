@@ -1,4 +1,4 @@
-import react from 'react'
+import React from 'react'
 
 // Components
 import Box from '@mui/material/Box'
@@ -21,24 +21,24 @@ export default function BookCardInfo(props : any) {
             }}
         >
 
-            <Link to={`/books/${props.title}`} state={{ fiddleSticks: 'test data' }}>
+            <Link to={`/books/${props.metadata.id}`}>
                 <CardHeader
-                    title={props.title}    
+                    title={props.info.title}    
                     titleTypographyProps={{ variant: 'h4', component: 'h3', align: 'left' }}
-                    subheader={props.subtitle}       
+                    subheader={props.info.subtitle}       
                     subheaderTypographyProps={{ variant: 'h6', component: 'h4', align: 'left' }}
                     sx={{ margin: '0', padding: '0', }}
                 />
             </Link>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: 0 }}>
-                <Contributors type='Author' contributors={props.authors} />
-                { props.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.illustrators} /> }
+                <Contributors type='Author' contributors={props.contributors.authors} />
+                { props.contributors.illustrators.length > 0 && <Contributors type='Illustrator' contributors={props.contributors.illustrators} /> }
             </Box>
 
             <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
 
-            {props.description.length > 0 && <Typography align='left' variant='body1' >{props.description}</Typography>}  
+            {props.info.description.length > 0 && <Typography align='left' variant='body1' >{props.info.description}</Typography>}  
 
         </Box>
     )

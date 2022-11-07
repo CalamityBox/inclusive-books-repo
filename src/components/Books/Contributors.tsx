@@ -9,14 +9,14 @@ import { Link } from 'react-router-dom'
 // Utils
 import { nanoid } from "nanoid"
 
-export default function Contributors(props : { type: 'Author' | 'Illustrator', contributors: string[] }) {
+export default function Contributors(props : any) {
 
     const contributors = props.contributors
         .map( 
-            (name : string, index : number) => (
+            (contributor : { name: string, id: number }, index : number) => (
                 <div key={nanoid()} style={{ display: 'inline' }}>
-                    <Link to={`/books/authors-and-illustrators/${name}`}>
-                        {name}
+                    <Link to={`/books/authors-and-illustrators/${contributor.id}`}>
+                        {contributor.name}
                     </Link>
                     { index === props.contributors.length - 2 ? // Formatting logic. I truly despise this but couldn't get if statements to work or figure out a textjoin. Come back to this ugly trash
                         ', and ' :

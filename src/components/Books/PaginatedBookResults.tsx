@@ -12,20 +12,23 @@ import BookCard from './BookCard'
 import { matchSorter } from "match-sorter"
 import { nanoid } from 'nanoid'
 import usePaginationCustom from '../../utils/usePaginationCustom'
+import useDatabase from '../../utils/useDatabase'
 
 // Data
-import booksList from "../../data/booksList"
 import useChipsCustom from '../../utils/useChipsCustom'
+import { Typography } from '@mui/material'
 
 
 export default function PaginatedBookResults(props : any) {
-    
+
+    const [data, isLoading] = useDatabase()
+
     const [searchText, setSearchText] = React.useState('')
     const [isSearchReadOnly,setIsSearchReadOnly] = React.useState(false)
     const [chips, setChips, handleChipClick, handleChipDelete, chipFilter] = useChipsCustom()
     const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)
-    const [results, setResults] = React.useState( booksList.map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> ) )
-
+    const [searchResults, setSearchResults] = React.useState<any>([])
+    
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         setSearchText(event.target.value)
     }
@@ -44,24 +47,32 @@ export default function PaginatedBookResults(props : any) {
         const timer = setTimeout(() => {
 
             if (hasChips) {
-                setResults(
-                    booksList
-                        .filter( book => chipFilter(book) )
-                        .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+
+                const results = data.filter( (book : any) => chipFilter(book, chips) )
+
+                setSearchResults(
+                    results.map( (book : any) => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
                 )
+
+            } else if (searchText.length > 0) {
+
+                const results = matchSorter(data, searchText, { keys: ['*.info.fullTitle','*.contributors.list','*.info.isbnList']})
+
+                setSearchResults( 
+                    results.map( (book : any) => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+                )
+
             } else {
-                setResults( 
-                    matchSorter(booksList, searchText, { keys: ['title', 'subtitle', 'authors', 'illustrators', 'isbn']})
-                        .map( book => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
-                )
+                setSearchResults([])
             }
-           
+        
         }, 200)
         
         return () => clearTimeout(timer)
 
     },[searchText, chips])
-    
+
+
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }} >    
 
@@ -70,11 +81,15 @@ export default function PaginatedBookResults(props : any) {
                 <ChipGrid chips={chips} handleChipDelete={handleChipDelete} />
             </Container>
 
-            <DisplayBookCards books={results} page={page} booksPerPage={BOOKS_PER_PAGE} handleChipClick={handleChipClick} />
+            {
+                (searchResults.length === 0) ?
+                <Typography>No results.</Typography> :
+                <DisplayBookCards books={searchResults} page={page} booksPerPage={BOOKS_PER_PAGE} handleChipClick={handleChipClick} />
+            }
 
             <Pagination 
                 color='primary' 
-                count={Math.ceil(results.length / BOOKS_PER_PAGE)}
+                count={Math.ceil(searchResults.length / BOOKS_PER_PAGE)}
                 onChange={handlePageChange}
                 page={page}
                 sx={{ margin: 'auto' }}

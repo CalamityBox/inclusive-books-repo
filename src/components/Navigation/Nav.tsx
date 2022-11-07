@@ -16,7 +16,7 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
 
     const {googleSignIn, user} = UserAuth()
 
-    const activeStyle = { color: '#6c5ce7', textDecoration: 'underline', textUnderlineOffset: '10px', textDecorationThickness: '3px' }
+    const activeStyle = { color: '#6c5ce7', textDecoration: 'underline', textUnderlineOffset: '10px', textDecorationThickness: '2px' }
     const inactiveStyle = { color: 'black' }
 
     console.log('User:',user)
@@ -34,15 +34,15 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
                 </Typography>
 
                 <NavLink to='/' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
-                    <Typography variant='h6' sx={{ fontWeight: 400 }}>Home</Typography> 
+                    Home
                 </NavLink>
 
                 <NavLink to='/books/quick-search' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
-                    <Typography variant='h6' sx={{ fontWeight: 400 }}>Quick Search</Typography> 
+                    Quick Search
                 </NavLink>
                 
                 <NavLink to='/books/advanced-search' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>
-                    <Typography variant='h6' sx={{ fontWeight: 400 }}>Advanced Search</Typography> 
+                    Advanced Search
                 </NavLink>
                 
                 {

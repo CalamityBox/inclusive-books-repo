@@ -1,5 +1,4 @@
 import React from 'react'
-import { BookInterface } from './Interfaces'
 
 function useChipsCustom() {
 
@@ -27,19 +26,21 @@ function useChipsCustom() {
         setChips( prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label) )
     }
 
-    function chipFilter(book : BookInterface) {
-
-        if (chips.length === 0) {
-            return true
-        }
+    function chipFilter(book : any, chips : any) {
 
         const representation : string[] = []
-        book.representation.forEach( rep => representation.push(...rep.identity) )
+        book.representation.forEach( (rep : any) => representation.push(...rep.identities) )
+        console.log('representation in book is:',representation)
 
         const identities : string[] = []
-        chips.forEach(chip => identities.push(chip.label))
+        chips.forEach((chip : any) => identities.push(chip.label))
+        console.log('identities to check are:',identities)
 
-        return identities.every(value => representation.includes(value))
+        const output = identities.every(value => representation.includes(value))
+
+        console.log('returning',output)
+
+        return output
 
     }
 

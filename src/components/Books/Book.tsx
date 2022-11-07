@@ -26,7 +26,7 @@ export default function Book() {
         }
     }
 
-    const book = findBook(id)
+    // const book = findBook(id)
 
     return (
         <Card variant='outlined'>
@@ -35,11 +35,11 @@ export default function Book() {
                     width: '250px'
                 }}
             >
-                <CardMedia
+                {/* <CardMedia
                     component='img'
-                    image={book.coverUrl[0]} // Default to first provided url. Come back to this to handle multiple editions, or to error check if first url doesn't load
-                    alt={`The cover image of the book ${book.title}`}
-                />
+                    image={book.editions[0].coverUrl[0]} // Default to first provided url. Come back to this to handle multiple editions, or to error check if first url doesn't load
+                    alt={`The cover image of the book ${book.info.fullTitle}`}
+                /> */}
             </Box>
         </Card>
     )
