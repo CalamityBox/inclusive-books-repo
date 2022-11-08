@@ -24,8 +24,6 @@ export default function Representation(props : any) {
     const representation = props.representation
         .filter((rep : any) => rep.identities.length > 0 && rep.identities[0] !== "") // Bit of a hack; come back to this later
 
-    console.log('representation is:',representation)
-
     representation.forEach(
         (rep : any) => rep.identities.map(
             (identity : any) => chips.push(

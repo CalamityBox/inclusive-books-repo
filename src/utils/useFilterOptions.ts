@@ -5,429 +5,656 @@ import { filterCategoryInterface } from './Interfaces'
 
 function useFilterOptions() {
 
-    const raceCultureDefaultOptions : filterCategoryInterface[] = [
+    function filterOr(option : any, identities : any) {
+
+        // console.log('identities in book are:',identities)
+
+        const filters : string[] = []
+        option.checked && !option.indeterminate ? filters.push(option.label) : null // Hack to check indeterminate here; come back to this
+        option.subOptions.forEach((element : any) => element.checked ? filters.push(element.label) : null)
+        // console.log('filter are:',filters)
+
+        // Return true if the book has at least one of the active filters
+        const output = filters.some(value => identities.includes(value))
+        // console.log('outputting',output)
+        return output
+
+    }
+
+    const filterOptionsDefault = [
+
         {
-            label: 'Asian',
-            checked: false,
-            indeterminate: false,
-            subOptions: [
+            section: 'Race / Culture',
+            options: [
                 {
-                    label: 'East Asian',
-                    checked: false
+                    label: 'Asian',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: [
+                        {
+                            label: 'East Asian',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'West Asian',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Southeast Asian',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'South Asian',
+                            checked: false,
+                            tooltip: ''
+                        }
+                    ]
                 },
                 {
-                    label: 'West Asian',
-                    checked: false
+                    label: 'Indigenous',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: [
+                        {
+                            label: 'Aboriginal',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Native American / First Nations',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Inuit',
+                            checked: false,
+                            tooltip: ''
+                        }
+                    ]
                 },
                 {
-                    label: 'South Asian',
-                    checked: false
+                    label: 'Jewish',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 },
                 {
-                    label: 'Southeast Asian',
-                    checked: false
-                }
-            ]
-        },
-        {
-            label: 'Black / African',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Indigenous',
-            checked: false,
-            indeterminate: false,
-            subOptions: [
-                {
-                    label: 'Native American / First Nations',
-                    checked: false
+                    label: 'Latinx',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 },
                 {
-                    label: 'Inuit',
-                    checked: false
+                    label: 'Middle Eastern',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Multicultural',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Muslim',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 },
                 {
                     label: 'Pacific Islander',
-                    checked: false
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 }
             ]
         },
-        {
-            label: 'Latinx',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Middle Eastern',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Jewish',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Muslim',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        }
-    ]
 
-    const genderSexualityDefaultOptions : filterCategoryInterface[] = [
         {
-            label: 'Lesbian',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Gay',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Bisexual',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Trans',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Queer',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Intersex',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Asexual',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Aromantic',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Pansexual',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Nonbinary',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: 'Genderfluid',
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        }
-    ]
-
-    const familyStructureDefaultOptions : filterCategoryInterface[] = [
-        {
-            label: "Adopted",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Foster Parents",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Incarcerated Parents",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Raised by Older Sibling",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Raised by Non-parental Relative",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Single Parent",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Two Moms",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Two Dads",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Nonbinary Parent(s)",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        }
-    ]
-
-    const neurodivergentDefaultOptions : filterCategoryInterface[] = [
-        {
-            label: "Anxiety",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "ADHD",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Autism",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Bipolar",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Depression",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Dyslexia",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Dyspraxia",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Epilepsy",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Non-verbal",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "OCD",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Synesthesia",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        }
-    ]
-
-    const bodyDefaultOptions : filterCategoryInterface[] = [
-        {
-            label: "Fat",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Under-represented Body Types",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        }
-    ]
-
-    const disabilityDefaultOptions : filterCategoryInterface[] = [
-        {
-            label: "Blind / Visually Impaired",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Deaf / Hard-of-hearing",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Missing Limb(s)",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
-        },
-        {
-            label: "Mobility Aid",
-            checked: false,
-            indeterminate: false,
-            subOptions: [
+            section: 'Gender and Sexuality',
+            options: [
                 {
-                    label: "Cane",
-                    checked: false
+                    label: 'Lesbian',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 },
                 {
-                    label: "Walker",
-                    checked: false
+                    label: 'Gay',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 },
                 {
-                    label: "Wheelchair",
-                    checked: false
+                    label: 'Bisexual',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Trans',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: [
+                        {
+                            label: 'Agender',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Genderfluid',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Nonbinary',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Trans Man',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Trans Woman',
+                            checked: false,
+                            tooltip: ''
+                        }
+                    ]
+                },
+                {
+                    label: 'Queer',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Asexual',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Intersex',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Aromantic',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Pansexual',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Two-Spirit',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Aromantic',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
                 }
             ]
         },
+
         {
-            label: "Service Animal",
-            checked: false,
-            indeterminate: false,
-            subOptions: []
+            section: 'Family Structure',
+            options: [
+                {
+                    label: 'Adopted',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Foster Parents',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Incarcerated Parent',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Raised by Relative(s)',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Single Parent',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Two Moms',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Two Dads',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                }
+            ]
+        },
+
+        {
+            section: 'Neurodivergent',
+            options: [
+                {
+                    label: 'Anxiety',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'ADHD',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Autism',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Bipolar',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Depression',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Dyslexia',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Dyspraxia',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Epilepsy',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Non-verbal',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'OCD',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Synesthesia',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                }
+            ]
+        },
+
+        {
+            section: 'Body',
+            options: [
+                {
+                    label: 'Fat',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                }
+            ] 
+        },
+
+        {
+            section: 'Disability',
+            options: [
+                {
+                    label: 'Blind / Visually Impaired',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Deaf / Hard-of-hearing',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Missing Limb(s)',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Mobility Aid',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: [
+                        {
+                            label: 'Cane',
+                            checked: false,
+                            tooltip: ''
+                        },
+                        {
+                            label: 'Wheelchair',
+                            checked: false,
+                            tooltip: ''
+                        }
+                    ]
+                },
+                {
+                    label: 'Service Animal',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                }
+            ] 
+        },
+
+        {
+            section: 'Language',
+            options: [
+                {
+                    label: 'English',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Spanish',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Cantonese',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Mandarin',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Russian',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Vietnamese',
+                    checked: false,
+                    indeterminate: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                }
+            ] 
         }
     ]
 
-    const [raceCultureOptions, setRaceCultureOptions] = React.useState(raceCultureDefaultOptions)
-    const [genderSexualityOptions, setGenderSexualityOptions] = React.useState(genderSexualityDefaultOptions)
-    const [familyStructureOptions, setFamilyStructureOptions] = React.useState(familyStructureDefaultOptions)
-    const [neurodivergentOptions, setNeurodivergentOptions] = React.useState(neurodivergentDefaultOptions)
-    const [bodyOptions, setBodyOptions] = React.useState(bodyDefaultOptions)
-    const [disabilityOptions, setDisabilityOptions] = React.useState(disabilityDefaultOptions)
+    const [filterOptions, setFilterOptions] = React.useState(filterOptionsDefault)
 
-    function updateChildCheckBoxes(subOptions : any, isOn : boolean) {
-        return subOptions.map(
-            (option : any) => ({ ...option, checked: isOn })
-        )
+    function updateChildren(subOption : any, isParentChecked : boolean) {
+        subOption.checked = isParentChecked
+        return subOption
     }
 
-    function updateOptions(options : any, labelToUpdate : string) {
-        
-        return options.map(
-            (option : any) => {
+    function updateParent(option : any) {
 
-                const isParent = 'subOptions' in option && option.subOptions.length > 0
+        let checked = 0
+        let unchecked = 0
 
-                if (option.label === labelToUpdate) {
-                    if (isParent) {
-                        return {
-                            ...option,
-                            checked: !option.checked,
-                            subOptions: updateChildCheckBoxes(option.subOptions, !option.checked)
+        for (const subOption of option.subOptions) {
+            subOption.checked ? checked++ : unchecked++
+        }
+
+        if (checked === 0) {
+            // No suboptions are checked, so the parent should be unchecked and not indeterminate
+            option.checked = false
+            option.indeterminate = false
+        } else if (unchecked === 0) {
+            // Every subOption is checked, so the parent should be checked and not indeterminate
+            option.checked = true
+            option.indeterminate = false
+        } else {
+            option.checked = true
+            option.indeterminate = true
+        }
+
+        return option
+
+    }
+
+    function handleCheckboxChange(labelToUpdate: string) {
+
+        setFilterOptions(
+            prevFilterOptions => prevFilterOptions.map(
+                section => {
+
+                    section.options.map(
+                        option => {
+
+                            if (option.label === labelToUpdate) {
+                                option.checked = !option.checked
+                                // Handle children here
+                                option.subOptions.map( subOption => updateChildren(subOption, option.checked) )
+                            } else {
+
+                                option.subOptions.map(
+                                    subOption => {
+    
+                                        if (subOption.label === labelToUpdate) {
+                                            subOption.checked = !subOption.checked
+                                        }
+    
+                                        return subOption
+    
+                                    }
+                                )
+
+                            }
+
+                            // Handle indeterminate check here
+                            if (option.subOptions.length > 0) {
+                                option = updateParent(option)
+                            }
+
+                            return option
+
                         }
-                    } else {
-                        return {
-                            ...option,
-                            checked: !option.checked
-                        }
-                    }
-                } else if (isParent) {
-                    return {
-                        ...option,
-                        subOptions: updateOptions(option.subOptions, labelToUpdate)
-                    }
-                } else {
-                    return option
+                    )
+
+                    return section
+
+                }
+            )
+        )
+
+    }
+
+    function filterBooks(book : any) {
+
+        const bookIdentities : string[] = []
+        book.representation.forEach((element : any) => bookIdentities.push(...element.identities))
+
+        for (const section of filterOptions) {
+            for (const option of section.options) {
+                const filterFunction = option.filterFunction
+                if (option.checked && !filterFunction(option, bookIdentities) ) {
+                    // console.log('returning false')
+                    return false
+                }
+            }
+        }
+
+        // console.log('returning true')
+        return true
+
+    }
+
+    function isAnyBoxChecked(filterOptions : any) {
+
+        for (const section of filterOptions) {
+            for (const option of section.options) {
+                
+                if (option.checked) {
+                    return true
                 }
 
+                for (const subOption of option.subOptions) {
+                    if (subOption.checked) {
+                        return true
+                    }
+                }
 
-            }
-        )
-
-    }
-
-    function handleChange(event : any) {
-        setRaceCultureOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-        setFamilyStructureOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-        setGenderSexualityOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-        setNeurodivergentOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-        setBodyOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-        setDisabilityOptions(
-            prevOptions => updateOptions(prevOptions, event.target.value)
-        )
-    }
-
-    function getCheckedFilters(options : filterCategoryInterface[]) {
-
-        const output = []
-
-        for (const option of options) {
-            option.checked && output.push(option.label)
-            for (const subOption of option.subOptions) {
-                subOption.checked && output.push(subOption.label)
             }
         }
 
-        return output
+        return false
+
     }
 
-    const output : any[] = [
-        raceCultureOptions, setRaceCultureOptions,
-        genderSexualityOptions, setGenderSexualityOptions,
-        familyStructureOptions, setFamilyStructureOptions,
-        neurodivergentOptions, setNeurodivergentOptions,
-        bodyOptions, setBodyOptions,
-        disabilityOptions, setDisabilityOptions,
-        updateChildCheckBoxes, updateOptions, handleChange, getCheckedFilters
-    ]
+    const output : any = [filterOptions, setFilterOptions, handleCheckboxChange, filterBooks, isAnyBoxChecked]
 
     return output
 

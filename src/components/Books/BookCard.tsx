@@ -9,8 +9,6 @@ import BookCardActions from "./BookCardActions"
 
 export default function BookCard(props: any) {
 
-    console.log('props are: ',props)
-
     return (
         <Card
             variant='outlined'

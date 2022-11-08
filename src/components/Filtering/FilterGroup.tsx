@@ -12,13 +12,13 @@ import { nanoid } from 'nanoid'
 export default function FilterGroup(props : any) {
 
     const options = props.options.map(
-        (option : any) => <FilterCheckBox key={nanoid()} {...option} handleChange={props.handleChange} isIndeterminate={props.checkIsIndeterminate(option)} />
+        (option : any) => <FilterCheckBox key={nanoid()} {...option} handleChange={props.handleChange} />
     )
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', mb: 3 }}>
 
-            <Typography variant='h6' component='h3'>{props.name}</Typography>
+            <Typography variant='h6' component='h3'>{props.section}</Typography>
 
             <FormGroup>
                 {options}

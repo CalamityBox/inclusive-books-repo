@@ -10,6 +10,10 @@ import { nanoid } from 'nanoid'
 
 export default function FilterCheckBox(props : any) {
 
+    function handleClick(event : any) {
+        console.log(event.target)
+    }
+
     // Handles checkbox suboptions
     const children = props.subOptions
         .map( (option : any) => (
@@ -19,7 +23,7 @@ export default function FilterCheckBox(props : any) {
                 value={option.label}
                 checked={option.checked}
                 control={
-                    <Checkbox onChange={props.handleChange} />
+                    <Checkbox onChange={(event) => props.handleChange(event.target.value)} />
                 }
             />
         ))
@@ -33,8 +37,8 @@ export default function FilterCheckBox(props : any) {
                 control={
                     <Checkbox
                         checked={props.checked}
-                        indeterminate={props.isIndeterminate}
-                        onChange={props.handleChange}
+                        indeterminate={props.indeterminate}
+                        onChange={(event) => props.handleChange(event.target.value)}
                     />
                 }
             />
