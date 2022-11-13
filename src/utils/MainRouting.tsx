@@ -22,7 +22,8 @@ import User from '../pages/User/User'
 import Book from '../components/Books/Book'
 import SignIn from '../pages/SignIn'
 import Protected from '../components/Protected'
-import CatalogingDashboard from '../pages/CatalogingDashboard'
+import CatalogingDashboard from '../pages/Cataloging/CatalogingDashboard'
+import InclusiveCatalogingForm from '../pages/Cataloging/InclusiveCatalogingForm'
 
 export default function MainRouting() {
     return (
@@ -55,7 +56,10 @@ export default function MainRouting() {
                 <Route path='settings' element={<Settings />} />
             </Route>
 
-            <Route path='books/cataloging-dashboard' element={<Protected><CatalogingDashboard /></Protected>} />
+            <Route path='cataloging'>
+                <Route path='dashboard' element={<Protected><CatalogingDashboard /></Protected>} />
+                <Route path ='inclusive-cataloging' element={<Protected><InclusiveCatalogingForm /></Protected>} />
+            </Route>
 
             <Route path='sign-in' element={<SignIn />} />
 
