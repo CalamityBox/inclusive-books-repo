@@ -1,7 +1,7 @@
-interface RepresentationInterface {
-    type: string;
-    identity: string[];
-    content: string[]
+interface Representation {
+    label: string;
+    identities: string[];
+    content?: string[]
 }
 
 interface AwardInterface {
@@ -11,43 +11,61 @@ interface AwardInterface {
     volunteerPick: boolean
 }
 
+interface Contributor {
+    id: string;
+    name: string;
+}
+
+interface Edition {
+    coverURL: string;
+    format: string;
+    isbn: string[];
+    languages: string[];
+    publicationDate: string | number;
+}
+
 export interface BookInterface {
     
-    id: number;
-        
-    title: string;
-    subtitle: string;
-    series: string;
-    seriesNumber: string;
+    content: {
+        adversityBased: number;
+        genres: string | string[];
+        identityBased: number;
+    };
 
-    authors: string[];
-    illustrators: string[];
+    contributors: {
+        authors: Contributor[];
+        illustrators: Contributor[];
+        list: string[]
+    };
 
-    genres: string[];
-    publicationYear: string;
-    formats: string[];
+    editions: Edition[]
 
-    gradeLevels: string[];
-    arLevel: string;
+    info: {
+        arLevel: number;
+        description: string;
+        firstPublicationDate: string | number;
+        fullTitle: string;
+        grades: string[];
+        isbnList: string[];
+        subtitle: string;
+        title: string;
+    };
 
-    description: string;
+    metadata: {
+        cataloger: string;
+        id: string;
+        timestamp: string;
+    };
 
-    identityBased: string;
-    joyBased: string;
+    representation: Representation[];
 
-    subject: string;
-    sensitiveContent: string;
-
-    representation: RepresentationInterface[];
-
-    languages: string[];
-
-    ownVoice: string[];
-
-    awards: AwardInterface;
-
-    isbn: string[];
-    coverUrl: string[]
+    reviews: {
+        negative: number;
+        neutral: number;
+        numReviews: number;
+        positive: number;
+        ids?: string[];
+    };
 
 }
 

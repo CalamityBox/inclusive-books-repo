@@ -17,7 +17,30 @@ interface RepresentationInterface {
 export default function Representation(props : any) {
 
     const activeChipIdentities : string[] = []
-    props.activeChips.forEach((chip : any) => activeChipIdentities.push(chip.label))
+
+    if (props.hasOwnProperty('activeChips')) {
+        props.activeChips.forEach((chip : any) => activeChipIdentities.push(chip.label))
+    } else {
+        props.filterOptions.forEach(
+            (section : any) =>  {
+
+                for (const option of section.options) {
+                    
+                    if (option.checked) {
+                        activeChipIdentities.push(option.label)
+                    }
+
+                    for (const subOption of option.subOptions) {
+                        if (subOption.checked) {
+                            activeChipIdentities.push(subOption.label)
+                        }
+                    }
+                    
+                }
+
+            }
+        )
+    }
     
     const chips : any = []
     

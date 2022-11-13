@@ -12,6 +12,9 @@ import { Link } from 'react-router-dom'
 import TruncatedDescription from './TruncatedDescription'
 
 export default function BookCardInfo(props : any) {
+
+    console.log('props is:',props)
+
     return (
         <Box
             sx={{
@@ -38,7 +41,11 @@ export default function BookCardInfo(props : any) {
                 { props.contributors.illustrators.length > 0 && props.contributors.illustrators[0] !== "" && <Contributors type='Illustrator' contributors={props.contributors.illustrators} /> }
             </Box>
 
-            <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
+            {
+                props.hasOwnProperty('filterOptions') ?
+                    <Representation representation={props.representation} handleClick={props.handleChipClick} filterOptions={props.filterOptions} /> :
+                    <Representation representation={props.representation} handleClick={props.handleChipClick} activeChips={props.activeChips} />
+            }
 
             {props.info.description.length > 0 && <TruncatedDescription description={props.info.description} />}  
 

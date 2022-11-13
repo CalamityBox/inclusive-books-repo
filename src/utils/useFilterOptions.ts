@@ -1,13 +1,16 @@
 import React from 'react'
 
 // Utils
-import { filterCategoryInterface } from './Interfaces'
+import { BookInterface, filterCategoryInterface } from './Interfaces'
 
 function useFilterOptions() {
 
     function filterOr(option : any, identities : any) {
 
         // console.log('identities in book are:',identities)
+        if (identities === undefined || identities === null) {
+            return false
+        }
 
         const filters : string[] = []
         option.checked && !option.indeterminate ? filters.push(option.label) : null // Hack to check indeterminate here; come back to this
@@ -24,7 +27,78 @@ function useFilterOptions() {
     const filterOptionsDefault = [
 
         {
+            section: 'Grade Level',
+            type: 'grade',
+            options: [
+                {
+                    label: 'Birth - 3',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Kindergarten',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: '1st Grade',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: '2nd Grade',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: '3rd Grade',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: '4th Grade',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: '5th Grade',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'Middle School',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+                {
+                    label: 'High School',
+                    checked: false,
+                    tooltip: '',
+                    filterFunction: filterOr,
+                    subOptions: []
+                },
+            ]
+        },
+
+        {
             section: 'Race / Culture',
+            type: 'representation',
             options: [
                 {
                     label: 'Asian',
@@ -132,6 +206,7 @@ function useFilterOptions() {
 
         {
             section: 'Gender and Sexuality',
+            type: 'representation',
             options: [
                 {
                     label: 'Lesbian',
@@ -175,7 +250,7 @@ function useFilterOptions() {
                             tooltip: ''
                         },
                         {
-                            label: 'Nonbinary',
+                            label: 'Non-Binary',
                             checked: false,
                             tooltip: ''
                         },
@@ -252,6 +327,7 @@ function useFilterOptions() {
 
         {
             section: 'Family Structure',
+            type: 'representation',
             options: [
                 {
                     label: 'Adopted',
@@ -314,6 +390,7 @@ function useFilterOptions() {
 
         {
             section: 'Neurodivergent',
+            type: 'representation',
             options: [
                 {
                     label: 'Anxiety',
@@ -408,6 +485,7 @@ function useFilterOptions() {
 
         {
             section: 'Body',
+            type: 'representation',
             options: [
                 {
                     label: 'Fat',
@@ -422,6 +500,7 @@ function useFilterOptions() {
 
         {
             section: 'Disability',
+            type: 'representation',
             options: [
                 {
                     label: 'Blind / Visually Impaired',
@@ -479,6 +558,7 @@ function useFilterOptions() {
 
         {
             section: 'Language',
+            type: 'language',
             options: [
                 {
                     label: 'English',
@@ -612,18 +692,42 @@ function useFilterOptions() {
 
     }
 
-    function filterBooks(book : any) {
+    function filterBooks(book : BookInterface) {
 
         const bookIdentities : string[] = []
         book.representation.forEach((element : any) => bookIdentities.push(...element.identities))
 
+        const bookGrades = book.info.grades
+        // console.log('book is:',book)
+        // console.log('book grades are:',bookGrades)
+
+        const bookLanguages : string[] = []
+        book.editions.forEach((element: any) => bookLanguages.push(...element.languages))
+
         for (const section of filterOptions) {
+            
+            let bookInfo = null
+
+            switch (section.type) {
+                case 'grade':
+                    bookInfo = bookGrades
+                    break
+                case 'representation':
+                    bookInfo = bookIdentities
+                    break
+                case 'language':
+                    bookInfo = bookLanguages
+            }
+            
             for (const option of section.options) {
+
                 const filterFunction = option.filterFunction
-                if (option.checked && !filterFunction(option, bookIdentities) ) {
+
+                if (option.checked && !filterFunction(option, bookInfo) ) {
                     // console.log('returning false')
                     return false
                 }
+
             }
         }
 

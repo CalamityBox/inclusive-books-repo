@@ -6,18 +6,13 @@ import Card from '@mui/material/Card'
 import FilterGroup from '../../components/Filtering/FilterGroup'
 import { Container } from '@mui/system'
 import BookCard from '../../components/Books/BookCard'
-import booksList from '../../data/booksList'
 import DisplayBookCards from '../../components/Books/DisplayBookCards'
-import { BookInterface } from '../../utils/Interfaces'
 import Pagination from '@mui/material/Pagination'
 
 // Utils
 import usePaginationCustom from '../../utils/usePaginationCustom'
 import { nanoid } from 'nanoid'
 import useFilterOptions from '../../utils/useFilterOptions'
-import Slider from '@mui/material/Slider'
-import Box from '@mui/material/Box'
-import { Filter } from '@mui/icons-material'
 import useDatabase from '../../utils/useDatabase'
 import useChipsCustom from '../../utils/useChipsCustom'
 
@@ -36,6 +31,32 @@ export default function AdvancedSearch() {
         (section : any) => <FilterGroup key={nanoid()} {...section} handleChange={handleCheckboxChange} />
     )
 
+    function updateChipsWithFilterOptions() {
+
+        const newChips : any = []
+
+        for (const section of filterOptions) {
+            if (section.type === 'representation') {
+                for (const option of section.options) {
+
+                    if (option.checked) {
+                        newChips.push({ key: nanoid(), label: option.label })
+                    }
+
+                    for (const subOption of option.subOptions) {
+                        if (subOption.checked) {
+                            newChips.push({ key: nanoid(), label: subOption.label })
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return newChips
+
+    }
+
     React.useEffect(() => {
 
         if ( isAnyBoxChecked(filterOptions) ) {
@@ -44,7 +65,7 @@ export default function AdvancedSearch() {
 
             setSearchResults(
                 data.filter((book : any) => filterBooks(book))
-                    .map( (book : any) => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> )
+                    .map( (book : any) => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} filterOptions={filterOptions} /> )
             )
         }
         // } else {
@@ -52,8 +73,12 @@ export default function AdvancedSearch() {
         //     setSearchResults( data.map( (book : any) => <BookCard key={nanoid()} {...book} handleChipClick={handleChipClick} activeChips={chips} /> ) )
 
         // }
+        
+
 
     },[filterOptions])
+
+    console.log('chips is: ',chips)
 
     return (
         <Container sx={{display: 'flex', flexDirection: 'column', rowGap: 3}} maxWidth='xl'>

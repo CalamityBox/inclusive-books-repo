@@ -1,18 +1,21 @@
+import { nanoid } from 'nanoid'
 import React from 'react'
 
 function useChipsCustom() {
 
-    const [chips, setChips] = React.useState< { key: number, label: string }[] | [] >([])
+    const [chips, setChips] = React.useState< { key: string, label: string }[] | [] >([])
 
     function handleChipClick( chipToAdd : string ) : void {
+
+        console.log('chip to add is: ',chipToAdd)
 
         setChips(
             prevChips => {
 
                 if (prevChips.length === 0) {
-                    return [{ key: prevChips.length, label: chipToAdd }]
+                    return [{ key: nanoid(), label: chipToAdd }]
                 } else if ( prevChips.filter(chip => chip.label === chipToAdd).length === 0 ) {
-                    return [...prevChips,{ key: prevChips.length, label: chipToAdd }]
+                    return [...prevChips,{ key: nanoid(), label: chipToAdd }]
                 } else {
                     return prevChips
                 }
@@ -22,7 +25,7 @@ function useChipsCustom() {
 
     }
 
-    function handleChipDelete(chipToDelete: { key: number, label: string }) : void {
+    function handleChipDelete(chipToDelete: { key: string, label: string }) : void {
         setChips( prevChips => prevChips.filter(chip => chip.label !== chipToDelete.label) )
     }
 
