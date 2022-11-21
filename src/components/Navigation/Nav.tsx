@@ -46,7 +46,7 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
                 </NavLink>
                 
                 {
-                    user?.displayName && <NavLink to='/books/cataloging-dashboard' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>Cataloging</NavLink>
+                    user?.displayName && <NavLink to='/cataloging/dashboard' style={({isActive}) => isActive ? activeStyle : inactiveStyle}>Cataloging</NavLink>
                 }
                 
                 

@@ -9,88 +9,53 @@ import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 // Hook Form
 import { Controller, FieldError, FieldErrorsImpl, Merge, useFormContext } from 'react-hook-form'
 import ControlledTextField from './ControlledTextField'
 import FormCard from './FormCard'
 import Box from '@mui/material/Box'
-import { Grid } from '@mui/material'
+import { Grid, IconButton } from '@mui/material'
 import ControlledSelect from './ControlledSelect'
+import { handleContributorError, hasContributorError, createErrorMessage } from '../../utils/handleErrors'
+import ContributorsSubsection from './ContributorsSubsection'
 
 export default function InclusiveFormSectionOne(props : any) {
 
     const {
         control,
+        getValues,
+        watch,
+        setValue,
         formState: { errors }
     } = useFormContext()
 
-    function createErrorMessage(error : FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined) : string {
-        return typeof error?.message === 'string' ? error.message : ''
-    }
-
-    interface contributorOption {
-        value: string;
-        label: string;
-    }
-
-    const contributorOptions : contributorOption[] = [
-        {
-            value: '',
-            label: ''
-        },
-        {
-            value: 'author',
-            label: 'Author'
-        },
-        {
-            value: 'illustrator',
-            label: 'Illustrator'
-        },
-        {
-            value: 'editor',
-            label: 'Editor'
-        },
-        {
-            value: 'translator',
-            label: 'Translator'
-        },
-        {
-            value: 'contributor',
-            label: 'Contributor'
-        }
-    ]
+    console.log(errors.contributors)
 
     return (
         <>
             <FormCard label='Book Title' description='Enter the title of the book. Please use proper case for the title. "This Is An Example Of Proper Case."'>
-                <ControlledTextField name='title' defaultValue='' control={control} errors={errors.title} />
+                <ControlledTextField name='title' defaultValue='' control={control} isError={!!errors.title} errorMessage={createErrorMessage(errors.title)} />
             </FormCard>
 
             <FormCard label='Book Subtitle' description='Enter the subtitle of the book. Please use proper case for the subtitle. "This Is An Example Of Proper Case."'>
-                <ControlledTextField name='subtitle' defaultValue='' control={control} errors={errors.subtitle} />
+                <ControlledTextField name='subtitle' defaultValue='' control={control} isError={!!errors.subtitle} errorMessage={createErrorMessage(errors.subtitle)} />
             </FormCard>
 
             <FormCard label='Series Info'>
                 <Grid container spacing={2}>
                     <Grid item lg={8}>
-                        <ControlledTextField label='Book Series Name' name='series' defaultValue='' control={control} errors={errors.series} />
+                        <ControlledTextField label='Book Series Name' name='series' defaultValue='' control={control} isError={!!errors.series} errorMessage={createErrorMessage(errors.series)} />
                     </Grid>
                     <Grid item lg={4}>
-                        <ControlledTextField label='Number in Series' name='seriesNumber' defaultValue='' control={control} errors={errors.seriesNumber} />
+                        <ControlledTextField label='Number in Series' name='seriesNumber' defaultValue='' control={control} isError={!!errors.seriesNumber} errorMessage={createErrorMessage(errors.seriesNumber)} />
                     </Grid>
                 </Grid>
             </FormCard>
 
             <FormCard label='Contributors' description='Enter the names of all contributors for this book.'>
-                <Grid container spacing={2}>
-                    <Grid item lg={8}>
-                        <ControlledTextField label='Name' name='contributorName1' defaultValue='' control={control} errors={errors.contributorName1} />
-                    </Grid>
-                    <Grid item lg={4}>
-                        <ControlledSelect label='Type' name='contributorType1' defaultValue='' options={contributorOptions} control={control} errors={errors.contributorType1} />
-                    </Grid>
-                </Grid>
+                <ContributorsSubsection control={control} errors={errors} getValues={getValues} watch={watch} setValue={setValue} />
             </FormCard>
 
 
