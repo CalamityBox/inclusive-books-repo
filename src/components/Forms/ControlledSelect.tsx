@@ -31,7 +31,7 @@ export default function ControlledSelection(props : { label?: string, name: stri
                     label={props.label} 
                     variant='outlined' 
                     error={props.isError}
-                    helperText={props.errorMessage}
+                    helperText={props.isError? props.errorMessage : ''}
                 >
                     {selectOptions}
                 </TextField>

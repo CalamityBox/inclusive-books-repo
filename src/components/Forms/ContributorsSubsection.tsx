@@ -9,9 +9,14 @@ import Box from '@mui/material/Box'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { createErrorMessage, handleContributorError, hasContributorError } from '../../utils/handleErrors'
 
-import { inclusiveFormSchema } from '../../utils/inclusiveFormSchema'
+import { inclusiveFormSchema, contributorSchema, editionSchema, nameSchema, typeSchema } from '../../utils/inclusiveFormSchema'
 import ToggleShow from './ToggleShow'
-import { Tooltip } from '@mui/material'
+import { Button, Icon, Tooltip } from '@mui/material'
+
+import * as yup from 'yup'
+import { getValue } from '@mui/system'
+import { nanoid } from 'nanoid'
+import { SettingsOverscanOutlined } from '@mui/icons-material'
 
 export default function ContributorsSubsection(props : { control: any, errors: any, getValues: Function, watch: Function, setValue: Function }) {
 
@@ -42,37 +47,92 @@ export default function ContributorsSubsection(props : { control: any, errors: a
             label: 'Contributor'
         }
     ]
-    
-    const [isVisible, setIsVisible] = React.useState([
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
-    ])
 
     function handleAddContributor() {
-        setIsVisible(prev => {
+        setContributors((prev : any) => {
+            if (prev.length === 0) {
+                return [0]
+            }
             const output = [...prev]
-            for (const [index, element] of output.entries()) {
-                if (!element) {
-                    output[index] = true
+            let i = 0
+            while (true) {
+                if (!output.includes(i)) {
+                    output.push(i)
                     return output
+                } else {
+                    i++
                 }
             }
+        })
+    }
+
+    // console.log('reach result',yup.reach(contributorSchema,'name'))
+    // const rootValue = props.getValues('contributors[0].name')
+    // console.log('root value: ',rootValue)
+    // console.log( 'is valid at result: ', nameSchema.isValidSync(rootValue) )
+
+    console.log('errors are',props.errors)
+
+    function handleRemoveContributor(indexToChange : number,value : number) {
+        // console.log('index to remove is',indexToChange)
+        props.setValue(`contributors[${value}].name`,'', { shouldValidate: false })
+        props.setValue(`contributors[${value}].type`,'', { shouldValidate: false })
+        setContributors((prev : any) => {
+            const output = [...prev].filter((value, index) => index !== indexToChange)
+            // console.log('output is',output)
             return output
         })
     }
 
-    function handleRemoveContributor(indexToChange : number) {
-        setIsVisible(prev => prev.map( (value, index) => index === indexToChange ? !value : value ))
-        props.setValue(`contributorName${indexToChange+2}`,'',{ shouldValidate: false })
-        props.setValue(`contributorType${indexToChange+2}`,'',{ shouldValidate: false })
+    function getContributorErrorMessage(key: string) {
+        let output=''
+        try {
+            output = props.errors?.contributors[0][key].message
+        } catch (errors) {
+            output = ''
+        }
+        return output
     }
+
+    const [contributors, setContributors] = React.useState<any>([])
+
+    console.log('contributors',contributors)
+
+    const contributorComponents = contributors.map(
+        (value : any, index : number) => (  
+            <React.Fragment key={nanoid()}>
+               <Grid item lg={7}>
+                    <ControlledTextField 
+                        label='Contributor Name' 
+                        name={`contributors[${value+1}].name`} 
+                        defaultValue='' 
+                        control={props.control} 
+                        isError={!!props.errors?.contributors && !nameSchema.isValidSync(props.getValues(`contributors[${value+1}].name`))} 
+                        errorMessage={'You must enter a name.'} 
+                    />
+                </Grid>
+                <Grid item lg={3}>
+                    <ControlledSelect 
+                        label='Type' 
+                        name={`contributors[${value+1}].type`} 
+                        defaultValue=''
+                        isDisabled={false}
+                        options={contributorOptions} 
+                        control={props.control} 
+                        isError={!!props.errors?.contributors && !typeSchema.isValidSync(props.getValues(`contributors[${value+1}].type`))} 
+                        errorMessage={'You must enter a type.'} 
+                    />
+                </Grid>
+                <Grid item lg={2}>
+                    <Tooltip title='Remove contributor'>
+                        <IconButton size='large'>
+                            <HighlightOffIcon fontSize='inherit' />
+                        </IconButton>
+                    </Tooltip>
+                </Grid> 
+            </React.Fragment>
+        )
+    )
 
     return (
         <>
@@ -81,51 +141,53 @@ export default function ContributorsSubsection(props : { control: any, errors: a
                 <Grid item lg={7}>
                     <ControlledTextField 
                         label='Contributor Name' 
-                        name='contributorName1' 
+                        name='contributors[0].name' 
                         defaultValue='' 
                         control={props.control} 
-                        isError={!!props.errors.contributorName1} 
-                        errorMessage={createErrorMessage(props.errors.contributorName1)} 
+                        isError={!!props.errors?.contributors && !nameSchema.isValidSync(props.getValues('contributors[0].name'))} 
+                        errorMessage={getContributorErrorMessage('name')} 
                     />
                 </Grid>
                 <Grid item lg={3}>
                     <ControlledSelect 
                         label='Type' 
-                        name='contributorType1' 
+                        name='contributors[0].type' 
                         defaultValue='Author'
                         isDisabled={true}
                         options={contributorOptions} 
                         control={props.control} 
-                        isError={!!props.errors.contributorType1} 
-                        errorMessage={createErrorMessage(props.errors.contributorType1)} 
+                        isError={!!props.errors?.contributors && !typeSchema.isValidSync(props.getValues('contributors[0].type'))} 
+                        errorMessage={getContributorErrorMessage('type')} 
                     />
                 </Grid>
 
-                <ToggleShow isVisible={isVisible[0]} remove={() => handleRemoveContributor(0)}>
+                {contributorComponents}
+
+                {/* <ToggleShow isVisible={isVisible[0]} remove={() => handleRemoveContributor(0)}>
                     <Grid item lg={7}>
                         <ControlledTextField 
                             label='Contributor Name' 
-                            name='contributorName2' 
+                            name='contributors[2].name' 
                             defaultValue='' 
                             control={props.control}
-                            isError={!!props.errors.contributorName2} 
-                            errorMessage={createErrorMessage(props.errors.contributorName2)}
+                            isError={props.errors?.contributors !== undefined && !nameSchema.isValidSync(props.getValues('contributors[2].name'))} 
+                            errorMessage={'You must enter a name.'}
                         />
                     </Grid>
                     <Grid item lg={3}>
                         <ControlledSelect 
                             label='Type' 
-                            name='contributorType2' 
+                            name='contributors[2].type' 
                             defaultValue='' 
                             options={contributorOptions} 
                             control={props.control}
-                            isError={!!props.errors.contributorType2} 
-                            errorMessage={createErrorMessage(props.errors.contributorType2)}
+                            isError={props.errors?.contributors !== undefined && !typeSchema.isValidSync(props.getValues('contributors[2].type'))} 
+                            errorMessage={'You must enter a type.'}
                         />
                     </Grid>
-                </ToggleShow>
+                </ToggleShow> */}
 
-                <ToggleShow isVisible={isVisible[1]} remove={() => handleRemoveContributor(1)}>
+                {/* <ToggleShow isVisible={isVisible[1]} remove={() => handleRemoveContributor(1)}>
                     <Grid item lg={7}>
                         <ControlledTextField 
                             label='Contributor Name' 
@@ -315,22 +377,17 @@ export default function ContributorsSubsection(props : { control: any, errors: a
                             errorMessage={createErrorMessage(props.errors.contributorType10)}
                         />
                     </Grid>
-                </ToggleShow>
+                </ToggleShow> */}
 
             </Grid>
 
-            {
-                isVisible.every(value => value) ?
-                <></>
-                :
+            <Tooltip title={!!props.errors?.contributors ? 'Fix errors before adding contributors.' : 'Add contributor'} arrow>
                 <Box sx={{ margin: 'auto' }}>
-                    <Tooltip title='Add contributor' arrow>
-                        <IconButton aria-label="add contributor" size='large' color='primary' onClick={handleAddContributor}>
-                            <AddCircleIcon fontSize='inherit' />
-                        </IconButton>
-                    </Tooltip>
+                    <IconButton aria-label="add contributor" size='large' color='primary' onClick={handleAddContributor} disabled={!!props.errors?.contributors}>
+                        <AddCircleIcon fontSize='inherit' />
+                    </IconButton>
                 </Box>
-            }
+            </Tooltip>
 
         </>
     )

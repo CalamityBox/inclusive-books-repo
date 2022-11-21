@@ -17,7 +17,7 @@ export default function ControlledTextField(props : { label? : string, name : st
                     label={props.label} 
                     variant='outlined' 
                     error={props.isError}
-                    helperText={props.errorMessage}
+                    helperText={props.isError ? props.errorMessage : ''}
                 />
             )}
         />
