@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Controller } from 'react-hook-form'
-import { Button, FormControlLabel, IconButton, Radio, RadioGroup, Tooltip, Typography } from '@mui/material'
+import { Button, FormControlLabel, FormHelperText, IconButton, Radio, RadioGroup, Tooltip, Typography } from '@mui/material'
 import InfoIcon from '@mui/icons-material/Info'
 import { nanoid } from 'nanoid'
 import InfoTooltip from '../InfoTooltip'
@@ -28,18 +28,21 @@ export default function ControlledRadio(props : { label: string, name: string, d
     )
 
     return (
-        <Controller 
-            name={props.name}
-            defaultValue={props.defaultValue}
-            control={props.control}
-            render={({field}) => (
-                <RadioGroup
-                    {...field}
-                    name={props.name}
-                >
-                    {options}
-                </RadioGroup>
-            )}
-        />
+        <>
+            {props.isError ? <FormHelperText error>{props.errorMessage}</FormHelperText> : <></>}
+            <Controller 
+                name={props.name}
+                defaultValue={props.defaultValue}
+                control={props.control}
+                render={({field}) => (
+                    <RadioGroup
+                        {...field}
+                        name={props.name}
+                    >
+                        {options}
+                    </RadioGroup>
+                )}
+            />
+        </>
     )
 }

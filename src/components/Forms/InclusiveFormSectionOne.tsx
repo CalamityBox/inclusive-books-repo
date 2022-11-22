@@ -21,6 +21,7 @@ import ControlledSelect from './ControlledSelect'
 import { handleContributorError, hasContributorError, createErrorMessage } from '../../utils/handleErrors'
 import ContributorsSubsection from './ContributorsSubsection'
 import ControlledRadio from './ControlledRadio'
+import ControlledCheckboxGroup from './ControlledCheckboxGroup'
 
 export default function InclusiveFormSectionOne(props : any) {
 
@@ -63,6 +64,8 @@ export default function InclusiveFormSectionOne(props : any) {
                     label='Genre' 
                     defaultValue='' 
                     control={control}
+                    isError={!!errors.genre}
+                    errorMessage={createErrorMessage(errors.genre)}
                     options={[
                         { value: 'anthology', label: 'Anthology', tooltip: 'A collection of various works. (Ex: Black Mirror)' },
                         { value: 'biography', label: 'Biography', tooltip: 'A factual book about a real-world person. (Ex: I Am Malala)' },
@@ -72,6 +75,29 @@ export default function InclusiveFormSectionOne(props : any) {
                         { value: 'historical-fiction', label: 'Historical Fiction', tooltip: 'The plot takes past in a real-world setting related to the past, but the story itself is fictional (Ex: Gone With The Wind)' },
                         { value: 'memoir', label: 'Memoir', tooltip: 'A collection of memories written by that person. (Ex: the fire never goes out)' },
                         { value: 'nonfiction', label: 'Nonfiction', tooltip: 'Prose writing that is based on facts, real events, and real people (Ex: Guinness Book of World Records).' }
+                    ]}
+                />
+            </FormCard>
+
+            <FormCard label='Grade Level'>
+                <ControlledCheckboxGroup 
+                    label='Grade Level' 
+                    name='grade' 
+                    defaultValue=''
+                    control={control}
+                    isError={!!errors.grade}
+                    errorMessage={createErrorMessage(errors.grade)}
+                    options={[
+                        { value: 'birth-3', label: 'Birth - 3' },
+                        { value: 'pre-k', label: 'Pre-k' },
+                        { value: '1st-grade', label: '1st Grade' },
+                        { value: '2nd-grade', label: '2nd Grade' },
+                        { value: '3rd-grade', label: '3rd Grade' },
+                        { value: '4th-grade', label: '4th Grade' },
+                        { value: '5th-grade', label: '5th Grade' },
+                        { value: 'middle-school', label: 'Middle School' },
+                        { value: 'high-school', label: 'High School' },
+                        { value: 'adult', label: 'Adult' }
                     ]}
                 />
             </FormCard>
