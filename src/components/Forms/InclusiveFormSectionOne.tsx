@@ -20,6 +20,7 @@ import { Grid, IconButton } from '@mui/material'
 import ControlledSelect from './ControlledSelect'
 import { handleContributorError, hasContributorError, createErrorMessage } from '../../utils/handleErrors'
 import ContributorsSubsection from './ContributorsSubsection'
+import ControlledRadio from './ControlledRadio'
 
 export default function InclusiveFormSectionOne(props : any) {
 
@@ -30,8 +31,6 @@ export default function InclusiveFormSectionOne(props : any) {
         setValue,
         formState: { errors }
     } = useFormContext()
-
-    console.log(errors.contributors)
 
     return (
         <>
@@ -58,74 +57,24 @@ export default function InclusiveFormSectionOne(props : any) {
                 <ContributorsSubsection control={control} errors={errors} getValues={getValues} watch={watch} setValue={setValue} />
             </FormCard>
 
-
-
-
-            {/* <Card variant='outlined' sx={{ py: 6, px: 10 }}>
-                <Controller 
-                    name='contributorName1'
-                    defaultValue=''
+            <FormCard label='Genre'>
+                <ControlledRadio 
+                    name='genre' 
+                    label='Genre' 
+                    defaultValue='' 
                     control={control}
-                    render={({field}) => (
-                        <TextField 
-                            {...field} 
-                            label='Name' 
-                            variant='outlined' 
-                            error={!!errors.contributorName1}
-                            helperText={createErrorMessage(errors.contributorName1)}
-                        />
-                    )}
+                    options={[
+                        { value: 'anthology', label: 'Anthology', tooltip: 'A collection of various works. (Ex: Black Mirror)' },
+                        { value: 'biography', label: 'Biography', tooltip: 'A factual book about a real-world person. (Ex: I Am Malala)' },
+                        { value: 'fantasy', label: 'Fantasy', tooltip: 'The story does not take place in the real world. (Ex: Lord of the Rings)' },
+                        { value: 'fiction', label: 'Fiction', tooltip: 'A story in the real world with imaginary events. (Ex: Spider-man, Harry Potter)'},
+                        { value: 'fictionalized-biography', label: 'Fictionalized Biography', tooltip: 'A book about a real-world person where some details, events, or people have been made up for the story (Ex: When Stars Are Scattered)' },
+                        { value: 'historical-fiction', label: 'Historical Fiction', tooltip: 'The plot takes past in a real-world setting related to the past, but the story itself is fictional (Ex: Gone With The Wind)' },
+                        { value: 'memoir', label: 'Memoir', tooltip: 'A collection of memories written by that person. (Ex: the fire never goes out)' },
+                        { value: 'nonfiction', label: 'Nonfiction', tooltip: 'Prose writing that is based on facts, real events, and real people (Ex: Guinness Book of World Records).' }
+                    ]}
                 />
-                
-                <Controller 
-                    name='contributorType1'
-                    defaultValue=''
-                    control={control}
-                    render={({field}) => (
-                        <>
-                            <Select 
-                                label='Type' 
-                                labelId='contributor-select-id' 
-                                autoWidth
-                                error={!!errors.contributorType1}
-                            >
-                                <MenuItem value='author'>Author</MenuItem>
-                                <MenuItem value='illustrator'>Illustrator</MenuItem>
-                                <MenuItem value='editor'>Editor</MenuItem>
-                                <MenuItem value='translator'>Translator</MenuItem>
-                                <MenuItem value='contributor'>Contributor</MenuItem>
-                            </Select>
-                        </>
-                    )}
-                />
-            </Card> */}
-
-            {/* <Card variant='outlined' sx={{ display: 'flex', flexDirection: 'column', rowGap: 3, py: 6, px: 6 }}>
-                <Controller 
-                    name='seriesNumber'
-                    defaultValue=''
-                    control={control}
-                    render={({field}) => (
-                        <>
-                            <FormLabel>Genre</FormLabel>
-                            <RadioGroup
-                                aria-labelledby="genre-radio-buttons-group-label"
-                                defaultValue=""
-                                name="genre-radio-buttons-group"
-                            >
-                                <FormControlLabel value="fiction" control={<Radio />} label="Fiction" />
-                                <FormControlLabel value="nonfiction" control={<Radio />} label="Nonfiction" />
-                                <FormControlLabel value="biography" control={<Radio />} label="Biography" />
-                                <FormControlLabel value="fictionalized-biography" control={<Radio />} label="Fictionalized Biography" />
-                                <FormControlLabel value="historical-fiction" control={<Radio />} label="Historical Fiction" />
-                                <FormControlLabel value="fantasy" control={<Radio />} label="Fantasy" />
-                                <FormControlLabel value="anthology" control={<Radio />} label="Anthology" />
-                                <FormControlLabel value="memoir" control={<Radio />} label="Memoir" />
-                            </RadioGroup>
-                        </>
-                    )}
-                />
-            </Card> */}
+            </FormCard>
         </>
     )
 }

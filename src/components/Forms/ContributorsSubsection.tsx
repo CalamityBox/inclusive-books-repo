@@ -7,16 +7,12 @@ import ControlledTextField from './ControlledTextField'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import Box from '@mui/material/Box'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { createErrorMessage, handleContributorError, hasContributorError } from '../../utils/handleErrors'
 
 import { inclusiveFormSchema, contributorSchema, editionSchema, nameSchema, typeSchema } from '../../utils/inclusiveFormSchema'
-import ToggleShow from './ToggleShow'
 import { Button, Icon, Tooltip } from '@mui/material'
 
 import * as yup from 'yup'
-import { getValue } from '@mui/system'
 import { nanoid } from 'nanoid'
-import { SettingsOverscanOutlined } from '@mui/icons-material'
 
 export default function ContributorsSubsection(props : { control: any, errors: any, getValues: Function, watch: Function, setValue: Function }) {
 
@@ -74,12 +70,12 @@ export default function ContributorsSubsection(props : { control: any, errors: a
     console.log('errors are',props.errors)
 
     function handleRemoveContributor(indexToChange : number,value : number) {
-        // console.log('index to remove is',indexToChange)
+        console.log('index to remove is',indexToChange)
         props.setValue(`contributors[${value}].name`,'', { shouldValidate: false })
         props.setValue(`contributors[${value}].type`,'', { shouldValidate: false })
         setContributors((prev : any) => {
             const output = [...prev].filter((value, index) => index !== indexToChange)
-            // console.log('output is',output)
+            console.log('output is',output)
             return output
         })
     }
@@ -125,7 +121,7 @@ export default function ContributorsSubsection(props : { control: any, errors: a
                 </Grid>
                 <Grid item lg={2}>
                     <Tooltip title='Remove contributor'>
-                        <IconButton size='large'>
+                        <IconButton size='large' onClick={() => handleRemoveContributor(index, value+1)}>
                             <HighlightOffIcon fontSize='inherit' />
                         </IconButton>
                     </Tooltip>

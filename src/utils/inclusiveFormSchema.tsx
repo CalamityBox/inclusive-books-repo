@@ -42,14 +42,14 @@ export const inclusiveFormSchema = yup.object().shape({
     // Contributors
     contributors: yup.array().of(contributorSchema),
 
-    genre: yup.string().required(),
+    genre: yup.string(),
     editions: yup.array().of(yup.object().shape({
-        format: yup.string().required(),
-        publicationDate: yup.number().required(),
-        coverURL: yup.string().required()
+        format: yup.string(),
+        publicationDate: yup.number(),
+        coverURL: yup.string()
     })),
 
-    description: yup.string().required(),
+    description: yup.string(),
     grade: yup.boolean().oneOf([true]),
     arLevel: yup.number().min(0.1).max(12.9), // Change to string with regex
 
@@ -57,19 +57,6 @@ export const inclusiveFormSchema = yup.object().shape({
     identityBased: yup.boolean().oneOf([true]),
     joyBased: yup.boolean().oneOf([true]),
     subject: yup.boolean().oneOf([true]),
-    sensitiveContent: yup.string().required(), // Optional checkbox question, not sure what to do here
+    sensitiveContent: yup.string(), // Optional checkbox question, not sure what to do here
     
-},
-[
-    ['contributorName1','contributorType1'],
-    ['contributorName2','contributorType2'],
-    ['contributorName3','contributorType3'],
-    ['contributorName4','contributorType4'],
-    ['contributorName5','contributorType5'],
-    ['contributorName6','contributorType6'],
-    ['contributorName7','contributorType7'],
-    ['contributorName8','contributorType8'],
-    ['contributorName9','contributorType9'],
-    ['contributorName10','contributorType10'],
-]
-)
+})

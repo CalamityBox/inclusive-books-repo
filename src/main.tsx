@@ -28,6 +28,18 @@ let theme = createTheme({
     secondary: {
       main: '#00b894'
     }
+  },
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#6c5ce7'
+        },
+        arrow: {
+          color: '#6c5ce7'
+        }
+      }
+    }
   }
 })
 
