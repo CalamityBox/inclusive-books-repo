@@ -10,7 +10,7 @@ export default function ControlledTextField(props : { label? : string, name : st
             name={props.name}
             defaultValue={props.defaultValue}
             control={props.control}
-            render={({field}) => (
+            render={({ field }) => (
                 <TextField 
                     {...field}
                     fullWidth

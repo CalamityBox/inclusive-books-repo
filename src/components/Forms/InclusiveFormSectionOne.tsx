@@ -23,7 +23,17 @@ import ContributorsSubsection from './ContributorsSubsection'
 import ControlledRadio from './ControlledRadio'
 import ControlledCheckboxGroup from './ControlledCheckboxGroup'
 
+import { genreOptions, gradeOptions } from '../../utils/formOptions'
+import Editions from './Editions'
+
 export default function InclusiveFormSectionOne(props : any) {
+
+    function handleKeyPress(event : any) {
+        console.log('pressed',event)
+        if (!/[0-9]/.test(event.key)) {
+            event.preventDefault();
+        }
+    }
 
     const {
         control,
@@ -55,7 +65,7 @@ export default function InclusiveFormSectionOne(props : any) {
             </FormCard>
 
             <FormCard label='Contributors' description='Enter the names of all contributors for this book.'>
-                <ContributorsSubsection control={control} errors={errors} getValues={getValues} watch={watch} setValue={setValue} />
+                <ContributorsSubsection getValues={getValues} watch={watch} setValue={setValue} />
             </FormCard>
 
             <FormCard label='Genre'>
@@ -66,16 +76,7 @@ export default function InclusiveFormSectionOne(props : any) {
                     control={control}
                     isError={!!errors.genre}
                     errorMessage={createErrorMessage(errors.genre)}
-                    options={[
-                        { value: 'anthology', label: 'Anthology', tooltip: 'A collection of various works. (Ex: Black Mirror)' },
-                        { value: 'biography', label: 'Biography', tooltip: 'A factual book about a real-world person. (Ex: I Am Malala)' },
-                        { value: 'fantasy', label: 'Fantasy', tooltip: 'The story does not take place in the real world. (Ex: Lord of the Rings)' },
-                        { value: 'fiction', label: 'Fiction', tooltip: 'A story in the real world with imaginary events. (Ex: Spider-man, Harry Potter)'},
-                        { value: 'fictionalized-biography', label: 'Fictionalized Biography', tooltip: 'A book about a real-world person where some details, events, or people have been made up for the story (Ex: When Stars Are Scattered)' },
-                        { value: 'historical-fiction', label: 'Historical Fiction', tooltip: 'The plot takes past in a real-world setting related to the past, but the story itself is fictional (Ex: Gone With The Wind)' },
-                        { value: 'memoir', label: 'Memoir', tooltip: 'A collection of memories written by that person. (Ex: the fire never goes out)' },
-                        { value: 'nonfiction', label: 'Nonfiction', tooltip: 'Prose writing that is based on facts, real events, and real people (Ex: Guinness Book of World Records).' }
-                    ]}
+                    options={genreOptions}
                 />
             </FormCard>
 
@@ -87,19 +88,20 @@ export default function InclusiveFormSectionOne(props : any) {
                     control={control}
                     isError={!!errors.grade}
                     errorMessage={createErrorMessage(errors.grade)}
-                    options={[
-                        { value: 'birth-3', label: 'Birth - 3' },
-                        { value: 'pre-k', label: 'Pre-k' },
-                        { value: '1st-grade', label: '1st Grade' },
-                        { value: '2nd-grade', label: '2nd Grade' },
-                        { value: '3rd-grade', label: '3rd Grade' },
-                        { value: '4th-grade', label: '4th Grade' },
-                        { value: '5th-grade', label: '5th Grade' },
-                        { value: 'middle-school', label: 'Middle School' },
-                        { value: 'high-school', label: 'High School' },
-                        { value: 'adult', label: 'Adult' }
-                    ]}
+                    options={gradeOptions}
                 />
+            </FormCard>
+
+            <FormCard label='AR Level' description="Accelerated Reader (AR) is used by many schools to track students' reading comprehension. Each number range represents the reading level for each grade. For example, 3.5 represents a 3rd grade reading level halfway through the school year.">
+                <ControlledTextField name='arLevel' defaultValue='' control={control} isError={!!errors.arLevel} errorMessage={createErrorMessage(errors.arLevel)} />
+            </FormCard>
+
+            <FormCard label='Description / Summary'>
+                <ControlledTextField name='description' defaultValue='' control={control} isError={!!errors.description} errorMessage={createErrorMessage(errors.description)} />
+            </FormCard>
+
+            <FormCard label='Editions'>
+                <Editions />
             </FormCard>
         </>
     )

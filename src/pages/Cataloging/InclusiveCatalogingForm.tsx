@@ -4,7 +4,7 @@ import React from 'react'
 import Container from '@mui/material/Container'
 
 // Forms
-import { useForm, SubmitHandler, Controller, FormProvider } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller, FormProvider, useFieldArray } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '@mui/material'
 import InclusiveFormSectionOne from '../../components/Forms/InclusiveFormSectionOne'
@@ -24,7 +24,8 @@ export default function InclusiveCatalogingForm(props : any) {
     // console.log('watch name',methods.watch('contributorName1'))
     // console.log('watch select',methods.watch('contributorType1'))
 
-    console.log('form data:',methods.watch())
+    // console.log('form data:',methods.watch())
+    // console.log('errors are',methods.formState.errors)
 
     return (
         <>

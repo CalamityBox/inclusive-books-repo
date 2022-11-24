@@ -29,3 +29,29 @@ export function handleContributorError(error : any, key: string, index: number) 
     return output
 
 }
+
+export function isError(errors: any, keyName: string, index: number) {
+
+    // console.log(`checking keyname: ${keyName}`)
+    // console.log('error in function is:',errors)
+
+    const isUndefined = errors === undefined
+    if (isUndefined) {
+        // console.log('undefined')
+        return false
+    }
+    // console.log('is undefined?',isUndefined)
+
+    // console.log('index is',index)
+
+    
+    for (const error of errors) {
+        // console.log('error is:',error)
+        // console.log(`does error have key ${keyName}?`,error.hasOwnProperty(keyName))
+        if (error.hasOwnProperty(keyName) && error[keyName].message.includes(`${index}`)) {
+            // console.log('does error message contain index?',error[keyName].message.includes(`${index}`))
+            return true
+        }
+    }
+
+}

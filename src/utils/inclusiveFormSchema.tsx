@@ -15,8 +15,11 @@ export interface IFormInputs {
 
 }
 
-export const nameSchema = yup.string().required('You must enter a name.')
-export const typeSchema = yup.string().required('You must enter a type.')
+export const nameSchema = yup.string().required()
+export const typeSchema = yup.string().required()
+
+export const requiredStringSchema = yup.string().required()
+export const requiredNumberSchema = yup.number().required()
 
 export const contributorSchema = yup.object().shape({
 
@@ -54,9 +57,26 @@ export const inclusiveFormSchema = yup.object().shape({
     genre: yup.string().required('You must select a genre.'),
 
     editions: yup.array().of(yup.object().shape({
-        format: yup.string(),
-        publicationDate: yup.number(),
-        coverURL: yup.string()
+        format: yup.string().required(),
+            // .when(['publicationDate','coverUrl','isbn'],{
+            //     is: (publicationDate : string, coverUrl : string, isbn: string) => !!publicationDate || !!coverUrl || !!isbn,
+            //     then: yup.string().required()
+            // }),
+        publicationDate: yup.number().required(),
+            // .when(['format','coverUrl','isbn'],{
+            //     is: (format : string, coverUrl : string, isbn: string) => !!format || !!coverUrl || !!isbn,
+            //     then: yup.string().required()
+            // }),
+        coverUrl: yup.string().required(),
+            // .when(['format','publicationDate','isbn'],{
+            //     is: (format : string, publicationDate : string, isbn: string) => !!format || !!publicationDate || !!isbn,
+            //     then: yup.string().required()
+            // }),
+        isbn: yup.string().required()
+            // .when(['format','publicationDate','coverUrl'],{
+            //     is: (format : string, publicationDate : string, coverUrl : string) => !!format || !!publicationDate || !!coverUrl,
+            //     then: yup.string().required()
+            // })
     })),
 
     description: yup.string(),
@@ -78,7 +98,7 @@ export const inclusiveFormSchema = yup.object().shape({
         message: 'You must select at least one grade.'
     }),
 
-    arLevel: yup.number().min(0.1).max(12.9), // Change to string with regex
+    arLevel: yup.number().min(0.1).max(12.9).required('You must enter an AR Level.'), // Change to string with regex
 
     // content
     identityBased: yup.boolean().oneOf([true]),
@@ -87,5 +107,11 @@ export const inclusiveFormSchema = yup.object().shape({
     sensitiveContent: yup.string(), // Optional checkbox question, not sure what to do here
     
 },[
-    ['series','seriesNumber']
+    ['series','seriesNumber'],
+    // ['format','publicationDate'],
+    // ['format','coverUrl'],
+    // ['format','isbn'],
+    // ['publicationDate','coverUrl'],
+    // ['publicationDate','isbn'],
+    // ['coverUrl','isbn']
 ])
