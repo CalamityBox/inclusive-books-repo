@@ -4,11 +4,13 @@ import React from 'react'
 import MenuItem from '@mui/material/MenuItem'
 
 // Hook Form
-import { Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { nanoid } from 'nanoid'
 import { TextField } from '@mui/material'
 
-export default function ControlledSelection(props : { label?: string, name: string, defaultValue?: string, options: { value: string, label: string }[], isDisabled?: boolean, control : any, isError?: boolean, errorMessage?: string }) {
+export default function ControlledSelection(props : { label?: string, name: string, defaultValue?: string, options: { value: string, label: string }[], isDisabled?: boolean, isError?: boolean, errorMessage?: string }) {
+
+    const { control } = useFormContext()
 
     const selectOptions = props.options.map(
         option => <MenuItem key={nanoid()} value={option.label}>{option.label}</MenuItem>
@@ -20,7 +22,7 @@ export default function ControlledSelection(props : { label?: string, name: stri
         <Controller 
             name={props.name}
             defaultValue={props.defaultValue}
-            control={props.control}
+            control={control}
             render={({field}) => (
                 <TextField 
                     {...field}

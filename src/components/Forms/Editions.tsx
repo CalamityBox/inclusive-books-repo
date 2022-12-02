@@ -11,6 +11,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { requiredStringSchema } from '../../utils/inclusiveFormSchema'
 
 import { isError } from '../../utils/handleErrors'
+import OptionalRemoveButton from './OptionalRemoveButton'
 
 export default function Editions(props : any) {
 
@@ -23,82 +24,8 @@ export default function Editions(props : any) {
     })
 
     React.useEffect(() => {
-        console.log('running effect')
         append({  editionId: fields.length.toString(), format: '', publicationDate: '' })
     },[])
-
-    // const editions = React.useMemo(
-    //     () => {
-
-    //         return fields.map((item,index) => (
-    //                 <React.Fragment key={item.editionsId}>
-        
-    //                     <Grid item lg={3.5}>
-    //                         <ControlledSelect 
-    //                         label='Format' 
-    //                         name={`editions[${index}].format`} 
-    //                         defaultValue='' 
-    //                         options={editionOptions} 
-    //                         control={control} 
-    //                         isError={isError(errors?.editions,'format',index)}
-    //                         errorMessage={'Required.'}
-    //                         />
-    //                     </Grid>
-        
-    //                     <Grid item lg={2.5}>
-    //                         <ControlledTextField 
-    //                         label='Publication Date' 
-    //                         name={`editions[${index}].publicationDate`} 
-    //                         defaultValue='' 
-    //                         control={control} 
-    //                         isError={isError(errors?.editions,'publicationDate',index)}
-    //                         errorMessage={'Required.'}
-    //                         />
-    //                     </Grid>
-        
-    //                     <Grid item lg={2}>
-    //                         <ControlledTextField 
-    //                         label='Cover URL' 
-    //                         name={`editions[${index}].coverUrl`} 
-    //                         defaultValue='' 
-    //                         control={control} 
-    //                         isError={isError(errors?.editions,'coverUrl',index)}
-    //                         errorMessage={'Required.'}
-    //                         />
-    //                     </Grid>
-        
-    //                     <Grid item lg={3}>
-    //                         <ControlledTextField 
-    //                         label='ISBN' 
-    //                         name={`editions[${index}].isbn`} 
-    //                         defaultValue='' 
-    //                         control={control} 
-    //                         isError={isError(errors?.editions,'isbn',index)}
-    //                         errorMessage={'Required.'}
-    //                         />
-    //                     </Grid>
-    //                     {
-    //                         // Optional remove button if it isn't the first edition
-    //                         index === 0 ?
-                                
-    //                             <></>
-        
-    //                             :
-        
-    //                             <Grid item lg={1}>
-    //                                 <Tooltip title='Remove contributor'>
-    //                                     <IconButton size='large' onClick={() => remove(index)}>
-    //                                         <HighlightOffIcon fontSize='inherit' />
-    //                                     </IconButton>
-    //                                 </Tooltip>
-    //                             </Grid> 
-        
-    //                     }
-    //                 </React.Fragment>
-    //             ))
-    //     },[fields]) 
-
-    console.log('errors',errors)
 
     const editions = fields.map((item,index) => (
         <React.Fragment key={item.editionsId}>
@@ -109,7 +36,6 @@ export default function Editions(props : any) {
                 name={`editions[${index}].format`} 
                 defaultValue='' 
                 options={editionOptions} 
-                control={control} 
                 isError={isError(errors?.editions,'format',index)}
                 errorMessage={'Required.'}
                 />
@@ -120,7 +46,6 @@ export default function Editions(props : any) {
                 label='Publication Date' 
                 name={`editions[${index}].publicationDate`} 
                 defaultValue='' 
-                control={control} 
                 isError={isError(errors?.editions,'publicationDate',index)}
                 errorMessage={'Required.'}
                 />
@@ -131,7 +56,6 @@ export default function Editions(props : any) {
                 label='Cover URL' 
                 name={`editions[${index}].coverUrl`} 
                 defaultValue='' 
-                control={control} 
                 isError={isError(errors?.editions,'coverUrl',index)}
                 errorMessage={'Required.'}
                 />
@@ -142,28 +66,13 @@ export default function Editions(props : any) {
                 label='ISBN' 
                 name={`editions[${index}].isbn`} 
                 defaultValue='' 
-                control={control} 
                 isError={isError(errors?.editions,'isbn',index)}
                 errorMessage={'Required.'}
                 />
             </Grid>
-            {
-                // Optional remove button if it isn't the first edition
-                index === 0 ?
-                    
-                    <></>
+            
+            <OptionalRemoveButton isVisible={index > 1} remove={remove} index={index} />
 
-                    :
-
-                    <Grid item lg={1}>
-                        <Tooltip title='Remove contributor'>
-                            <IconButton size='large' onClick={() => remove(index)}>
-                                <HighlightOffIcon fontSize='inherit' />
-                            </IconButton>
-                        </Tooltip>
-                    </Grid> 
-
-            }
         </React.Fragment>
     ))
 

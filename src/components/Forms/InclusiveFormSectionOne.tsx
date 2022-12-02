@@ -23,17 +23,11 @@ import ContributorsSubsection from './ContributorsSubsection'
 import ControlledRadio from './ControlledRadio'
 import ControlledCheckboxGroup from './ControlledCheckboxGroup'
 
-import { genreOptions, gradeOptions } from '../../utils/formOptions'
+import { genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
 import Editions from './Editions'
+import OtherCheckbox from './OtherCheckbox'
 
 export default function InclusiveFormSectionOne(props : any) {
-
-    function handleKeyPress(event : any) {
-        console.log('pressed',event)
-        if (!/[0-9]/.test(event.key)) {
-            event.preventDefault();
-        }
-    }
 
     const {
         control,
@@ -46,20 +40,20 @@ export default function InclusiveFormSectionOne(props : any) {
     return (
         <>
             <FormCard label='Book Title' description='Enter the title of the book. Please use proper case for the title. "This Is An Example Of Proper Case."'>
-                <ControlledTextField name='title' defaultValue='' control={control} isError={!!errors.title} errorMessage={createErrorMessage(errors.title)} />
+                <ControlledTextField name='title' defaultValue=''  isError={!!errors?.title} errorMessage={createErrorMessage(errors.title)} />
             </FormCard>
 
             <FormCard label='Book Subtitle' description='Enter the subtitle of the book. Please use proper case for the subtitle. "This Is An Example Of Proper Case."'>
-                <ControlledTextField name='subtitle' defaultValue='' control={control} isError={!!errors.subtitle} errorMessage={createErrorMessage(errors.subtitle)} />
+                <ControlledTextField name='subtitle' defaultValue=''  isError={!!errors?.subtitle} errorMessage={createErrorMessage(errors.subtitle)} />
             </FormCard>
 
             <FormCard label='Series Info'>
                 <Grid container spacing={2}>
                     <Grid item lg={8}>
-                        <ControlledTextField label='Book Series Name' name='series' defaultValue='' control={control} isError={!!errors.series} errorMessage={createErrorMessage(errors.series)} />
+                        <ControlledTextField label='Book Series Name' name='series' defaultValue=''  isError={!!errors?.series} errorMessage={createErrorMessage(errors.series)} />
                     </Grid>
                     <Grid item lg={4}>
-                        <ControlledTextField label='Number in Series' name='seriesNumber' defaultValue='' control={control} isError={!!errors.seriesNumber} errorMessage={createErrorMessage(errors.seriesNumber)} />
+                        <ControlledTextField label='Number in Series' name='seriesNumber' defaultValue=''  isError={!!errors?.seriesNumber} errorMessage={createErrorMessage(errors.seriesNumber)} />
                     </Grid>
                 </Grid>
             </FormCard>
@@ -73,8 +67,8 @@ export default function InclusiveFormSectionOne(props : any) {
                     name='genre' 
                     label='Genre' 
                     defaultValue='' 
-                    control={control}
-                    isError={!!errors.genre}
+                    
+                    isError={!!errors?.genre}
                     errorMessage={createErrorMessage(errors.genre)}
                     options={genreOptions}
                 />
@@ -85,7 +79,7 @@ export default function InclusiveFormSectionOne(props : any) {
                     label='Grade Level' 
                     name='grade' 
                     defaultValue=''
-                    control={control}
+                    
                     isError={!!errors.grade}
                     errorMessage={createErrorMessage(errors.grade)}
                     options={gradeOptions}
@@ -93,15 +87,85 @@ export default function InclusiveFormSectionOne(props : any) {
             </FormCard>
 
             <FormCard label='AR Level' description="Accelerated Reader (AR) is used by many schools to track students' reading comprehension. Each number range represents the reading level for each grade. For example, 3.5 represents a 3rd grade reading level halfway through the school year.">
-                <ControlledTextField name='arLevel' defaultValue='' control={control} isError={!!errors.arLevel} errorMessage={createErrorMessage(errors.arLevel)} />
+                <ControlledTextField name='arLevel' defaultValue=''  isError={!!errors?.arLevel} errorMessage={createErrorMessage(errors.arLevel)} />
             </FormCard>
 
             <FormCard label='Description / Summary'>
-                <ControlledTextField name='description' defaultValue='' control={control} isError={!!errors.description} errorMessage={createErrorMessage(errors.description)} />
+                <ControlledTextField name='description' defaultValue=''  isError={!!errors?.description} errorMessage={createErrorMessage(errors.description)} />
             </FormCard>
 
             <FormCard label='Editions'>
                 <Editions />
+            </FormCard>
+
+            <FormCard label='Identity-based v. Identity-independent'>
+                <ControlledRadio 
+                    name='identityBased'
+                    label='Identity Based'
+                    defaultValue=''
+                    isError={!!errors?.identityBased}
+                    errorMessage={createErrorMessage(errors.identityBased)}
+                    options={identityBasedOptions}
+                />
+            </FormCard>
+
+            <FormCard label='Joy-based v. Adversity-based'>
+                <ControlledRadio 
+                    name='joyBased'
+                    label='Joy Based'
+                    defaultValue=''
+                    isError={!!errors?.joyBased}
+                    errorMessage={createErrorMessage(errors.joyBased)}
+                    options={joyBasedOptions}
+                />
+            </FormCard>
+
+            <FormCard label='General Subject Matter'>
+                <ControlledCheckboxGroup 
+                    label='General Subject Matter' 
+                    name='generalSubject' 
+                    defaultValue=''
+                    isError={!!errors?.generalSubject}
+                    errorMessage={createErrorMessage(errors.generalSubject)}
+                    options={generalSubjectOptions}
+                />
+                <OtherCheckbox name='generalSubjectOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Sensitive Content' description='Select any sensitive content in the book so that we can provide warnings to people ahead of time.'>
+                <ControlledCheckboxGroup 
+                    label='Sensitive Content' 
+                    name='sensitiveContent' 
+                    defaultValue=''
+                    isError={!!errors?.sensitiveContent}
+                    errorMessage={createErrorMessage(errors.sensitiveContent)}
+                    options={sensitiveContentOptions}
+                />
+                <OtherCheckbox name='sensitiveContentOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Race / Culture'>
+                <ControlledCheckboxGroup 
+                    label='Race / Culture' 
+                    name='raceCulture' 
+                    defaultValue=''
+                    isError={!!errors?.raceCulture}
+                    errorMessage={createErrorMessage(errors.raceCulture)}
+                    options={raceCultureOptions}
+                />
+                <OtherCheckbox name='raceCultureOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Gender and Sexuality'>
+                <ControlledCheckboxGroup 
+                    label='Gender and Sexuality' 
+                    name='genderSexuality' 
+                    defaultValue=''
+                    isError={!!errors?.genderSexuality}
+                    errorMessage={createErrorMessage(errors.genderSexuality)}
+                    options={genderSexualityOptions}
+                />
+                <OtherCheckbox name='genderSexualityOther' keyName='value' />
             </FormCard>
         </>
     )

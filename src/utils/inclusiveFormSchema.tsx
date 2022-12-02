@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { identityBasedOptions, joyBasedOptions } from './formOptions';
 
 export interface IFormInputs {
     
@@ -12,6 +13,38 @@ export interface IFormInputs {
         name: string;
         type: string;
     }[]
+
+    genre: string;
+
+    editions: {
+        format: string;
+        publicationDate: string;
+        coverUrl: string;
+        isbn: string;
+    }[]
+
+    description: string;
+
+    grade: {
+        birth3: boolean;
+        preK: boolean;
+        firstGrade: boolean;
+        secondGrade: boolean;
+        thirdGrade: boolean;
+        fourthGrade: boolean;
+        fifthGrade: boolean;
+        middleSchool: boolean;
+        highSchool: boolean;
+        adult: boolean;
+    }
+
+    arLevel: number;
+    identityBased: boolean;
+    joyBased: boolean;
+    subject: boolean;
+    sensitiveContent: string;
+
+    
 
 }
 
@@ -58,60 +91,137 @@ export const inclusiveFormSchema = yup.object().shape({
 
     editions: yup.array().of(yup.object().shape({
         format: yup.string().required(),
-            // .when(['publicationDate','coverUrl','isbn'],{
-            //     is: (publicationDate : string, coverUrl : string, isbn: string) => !!publicationDate || !!coverUrl || !!isbn,
-            //     then: yup.string().required()
-            // }),
         publicationDate: yup.number().required(),
-            // .when(['format','coverUrl','isbn'],{
-            //     is: (format : string, coverUrl : string, isbn: string) => !!format || !!coverUrl || !!isbn,
-            //     then: yup.string().required()
-            // }),
         coverUrl: yup.string().required(),
-            // .when(['format','publicationDate','isbn'],{
-            //     is: (format : string, publicationDate : string, isbn: string) => !!format || !!publicationDate || !!isbn,
-            //     then: yup.string().required()
-            // }),
         isbn: yup.string().required()
-            // .when(['format','publicationDate','coverUrl'],{
-            //     is: (format : string, publicationDate : string, coverUrl : string) => !!format || !!publicationDate || !!coverUrl,
-            //     then: yup.string().required()
-            // })
     })),
 
     description: yup.string(),
 
     grade: yup.object().shape({
-        option0: yup.boolean(),
-        option1: yup.boolean(),
-        option2: yup.boolean(),
-        option3: yup.boolean(),
-        option4: yup.boolean(),
-        option5: yup.boolean(),
-        option6: yup.boolean(),
-        option7: yup.boolean(),
-        option8: yup.boolean(),
-        option9: yup.boolean()
+        birth3: yup.boolean(),
+        preK: yup.boolean(),
+        firstGrade: yup.boolean(),
+        secondGrade: yup.boolean(),
+        thirdGrade: yup.boolean(),
+        fourthGrade: yup.boolean(),
+        fifthGrade: yup.boolean(),
+        middleSchool: yup.boolean(),
+        highSchool: yup.boolean(),
+        adult: yup.boolean()
     }).test({
         name: 'at-least-one-grade',
         test: (grades : object) => Object.values(grades).includes(true),
         message: 'You must select at least one grade.'
     }),
 
-    arLevel: yup.number().min(0.1).max(12.9).required('You must enter an AR Level.'), // Change to string with regex
+    arLevel: yup.string().required('You must enter an AR Level.'), // Change to string with regex
 
     // content
-    identityBased: yup.boolean().oneOf([true]),
-    joyBased: yup.boolean().oneOf([true]),
-    subject: yup.boolean().oneOf([true]),
-    sensitiveContent: yup.string(), // Optional checkbox question, not sure what to do here
+    identityBased: yup.string().oneOf(identityBasedOptions.map(option => option.value), 'You must select an option.'),
+    joyBased: yup.string().oneOf(joyBasedOptions.map(option => option.value), 'You must select an option.'),
+
+    generalSubject: yup.object().shape({
+        activism: yup.boolean(),
+        bullying: yup.boolean(),
+        comingOfAge: yup.boolean(),
+        consent: yup.boolean(),
+        friendship: yup.boolean(),
+        environment: yup.boolean(),
+        family: yup.boolean(),
+        stem: yup.boolean()
+    }).test({
+        name: 'at-least-one-subject',
+        test: (subjects : object) => Object.values(subjects).includes(true),
+        message: 'You must select at least one subject.'
+    }),
+
+    generalSubjectOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    sensitiveContent: yup.object().shape({
+        bigotry: yup.boolean(),
+        childSoldiers: yup.boolean(),
+        colonialism: yup.boolean(),
+        culturalAppropriation: yup.boolean(),
+        deadnaming: yup.boolean(),
+        depression: yup.boolean(),
+        incarceration: yup.boolean(),
+        internment: yup.boolean(),
+        genocide: yup.boolean(),
+        gunViolence: yup.boolean(),
+        police: yup.boolean(),
+        racism: yup.boolean(),
+        refugees: yup.boolean(),
+        segregation: yup.boolean(),
+        sexualAssault: yup.boolean(),
+        slavery: yup.boolean(),
+        selfHarm: yup.boolean(),
+        suicide: yup.boolean(),
+        war: yup.boolean()
+    }),
+
+    sensitiveContentOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    raceCulture: yup.object().shape({
+        asian: yup.boolean(),
+        eastAsian: yup.boolean(),
+        southAsian: yup.boolean(),
+        southeastAsian: yup.boolean(),
+
+        blackAfrican: yup.boolean(),
+        centralAfrican: yup.boolean(),
+        eastAfrican: yup.boolean(),
+        northernAfrican: yup.boolean(),
+        southernAfrican: yup.boolean(),
+        westAfrican: yup.boolean(),
+
+        indigenous: yup.boolean(),
+        firstNations: yup.boolean(),
+        nativeAmerican: yup.boolean(),
+
+        jewish: yup.boolean(),
+        latinx: yup.boolean(),
+        middleEastern: yup.boolean(),
+        muslim: yup.boolean(),
+        pacificIslander: yup.boolean()
+    }),
+
+    raceCultureOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    genderSexuality: yup.object().shape({
+        lgbtq: yup.boolean(),
+        aromantic: yup.boolean(),
+        asexual: yup.boolean(),
+
+        bisexual: yup.boolean(),
+        fluid: yup.boolean(),
+        omnisexual: yup.boolean(),
+        pansexual: yup.boolean(),
+        multisexual: yup.boolean(),
+
+        gay: yup.boolean(),
+        lesbian: yup.boolean(),
+        queer: yup.boolean(),
+        questioning: yup.boolean(),
+
+        transgender: yup.boolean(),
+        agender: yup.boolean(),
+        genderfluid: yup.boolean(),
+        nonbinary: yup.boolean(),
+        transMan: yup.boolean(),
+        transWoman: yup.boolean()
+    }),
+
+    genderSexualityOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
     
 },[
-    ['series','seriesNumber'],
-    // ['format','publicationDate'],
-    // ['format','coverUrl'],
-    // ['format','isbn'],
-    // ['publicationDate','coverUrl'],
-    // ['publicationDate','isbn'],
-    // ['coverUrl','isbn']
+    ['series','seriesNumber']
 ])

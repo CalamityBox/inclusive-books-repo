@@ -10,8 +10,8 @@ export default function FormCard(props : { label : string, description?: string,
     const [variant, setVariant] = React.useState<"outlined" | "elevation" | undefined>('outlined')
 
     return (
-        <Card variant={variant} sx={{ display: 'flex', flexDirection: 'column', rowGap: 2, textAlign: 'left', p: 5, borderRadius: 3 }} onMouseEnter={() => setVariant('elevation')} onMouseLeave={() => setVariant('outlined')}>
-            <Box>
+        <Card variant={variant} sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left', p: 5, borderRadius: 3 }} onMouseEnter={() => setVariant('elevation')} onMouseLeave={() => setVariant('outlined')}>
+            <Box sx={{ mb: 2 }}>
                 <Typography variant='h4' component='h3'>{props.label}</Typography>
                 {props.description ? <Typography>{props.description}</Typography> : ''}
             </Box>
