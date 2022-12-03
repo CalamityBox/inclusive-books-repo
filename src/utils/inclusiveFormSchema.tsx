@@ -163,12 +163,17 @@ export const inclusiveFormSchema = yup.object().shape({
     })),
 
     raceCulture: yup.object().shape({
+
+        afroLatino: yup.boolean(),
+
         asian: yup.boolean(),
+        centralAsian: yup.boolean(),
         eastAsian: yup.boolean(),
         southAsian: yup.boolean(),
         southeastAsian: yup.boolean(),
 
         blackAfrican: yup.boolean(),
+        afroCaribbean: yup.boolean(),
         centralAfrican: yup.boolean(),
         eastAfrican: yup.boolean(),
         northernAfrican: yup.boolean(),

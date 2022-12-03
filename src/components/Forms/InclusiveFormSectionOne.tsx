@@ -26,7 +26,7 @@ import ControlledCheckboxGroup from './ControlledCheckboxGroup'
 import { awardOptions, bodyOptions, countryOptions, disabilityOptions, familyStructureOptions, genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, neurodivergentOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
 import Editions from './Editions'
 import OtherCheckbox from './OtherCheckbox'
-import ControlledAutocomplete from './ControlledAutoComplete'
+import CountriesAutocomplete from './CountriesAutocomplete'
 
 export default function InclusiveFormSectionOne(props : any) {
 
@@ -145,6 +145,14 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='sensitiveContentOther' keyName='value' />
             </FormCard>
 
+            <FormCard label='Nationality / Ethnicity / Tribal Affiliation'>
+                <CountriesAutocomplete 
+                    name='nationalityEthnicity'
+                    label='Type or paste a country name and hit enter.'
+                    options={countryOptions.sort((a: { code: string, label: string },b: { code: string, label: string }) => a.label.localeCompare(b.label))}
+                />
+            </FormCard>
+
             <FormCard label='Race / Culture'>
                 <ControlledCheckboxGroup 
                     label='Race / Culture' 
@@ -227,14 +235,6 @@ export default function InclusiveFormSectionOne(props : any) {
                     options={awardOptions}
                 />
                 <OtherCheckbox name='awardsOther' keyName='value' />
-            </FormCard>
-
-            <FormCard label='Nationality / Ethnicity / Tribal Affiliation'>
-                <ControlledAutocomplete 
-                    name='nationalityEthnicity'
-                    label='Type or paste a country name and hit enter.'
-                    options={countryOptions}
-                />
             </FormCard>
         </>
     )

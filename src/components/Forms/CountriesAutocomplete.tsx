@@ -1,11 +1,13 @@
-import { Autocomplete, Avatar, Box, Chip, TextField } from '@mui/material'
 import React from 'react'
+
+import { Autocomplete, Avatar, Box, Chip, TextField } from '@mui/material'
+import { raceCultureParents } from '../../utils/formOptions'
 
 import { Controller, useFormContext } from 'react-hook-form'
 
-export default function ControlledAutocomplete(props: { name: string, options: any, label: string }) {
+export default function CountriesAutocomplete(props: { name: string, options: any, label: string }) {
 
-    const { control, watch } = useFormContext()
+    const { control, watch, setValue } = useFormContext()
     const { name, options, label } = props
 
     return (
@@ -20,8 +22,33 @@ export default function ControlledAutocomplete(props: { name: string, options: a
                     multiple
                     freeSolo
                     options={options}
-                    onChange={(_,data : any) => onChange(data)}
+                    onChange={(_,data : any) => {
+                        const newCountry = data.slice(-1)[0]
+                        if (!(typeof newCountry === 'string') && newCountry !== undefined) {
+                            const country : { code: 'string', label: 'string', race?: 'string', region?: 'string' } = newCountry
+                            if (country?.race !== undefined && country.race?.length > 0) {
+                                const childPath = `raceCulture.${country.race}`
+                                console.log('form path is',childPath)
+                                watch(childPath)
+                                setValue(childPath,true)
+                                if (raceCultureParents.hasOwnProperty(country.race)) {
+                                    let parentName = ''
+                                    for (const [key,value] of Object.entries(raceCultureParents)) {
+                                        if (key === country.race) {
+                                            parentName = value
+                                        }
+                                    }
+                                    const parentPath = `raceCulture.${parentName}`
+                                    watch(parentPath)
+                                    setValue(parentPath,true)
+                                }
+                            }
+                        }
+                        onChange(data)
+                    }}
                     getOptionLabel={(option) => option.label}
+                    groupBy={(option) => option.label[0]}
+
                     renderOption={(props, option) => (
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img
@@ -42,7 +69,7 @@ export default function ControlledAutocomplete(props: { name: string, options: a
                             : 
                             <Chip variant="outlined" avatar={<Avatar alt={option.label} src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`} />} label={option.label} {...getTagProps({ index })} />
                         ))
-                      }
+                    }
 
                     renderInput={(params) => (
                         <TextField {...params} placeholder={label} />

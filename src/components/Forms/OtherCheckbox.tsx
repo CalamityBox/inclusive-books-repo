@@ -16,8 +16,6 @@ export default function OtherCheckbox(props : { name: string, keyName: string, e
         keyName: 'generalSubjectOtherId'
     })
 
-    console.log('errors are',errors)
-
     const isError = errors.hasOwnProperty(props.name)
 
     const textFields = fields.map((item, index) => (
