@@ -39,10 +39,8 @@ export interface IFormInputs {
     }
 
     arLevel: number;
-    identityBased: boolean;
-    joyBased: boolean;
-    subject: boolean;
-    sensitiveContent: string;
+    identityBased: string;
+    joyBased: string;
 
     
 
@@ -55,10 +53,8 @@ export const requiredStringSchema = yup.string().required()
 export const requiredNumberSchema = yup.number().required()
 
 export const contributorSchema = yup.object().shape({
-
     name: nameSchema,
     type: typeSchema
-
 })
 
 export const editionSchema = yup.object().shape({
@@ -206,6 +202,7 @@ export const inclusiveFormSchema = yup.object().shape({
         multisexual: yup.boolean(),
 
         gay: yup.boolean(),
+        intersex: yup.boolean(),
         lesbian: yup.boolean(),
         queer: yup.boolean(),
         questioning: yup.boolean(),
@@ -215,12 +212,101 @@ export const inclusiveFormSchema = yup.object().shape({
         genderfluid: yup.boolean(),
         nonbinary: yup.boolean(),
         transMan: yup.boolean(),
-        transWoman: yup.boolean()
+        transWoman: yup.boolean(),
+
+        twoSpirit: yup.boolean()
     }),
 
     genderSexualityOther: yup.array().of(yup.object().shape({
         value: yup.string().required('Required.')
     })),
+
+    familyStructure: yup.object().shape({
+        adopted: yup.boolean(),
+        fosterParents: yup.boolean(),
+        incarceratedParent: yup.boolean(),
+        singleParent: yup.boolean(),
+        multigenerational: yup.boolean(),
+        raisedByRelative: yup.boolean(),
+        twoMoms: yup.boolean(),
+        twoDads: yup.boolean(),
+        nonbinaryParents: yup.boolean()
+    }),
+
+    familyStructureOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    neurodivergent: yup.object().shape({
+        anxiety: yup.boolean(),
+        adhd: yup.boolean(),
+        autism: yup.boolean(),
+        bipolar: yup.boolean(),
+        depression: yup.boolean(),
+        dyslexia: yup.boolean(),
+        epilepsy: yup.boolean(),
+        nonVerbal: yup.boolean(),
+        ocd: yup.boolean(),
+        synesthesia: yup.boolean()
+    }),
+
+    neurodivergentOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    body: yup.object().shape({
+        bodyCharacteristics: yup.boolean(),
+        bodyHair: yup.boolean(),
+        bodyType: yup.boolean(),
+        fat: yup.boolean()
+    }),
+
+    bodyOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    disability: yup.object().shape({
+        blind: yup.boolean(),
+        deaf: yup.boolean(),
+        hearingAid: yup.boolean(),
+        missingLimb: yup.boolean(),
+        mobilityAid: yup.boolean(),
+        cane: yup.boolean(),
+        prosthetic: yup.boolean(),
+        wheelchair: yup.boolean(),
+        serviceAnimal: yup.boolean()
+    }),
+
+    disabilityOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    awards: yup.object().shape({
+        americas: yup.boolean(),
+        americanIndian: yup.boolean(),
+        arabAmerican: yup.boolean(),
+        asianPacific: yup.boolean(),
+        batchelder: yup.boolean(),
+        caldecott: yup.boolean(),
+        carter: yup.boolean(),
+        coretta: yup.boolean(),
+        lambda: yup.boolean(),
+        newberry: yup.boolean(),
+        nationalBook: yup.boolean(),
+        neustadt: yup.boolean(),
+        pura: yup.boolean(),
+        schneider: yup.boolean(),
+        stonewall: yup.boolean(),
+        tomasRivera: yup.boolean(),
+        walter: yup.boolean(),
+        eisner: yup.boolean()
+    }),
+
+    awardsOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })), 
+
+    nationalityEthnicity: yup.string()
     
 },[
     ['series','seriesNumber']

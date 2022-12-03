@@ -23,9 +23,10 @@ import ContributorsSubsection from './ContributorsSubsection'
 import ControlledRadio from './ControlledRadio'
 import ControlledCheckboxGroup from './ControlledCheckboxGroup'
 
-import { genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
+import { awardOptions, bodyOptions, countryOptions, disabilityOptions, familyStructureOptions, genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, neurodivergentOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
 import Editions from './Editions'
 import OtherCheckbox from './OtherCheckbox'
+import ControlledAutocomplete from './ControlledAutoComplete'
 
 export default function InclusiveFormSectionOne(props : any) {
 
@@ -166,6 +167,74 @@ export default function InclusiveFormSectionOne(props : any) {
                     options={genderSexualityOptions}
                 />
                 <OtherCheckbox name='genderSexualityOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Family Structure'>
+                <ControlledCheckboxGroup 
+                    label='Family Structure' 
+                    name='familyStructure' 
+                    defaultValue=''
+                    isError={!!errors?.familyStructure}
+                    errorMessage={createErrorMessage(errors.familyStructure)}
+                    options={familyStructureOptions}
+                />
+                <OtherCheckbox name='familyStructureOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Neurodivergent'>
+                <ControlledCheckboxGroup 
+                    label='Neurodivergent' 
+                    name='neurodivergent' 
+                    defaultValue=''
+                    isError={!!errors?.neurodivergent}
+                    errorMessage={createErrorMessage(errors.neurodivergent)}
+                    options={neurodivergentOptions}
+                />
+                <OtherCheckbox name='neurodivergentOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Body'>
+                <ControlledCheckboxGroup 
+                    label='Body' 
+                    name='body' 
+                    defaultValue=''
+                    isError={!!errors?.body}
+                    errorMessage={createErrorMessage(errors.body)}
+                    options={bodyOptions}
+                />
+                <OtherCheckbox name='bodyOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Disability'>
+                <ControlledCheckboxGroup 
+                    label='Disability' 
+                    name='disability' 
+                    defaultValue=''
+                    isError={!!errors?.disability}
+                    errorMessage={createErrorMessage(errors.disability)}
+                    options={disabilityOptions}
+                />
+                <OtherCheckbox name='disabilityOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Literary Awards'>
+                <ControlledCheckboxGroup 
+                    label='Literary Awards' 
+                    name='awards' 
+                    defaultValue=''
+                    isError={!!errors?.awards}
+                    errorMessage={createErrorMessage(errors.awards)}
+                    options={awardOptions}
+                />
+                <OtherCheckbox name='awardsOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Nationality / Ethnicity / Tribal Affiliation'>
+                <ControlledAutocomplete 
+                    name='nationalityEthnicity'
+                    label='Type or paste a country name and hit enter.'
+                    options={countryOptions}
+                />
             </FormCard>
         </>
     )
