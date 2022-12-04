@@ -23,7 +23,7 @@ import ContributorsSubsection from './ContributorsSubsection'
 import ControlledRadio from './ControlledRadio'
 import ControlledCheckboxGroup from './ControlledCheckboxGroup'
 
-import { awardOptions, bodyOptions, countryOptions, disabilityOptions, familyStructureOptions, genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, neurodivergentOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
+import { awardOptions, bodyContentOptions, bodyOptions, countryOptions, disabilityContentOptions, disabilityOptions, familyStructureContentOptions, familyStructureOptions, genderSexualityContentOptions, genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, neurodivergentContentOptions, neurodivergentOptions, raceCultureContentOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
 import Editions from './Editions'
 import OtherCheckbox from './OtherCheckbox'
 import CountriesAutocomplete from './CountriesAutocomplete'
@@ -153,6 +153,7 @@ export default function InclusiveFormSectionOne(props : any) {
                 />
             </FormCard>
 
+            {/* Race Culture */}
             <FormCard label='Race / Culture'>
                 <ControlledCheckboxGroup 
                     label='Race / Culture' 
@@ -165,6 +166,19 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='raceCultureOther' keyName='value' />
             </FormCard>
 
+            <FormCard label='Race / Culture Content'>
+                <ControlledCheckboxGroup 
+                    label='Race / Culture Content' 
+                    name='raceCultureContent' 
+                    defaultValue=''
+                    isError={!!errors?.raceCultureContent}
+                    errorMessage={createErrorMessage(errors.raceCultureContent)}
+                    options={raceCultureContentOptions}
+                />
+                <OtherCheckbox name='raceCultureContentOther' keyName='value' />
+            </FormCard>
+            
+            {/* Gender Sexuality */}
             <FormCard label='Gender and Sexuality'>
                 <ControlledCheckboxGroup 
                     label='Gender and Sexuality' 
@@ -177,6 +191,19 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='genderSexualityOther' keyName='value' />
             </FormCard>
 
+            <FormCard label='Gender and Sexuality Content'>
+                <ControlledCheckboxGroup 
+                    label='Gender and Sexuality Content' 
+                    name='genderSexualityContent' 
+                    defaultValue=''
+                    isError={!!errors?.genderSexualityContent}
+                    errorMessage={createErrorMessage(errors.genderSexualityContent)}
+                    options={genderSexualityContentOptions}
+                />
+                <OtherCheckbox name='genderSexualityContentOther' keyName='value' />
+            </FormCard>
+
+            {/* Family Structure */}
             <FormCard label='Family Structure'>
                 <ControlledCheckboxGroup 
                     label='Family Structure' 
@@ -189,6 +216,19 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='familyStructureOther' keyName='value' />
             </FormCard>
 
+            <FormCard label='Family Structure Content'>
+                <ControlledCheckboxGroup 
+                    label='Family Structure Content' 
+                    name='familyStructureContent' 
+                    defaultValue=''
+                    isError={!!errors?.familyStructureContent}
+                    errorMessage={createErrorMessage(errors.familyStructureContent)}
+                    options={familyStructureContentOptions}
+                />
+                <OtherCheckbox name='familyStructureContentOther' keyName='value' />
+            </FormCard>
+
+            {/* Neurodivergent */}
             <FormCard label='Neurodivergent'>
                 <ControlledCheckboxGroup 
                     label='Neurodivergent' 
@@ -201,6 +241,19 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='neurodivergentOther' keyName='value' />
             </FormCard>
 
+            <FormCard label='Neurodivergent Content'>
+                <ControlledCheckboxGroup 
+                    label='Neurodivergent Content' 
+                    name='neurodivergentContent' 
+                    defaultValue=''
+                    isError={!!errors?.neurodivergentContent}
+                    errorMessage={createErrorMessage(errors.neurodivergentContent)}
+                    options={neurodivergentContentOptions}
+                />
+                <OtherCheckbox name='neurodivergentOther' keyName='value' />
+            </FormCard>
+
+            {/* Body */}
             <FormCard label='Body'>
                 <ControlledCheckboxGroup 
                     label='Body' 
@@ -213,6 +266,19 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='bodyOther' keyName='value' />
             </FormCard>
 
+            <FormCard label='Body Content'>
+                <ControlledCheckboxGroup 
+                    label='Body Content' 
+                    name='bodyContent' 
+                    defaultValue=''
+                    isError={!!errors?.bodyContent}
+                    errorMessage={createErrorMessage(errors.bodyContent)}
+                    options={bodyContentOptions}
+                />
+                <OtherCheckbox name='bodyOther' keyName='value' />
+            </FormCard>
+
+            {/* Disability */}
             <FormCard label='Disability'>
                 <ControlledCheckboxGroup 
                     label='Disability' 
@@ -221,6 +287,18 @@ export default function InclusiveFormSectionOne(props : any) {
                     isError={!!errors?.disability}
                     errorMessage={createErrorMessage(errors.disability)}
                     options={disabilityOptions}
+                />
+                <OtherCheckbox name='disabilityOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Disability Content'>
+                <ControlledCheckboxGroup 
+                    label='Disability Content' 
+                    name='disabilityContent' 
+                    defaultValue=''
+                    isError={!!errors?.disabilityContent}
+                    errorMessage={createErrorMessage(errors.disabilityContent)}
+                    options={disabilityContentOptions}
                 />
                 <OtherCheckbox name='disabilityOther' keyName='value' />
             </FormCard>

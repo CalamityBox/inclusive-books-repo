@@ -203,6 +203,15 @@ export const raceCultureParents: IRaceCultureParents = {
     nativeAmerican: 'indigenous',
 }
 
+export const raceCultureContentOptions: simpleFormOption[] = [
+    { value: 'multiRacial', label: 'Multi-Racial', tooltip: '' },
+    { value: 'culturalHoliday', label: 'Cultural Holiday', tooltip: '' },
+    { value: 'folklore', label: 'Folklore / Traditions', tooltip: '' },
+    { value: 'immigration', label: 'Immigration / Migration', tooltip: '', children: ['firstGeneration', 'secondGeneration'] },
+    { value: 'firstGeneration', label: '1st Generation Immigrant', tooltip: '', parent: 'immigration' },
+    { value: 'secondGeneration', label: '2nd Generation+ Immigrant', tooltip: '', parent: 'immigration' }
+]
+
 export const genderSexualityOptions: simpleFormOption[] = [
     { value: 'lgbtq', label: 'LGBTQIAP2S+', tooltip: 'LGTBQIA2S+ is an acronym for Lesbian, Gay, Bisexual, Transgender, Queer and/or Questioning, Intersex, Asexual, Pansexual, Two-Spirit, and the countless affirmative ways in which people choose to self-identify. Use this as a general label if no specific identity is named, or if there is not a focus on one identity or main character.' },
     { value: 'aromantic', label: 'Aromantic', tooltip: 'Having  little or no romantic attraction to others. May or may not feel sexual attraction.' },
@@ -230,6 +239,11 @@ export const genderSexualityOptions: simpleFormOption[] = [
     { value: 'twoSpirit', label: 'Two-spirit', tooltip: 'Two-spirit is a modern, pan-Indian, umbrella term used by some Indigenous North Americans to describe Native people in their communities who fulfill a traditional third-gender ceremonial and social role in their cultures.' }
 ]
 
+export const genderSexualityContentOptions: simpleFormOption[] = [
+    { value: 'comingOut', label: 'Coming Out', tooltip: '' },
+    { value: 'pride', label: 'Pride / Celebration', tooltip: '' }
+]
+
 export const familyStructureOptions: simpleFormOption[] = [
     { value: 'adopted', label: 'Adopted', tooltip: 'A person who has been permanently taken into the custody of an adult who acts as that person’s parent or guardian.' },
     { value: 'fosterParents', label: 'Foster Parents', tooltip: "A person temporarily serving as a parent for a child who has lost or been removed from a parent's care and who is not the person's own biological child." },
@@ -240,6 +254,10 @@ export const familyStructureOptions: simpleFormOption[] = [
     { value: 'twoMoms', label: 'Two Moms', tooltip: 'A child that has two mothers in a lesbian or queer relationship. If checking this identity, “lesbian” or “queer” should not be checked unless the child is also a lesbian or is queer.' },
     { value: 'twoDads', label: 'Two Dads', tooltip: 'A child that has two fathers in a gay or queer relationship. If checking this identity, “gay” or “queer” should not be checked unless the child is also gay or is queer.' },
     { value: 'nonbinaryParents', label: 'Non-binary Parent(s)', tooltip: 'A child who has one or more parents who are non-binary. If checking this identity, “non-binary” or “transgender” should not be checked unless the child is also non-binary or transgender.' }
+]
+
+export const familyStructureContentOptions: simpleFormOption[] = [
+    { value: 'differentRace', label: 'Adoptive Family Different Race', tooltip: '' }
 ]
 
 export const neurodivergentOptions: simpleFormOption[] = [
@@ -255,12 +273,21 @@ export const neurodivergentOptions: simpleFormOption[] = [
     { value: 'synesthesia', label: 'Synesthesia', tooltip: 'Synesthesia is an anomalous blending of the senses in which the stimulation of one modality simultaneously produces sensation in a different modality. For example, some people can hear colors, feel sounds and taste shapes.' }
 ]
 
+export const neurodivergentContentOptions: simpleFormOption[] = [
+    { value: 'socialSituations', label: 'Navigating Social Situations', tooltip: '' }
+]
+
 export const bodyOptions: simpleFormOption[] = [
     { value: 'bodyCharacteristics', label: 'Under-represented Body Characteristics', tooltip: 'Features of the body that are not represented frequently or positively in media, such as body hair for women.', children: ['bodyHair'] },
     { value: 'bodyHair', label: 'Body Hair', tooltip: 'In this context, body hair typically refers to hair in the upper lip, armpit, arm, leg, or brow areas.', parent: 'bodyCharacteristics' },
 
     { value: 'bodyType', label: 'Under-represented Body Type', tooltip: 'Body shapes and sizes that are not represented frequently or positively in media.', children: ['fat'] },
     { value: 'fat', label: 'Fat', tooltip: '', parent: 'bodyType' }
+]
+
+export const bodyContentOptions: simpleFormOption[] = [
+    { value: 'bodyShaming', label: 'Body Shaming', tooltip: '' },
+    { value: 'bodyPositivity', label: 'Body Positivity', tooltip: '' }
 ]
 
 export const disabilityOptions: simpleFormOption[] = [
@@ -277,6 +304,10 @@ export const disabilityOptions: simpleFormOption[] = [
     { value: 'wheelchair', label: 'Wheelchair', tooltip: '', parent: 'mobilityAid' },
 
     { value: 'serviceAnimal', label: 'Service Animal', tooltip: '' }
+]
+
+export const disabilityContentOptions: simpleFormOption[] = [
+    { value: 'option1', label: 'Option 1', tooltip: '' }
 ]
 
 export const awardOptions: simpleFormOption[] = [

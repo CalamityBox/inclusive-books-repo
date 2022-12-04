@@ -195,6 +195,19 @@ export const inclusiveFormSchema = yup.object().shape({
         value: yup.string().required('Required.')
     })),
 
+    raceCultureContent: yup.array().of(yup.object().shape({
+        multiRacial: yup.boolean(),
+        culturalHoliday: yup.boolean(),
+        folklore: yup.boolean(),
+        immigration: yup.boolean(),
+        firstGeneration: yup.boolean(),
+        secondGeneration: yup.boolean(),
+    })),
+
+    raceCultureContentOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
     genderSexuality: yup.object().shape({
         lgbtq: yup.boolean(),
         aromantic: yup.boolean(),
@@ -226,6 +239,15 @@ export const inclusiveFormSchema = yup.object().shape({
         value: yup.string().required('Required.')
     })),
 
+    genderSexualityContent: yup.array().of(yup.object().shape({
+        comingOut: yup.boolean(),
+        pride: yup.boolean()
+    })),
+
+    genderSexualityContentOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
     familyStructure: yup.object().shape({
         adopted: yup.boolean(),
         fosterParents: yup.boolean(),
@@ -239,6 +261,14 @@ export const inclusiveFormSchema = yup.object().shape({
     }),
 
     familyStructureOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    familyStructureContent: yup.array().of(yup.object().shape({
+        differentRace: yup.boolean()
+    })),
+
+    familyStructureContentOther: yup.array().of(yup.object().shape({
         value: yup.string().required('Required.')
     })),
 
@@ -259,6 +289,14 @@ export const inclusiveFormSchema = yup.object().shape({
         value: yup.string().required('Required.')
     })),
 
+    neurodivergentContent: yup.array().of(yup.object().shape({
+        socialSituations: yup.boolean()
+    })),
+
+    neurodivergentContentOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
     body: yup.object().shape({
         bodyCharacteristics: yup.boolean(),
         bodyHair: yup.boolean(),
@@ -267,6 +305,15 @@ export const inclusiveFormSchema = yup.object().shape({
     }),
 
     bodyOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    bodyContent: yup.array().of(yup.object().shape({
+        bodyShaming: yup.boolean(),
+        bodyPositivity: yup.boolean()
+    })),
+
+    bodyContentOther: yup.array().of(yup.object().shape({
         value: yup.string().required('Required.')
     })),
 
@@ -283,6 +330,14 @@ export const inclusiveFormSchema = yup.object().shape({
     }),
 
     disabilityOther: yup.array().of(yup.object().shape({
+        value: yup.string().required('Required.')
+    })),
+
+    disabilityContent: yup.array().of(yup.object().shape({
+        option1: yup.boolean()
+    })),
+
+    disabilityContentOther: yup.array().of(yup.object().shape({
         value: yup.string().required('Required.')
     })),
 
