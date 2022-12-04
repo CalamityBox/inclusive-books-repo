@@ -24,7 +24,7 @@ export default function InclusiveCatalogingForm(props : any) {
     // console.log('watch name',methods.watch('contributorName1'))
     // console.log('watch select',methods.watch('contributorType1'))
 
-    // console.log('form data:',methods.watch())
+    console.log('form data:',methods.watch())
     // console.log('errors are',methods.formState.errors)
 
     return (

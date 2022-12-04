@@ -92,7 +92,7 @@ export default function InclusiveFormSectionOne(props : any) {
             </FormCard>
 
             <FormCard label='Description / Summary'>
-                <ControlledTextField name='description' defaultValue=''  isError={!!errors?.description} errorMessage={createErrorMessage(errors.description)} />
+                <ControlledTextField name='description' defaultValue=''  isError={!!errors?.description} errorMessage={createErrorMessage(errors.description)} multiline={true} />
             </FormCard>
 
             <FormCard label='Editions'>
