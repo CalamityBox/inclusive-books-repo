@@ -40,12 +40,18 @@ export function isError(errors: any, keyName: string, index: number) {
         // console.log('undefined')
         return false
     }
+
     // console.log('is undefined?',isUndefined)
 
     // console.log('index is',index)
+    // console.log('past undefined check 1, errors is:',errors)
 
-    
     for (const error of errors) {
+        if (error === undefined) {
+            continue
+        }
+        // console.log('in for loop, errors is',errors)
+        // console.log('is error undefined?',typeof error)
         // console.log('error is:',error)
         // console.log(`does error have key ${keyName}?`,error.hasOwnProperty(keyName))
         if (error.hasOwnProperty(keyName) && error[keyName].message.includes(`${index}`)) {
@@ -53,5 +59,7 @@ export function isError(errors: any, keyName: string, index: number) {
             return true
         }
     }
+
+    return false
 
 }

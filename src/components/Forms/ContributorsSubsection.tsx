@@ -18,6 +18,8 @@ import { useFieldArray, useFormContext } from 'react-hook-form'
 import { contributorOptions } from '../../utils/formOptions'
 
 import { isError } from '../../utils/handleErrors'
+import OptionalAddButton from './OptionalAddButton'
+import OptionalRemoveButton from './OptionalRemoveButton'
 
 export default function ContributorsSubsection(props : { getValues: Function, watch: Function, setValue: Function }) {
 
@@ -42,7 +44,6 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
                         label='Contributor Name' 
                         name={`contributors[${index}].name`} 
                         defaultValue='' 
-                        control={control} 
                         isError={isError(errors?.contributors,'name',index)} 
                         errorMessage={'You must enter a name.'} 
                     />
@@ -55,28 +56,12 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
                         defaultValue={index === 0 ? 'Author' : ''}
                         isDisabled={index === 0}
                         options={contributorOptions} 
-                        control={control} 
                         isError={isError(errors?.contributors,'type',index)} 
                         errorMessage={'You must enter a type.'} 
                     />
                 </Grid>
-                {
-                    // Optional remove button if it isn't the first contributor
-                    index === 0 ?
-                        
-                        <></>
 
-                        :
-
-                        <Grid item lg={2}>
-                            <Tooltip title='Remove contributor'>
-                                <IconButton size='large' onClick={() => remove(index)}>
-                                    <HighlightOffIcon fontSize='inherit' />
-                                </IconButton>
-                            </Tooltip>
-                        </Grid> 
-
-                }
+                <OptionalRemoveButton isVisible={index !== 0} remove={remove} index={index} />
             </React.Fragment>
         ))
 
@@ -86,20 +71,13 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
                 {contributorComponents}
             </Grid>
 
-            <Tooltip title={!!errors?.contributors ? 'Fix errors before adding contributors.' : 'Add contributor'} arrow>
-                <Box sx={{ margin: 'auto' }}>
-                    <IconButton 
-                    aria-label="add contributor" 
-                    size='large' 
-                    color='primary' 
-                    disabled={!!errors?.contributors}
-                    onClick={ () => append({ contributorId: fields.length.toString(), name: '', type: '' }) } 
-                >
-                        <AddCircleIcon fontSize='inherit' />
-                    </IconButton>
-                </Box>
-            </Tooltip>
-
+            <OptionalAddButton 
+                handleClick={() => append({ contributorId: fields.length.toString(), name: '', type: '' })}
+                isError={!!errors?.contributors}
+                errorTooltip='Fix errors before adding contributors.'
+                defaultTooltip='Add contributor'
+                isVisible={fields.length <= 10}
+            />
         </>
     )
 }

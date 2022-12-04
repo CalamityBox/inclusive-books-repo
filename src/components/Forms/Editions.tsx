@@ -1,21 +1,21 @@
 import React from 'react'
 
-import { Box, Grid, IconButton, Tooltip } from '@mui/material'
+import { Box, Divider, Grid, IconButton, Tooltip } from '@mui/material'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import ControlledSelect from './ControlledSelect'
 
 import { editionOptions } from '../../utils/formOptions'
 import ControlledTextField from './ControlledTextField'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import { requiredStringSchema } from '../../utils/inclusiveFormSchema'
 
 import { isError } from '../../utils/handleErrors'
 import OptionalRemoveButton from './OptionalRemoveButton'
+import OptionalAddButton from './OptionalAddButton'
+import ControlledAutocomplete from './ControlledAutocomplete'
 
 export default function Editions(props : any) {
 
-    const { control, formState: { errors }, getValues } = useFormContext()
+    const { control, formState: { errors } } = useFormContext()
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -30,70 +30,85 @@ export default function Editions(props : any) {
     const editions = fields.map((item,index) => (
         <React.Fragment key={item.editionsId}>
 
-            <Grid item lg={3.5}>
-                <ControlledSelect 
-                label='Format' 
-                name={`editions[${index}].format`} 
-                defaultValue='' 
-                options={editionOptions} 
-                isError={isError(errors?.editions,'format',index)}
-                errorMessage={'Required.'}
-                />
-            </Grid>
+            <Box sx={index > 0 ? {mt: 6} : {}}>
 
-            <Grid item lg={2.5}>
-                <ControlledTextField 
-                label='Publication Date' 
-                name={`editions[${index}].publicationDate`} 
-                defaultValue='' 
-                isError={isError(errors?.editions,'publicationDate',index)}
-                errorMessage={'Required.'}
-                />
-            </Grid>
+                <Grid container spacing={1.5} sx={{ alignItems: 'flex-start' }}>
+                    <Grid item lg={5.5}>
+                        <ControlledSelect 
+                            label='Format' 
+                            name={`editions[${index}].format`} 
+                            defaultValue='' 
+                            options={editionOptions} 
+                            isError={isError(errors?.editions,'format',index)}
+                            errorMessage={'Required.'}
+                        />
+                    </Grid>
 
-            <Grid item lg={2}>
-                <ControlledTextField 
-                label='Cover URL' 
-                name={`editions[${index}].coverUrl`} 
-                defaultValue='' 
-                isError={isError(errors?.editions,'coverUrl',index)}
-                errorMessage={'Required.'}
-                />
-            </Grid>
+                    <Grid item lg={5.5}>
+                        <ControlledTextField 
+                            label='Publication Date' 
+                            name={`editions[${index}].publicationDate`} 
+                            defaultValue='' 
+                            isError={isError(errors?.editions,'publicationDate',index)}
+                            errorMessage={'Required.'}
+                        />
+                    </Grid>
 
-            <Grid item lg={3}>
-                <ControlledTextField 
-                label='ISBN' 
-                name={`editions[${index}].isbn`} 
-                defaultValue='' 
-                isError={isError(errors?.editions,'isbn',index)}
-                errorMessage={'Required.'}
-                />
-            </Grid>
-            
-            <OptionalRemoveButton isVisible={index > 1} remove={remove} index={index} />
+                    <Grid item lg={1}>
+                    </Grid>
 
+                    <Grid item lg={11}>
+                        <ControlledTextField 
+                            label='Cover URL' 
+                            name={`editions[${index}].coverUrl`} 
+                            defaultValue='' 
+                            isError={isError(errors?.editions,'coverUrl',index)}
+                            errorMessage={'Required.'}
+                        />
+                    </Grid>
+
+                    <Grid item lg={1}>
+                        <OptionalRemoveButton isVisible={index !== 0} remove={remove} index={index} />
+                    </Grid>
+
+                    <Grid item lg={11}>
+                        <ControlledAutocomplete 
+                            name={`editions[${index}].isbn`}
+                            label='ISBN'
+                            options={[]}
+                            multiple={true}
+                            freeSolo={true}
+                            isError={isError(errors?.editions,'isbn',index)}
+                            helperText={'Required.'}
+                        />
+                        {/* <ControlledTextField 
+                            label='ISBN' 
+                            name={`editions[${index}].isbn`} 
+                            defaultValue='' 
+                            isError={isError(errors?.editions,'isbn',index)}
+                            errorMessage={'Required.'}
+                        /> */}
+                    </Grid>
+
+                    
+                    <Grid item lg={1}>
+                    </Grid>
+                </Grid>
+
+            </Box>
         </React.Fragment>
     ))
 
     return (
         <>
-            <Grid container columnSpacing={1.5} rowSpacing={4}>
-                {editions}
-            </Grid>
-            <Tooltip title={!!errors?.editions ? 'Fix errors before adding contributors.' : 'Add edition'} arrow>
-                <Box sx={{ margin: 'auto' }}>
-                    <IconButton 
-                    aria-label="add contributor" 
-                    size='large' 
-                    color='primary' 
-                    disabled={!!errors?.editions}
-                    onClick={ () => append({  editionId: fields.length.toString(), format: '', publicationDate: '' }) } 
-                >
-                        <AddCircleIcon fontSize='inherit' />
-                    </IconButton>
-                </Box>
-            </Tooltip>
+            {editions}
+            <OptionalAddButton 
+                handleClick={() => append({  editionId: fields.length.toString(), format: '', publicationDate: '' })}
+                isVisible={fields.length <= 10}
+                isError={!!errors?.editions}
+                errorTooltip='Fix errors before adding contributors.'
+                defaultTooltip='Add edition'
+            />
         </>
     )
 

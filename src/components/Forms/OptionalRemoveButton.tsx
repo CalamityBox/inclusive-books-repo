@@ -11,13 +11,11 @@ export default function OptionalRemoveButton(props: { isVisible: boolean, isDisa
             {
                 props.isVisible ?
                     
-                    <Grid item lg={1}>
-                        <Tooltip title='Remove contributor'>
-                            <IconButton size='large' onClick={props.remove} disabled={!!props?.isDisabled}>
-                                <HighlightOffIcon fontSize='inherit' />
-                            </IconButton>
-                        </Tooltip>
-                    </Grid> 
+                    <Tooltip title='Remove contributor'>
+                        <IconButton size='large' onClick={props.remove} disabled={!!props?.isDisabled}>
+                            <HighlightOffIcon fontSize='inherit' />
+                        </IconButton>
+                    </Tooltip>
 
                     :
 

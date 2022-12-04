@@ -89,7 +89,7 @@ export const inclusiveFormSchema = yup.object().shape({
         format: yup.string().required(),
         publicationDate: yup.number().required(),
         coverUrl: yup.string().required(),
-        isbn: yup.string().required()
+        isbn: yup.array().of(yup.string()).required()
     })),
 
     description: yup.string(),
@@ -311,7 +311,7 @@ export const inclusiveFormSchema = yup.object().shape({
         value: yup.string().required('Required.')
     })), 
 
-    nationalityEthnicity: yup.string()
+    nationalityEthnicity: yup.array()
     
 },[
     ['series','seriesNumber']
