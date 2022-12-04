@@ -39,7 +39,7 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
         .map((item, index) => (
             <React.Fragment key={item.contributorsId}>
                 {/* Contributor Name */}
-                <Grid item lg={7}>
+                <Grid item lg={7.5}>
                     <ControlledTextField 
                         label='Contributor Name' 
                         name={`contributors[${index}].name`} 
@@ -49,7 +49,7 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
                     />
                 </Grid>
                 {/* Contributor Type */}
-                <Grid item lg={3}>
+                <Grid item lg={3.5}>
                     <ControlledSelect 
                         label='Type' 
                         name={`contributors[${index}].type`} 
@@ -60,8 +60,9 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
                         errorMessage={'You must enter a type.'} 
                     />
                 </Grid>
-
-                <OptionalRemoveButton isVisible={index !== 0} remove={remove} index={index} />
+                <Grid item lg={1}>
+                    <OptionalRemoveButton isVisible={index !== 0} remove={remove} index={index} />
+                </Grid>
             </React.Fragment>
         ))
 
