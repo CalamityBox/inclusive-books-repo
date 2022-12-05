@@ -3,7 +3,7 @@ import React from 'react'
 import { Autocomplete, Box, Chip, TextField } from '@mui/material'
 import { Controller, useFormContext } from 'react-hook-form'
 
-export default function CountriesAutocomplete(props: { name: string, options: any, label: string, placeholder?: string, multiple?: boolean, freeSolo?: boolean, isError: boolean, helperText: string }) {
+export default function CountriesAutocomplete(props: { name: string, options: any, label: string, keyPattern?: RegExp, maxLength?: number, placeholder?: string, multiple?: boolean, freeSolo?: boolean, isError: boolean, helperText: string }) {
 
     const { control } = useFormContext()
     const { name, options, label, placeholder, multiple, freeSolo, isError, helperText } = props
@@ -35,7 +35,23 @@ export default function CountriesAutocomplete(props: { name: string, options: an
                     )}
 
                     renderInput={(params) => (
-                        <TextField {...params} placeholder={placeholder} label={label} error={isError} helperText={isError ? helperText : ''} />
+                        <TextField 
+                            {...params} 
+                            placeholder={placeholder} 
+                            label={label} 
+                            error={isError} 
+                            helperText={isError ? helperText : ''}
+                            onKeyPress={(e) => {
+
+                                if (props.keyPattern !== undefined && !props.keyPattern.test(e.key)) {
+                                    e.preventDefault()
+                                }
+        
+                                if (props.maxLength !== undefined && (e.target as HTMLInputElement).defaultValue.length === props.maxLength) {
+                                    e.preventDefault()
+                                }
+                            }}
+                        />
                     )}
                 />
             )}

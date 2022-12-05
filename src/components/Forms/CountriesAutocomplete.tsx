@@ -28,7 +28,6 @@ export default function CountriesAutocomplete(props: { name: string, options: an
                             const country : { code: 'string', label: 'string', race?: 'string', region?: 'string' } = newCountry
                             if (country?.race !== undefined && country.race?.length > 0) {
                                 const childPath = `raceCulture.${country.race}`
-                                console.log('form path is',childPath)
                                 watch(childPath)
                                 setValue(childPath,true)
                                 if (raceCultureParents.hasOwnProperty(country.race)) {
@@ -72,7 +71,10 @@ export default function CountriesAutocomplete(props: { name: string, options: an
                     }
 
                     renderInput={(params) => (
-                        <TextField {...params} placeholder={label} />
+                        <TextField 
+                            {...params} 
+                            placeholder={label} 
+                        />
                     )}
                 />
             )}

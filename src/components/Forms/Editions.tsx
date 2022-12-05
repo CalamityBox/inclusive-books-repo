@@ -51,6 +51,8 @@ export default function Editions(props : any) {
                             defaultValue='' 
                             isError={isError(errors?.editions,'publicationDate',index)}
                             errorMessage={'Required.'}
+                            keyPattern={/\d/}
+                            maxLength={4}
                         />
                     </Grid>
 
@@ -75,21 +77,15 @@ export default function Editions(props : any) {
                         <ControlledAutocomplete 
                             name={`editions[${index}].isbn`}
                             label='ISBN'
+                            keyPattern={/[\d-]/}
+                            maxLength={17}
                             options={[]}
                             multiple={true}
                             freeSolo={true}
                             isError={isError(errors?.editions,'isbn',index)}
                             helperText={'Required.'}
                         />
-                        {/* <ControlledTextField 
-                            label='ISBN' 
-                            name={`editions[${index}].isbn`} 
-                            defaultValue='' 
-                            isError={isError(errors?.editions,'isbn',index)}
-                            errorMessage={'Required.'}
-                        /> */}
                     </Grid>
-
                     
                     <Grid item lg={1}>
                     </Grid>

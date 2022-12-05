@@ -364,7 +364,9 @@ export const inclusiveFormSchema = yup.object().shape({
 
     awardsOther: yup.array().of(yup.object().shape({
         value: yup.string().required('Required.')
-    })), 
+    })),
+    
+    smartAward: yup.string(),
 
     nationalityEthnicity: yup.array()
     

@@ -54,7 +54,15 @@ export default function InclusiveFormSectionOne(props : any) {
                         <ControlledTextField label='Book Series Name' name='series' defaultValue=''  isError={!!errors?.series} errorMessage={createErrorMessage(errors.series)} />
                     </Grid>
                     <Grid item lg={4}>
-                        <ControlledTextField label='Number in Series' name='seriesNumber' defaultValue=''  isError={!!errors?.seriesNumber} errorMessage={createErrorMessage(errors.seriesNumber)} />
+                        <ControlledTextField 
+                            label='Number in Series' 
+                            name='seriesNumber' 
+                            defaultValue=''  
+                            isError={!!errors?.seriesNumber} 
+                            errorMessage={createErrorMessage(errors.seriesNumber)}
+                            keyPattern={/\d/}
+                            maxLength={3} 
+                        />
                     </Grid>
                 </Grid>
             </FormCard>
@@ -68,7 +76,6 @@ export default function InclusiveFormSectionOne(props : any) {
                     name='genre' 
                     label='Genre' 
                     defaultValue='' 
-                    
                     isError={!!errors?.genre}
                     errorMessage={createErrorMessage(errors.genre)}
                     options={genreOptions}
@@ -80,7 +87,6 @@ export default function InclusiveFormSectionOne(props : any) {
                     label='Grade Level' 
                     name='grade' 
                     defaultValue=''
-                    
                     isError={!!errors.grade}
                     errorMessage={createErrorMessage(errors.grade)}
                     options={gradeOptions}
@@ -88,7 +94,14 @@ export default function InclusiveFormSectionOne(props : any) {
             </FormCard>
 
             <FormCard label='AR Level' description="Accelerated Reader (AR) is used by many schools to track students' reading comprehension. Each number range represents the reading level for each grade. For example, 3.5 represents a 3rd grade reading level halfway through the school year.">
-                <ControlledTextField name='arLevel' defaultValue=''  isError={!!errors?.arLevel} errorMessage={createErrorMessage(errors.arLevel)} />
+                <ControlledTextField 
+                    name='arLevel' 
+                    defaultValue=''  
+                    isError={!!errors?.arLevel} 
+                    errorMessage={createErrorMessage(errors.arLevel)}
+                    keyPattern={/[\d.]/}
+                    maxLength={5}
+                />
             </FormCard>
 
             <FormCard label='Description / Summary'>
@@ -313,6 +326,17 @@ export default function InclusiveFormSectionOne(props : any) {
                     options={awardOptions}
                 />
                 <OtherCheckbox name='awardsOther' keyName='value' />
+            </FormCard>
+
+            <FormCard label='Literary Awards'>
+                <ControlledTextField 
+                    name='smartAward'
+                    defaultValue=''
+                    isError={!!errors.smartAward}
+                    errorMessage={createErrorMessage(errors.smartAward)}
+                    keyPattern={/\d/}
+                    maxLength={4}
+                />
             </FormCard>
         </>
     )

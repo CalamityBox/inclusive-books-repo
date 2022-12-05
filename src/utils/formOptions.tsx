@@ -388,7 +388,7 @@ export const countryOptions: ICountry[] = [
     { code: 'CN', label: 'China', race: 'eastAsian', region: 'Asia' },
     { code: 'CO', label: 'Colombia', race: 'latinx', region: 'South America' },
     { code: 'CR', label: 'Costa Rica', race: 'latinx', region: 'Central America' },
-    { code: 'CU', label: 'Cuba', race: '', region: '' },
+    { code: 'CU', label: 'Cuba', race: 'afroCaribbean', region: 'Caribbean' },
     { code: 'CV', label: 'Cape Verde', race: 'westAfrican', region: 'Africa' },
     { code: 'CW', label: 'Curaçao', race: 'afroCaribbean', region: 'Caribbean' },
     { code: 'CX', label: 'Christmas Island', race: '', region: '' },
