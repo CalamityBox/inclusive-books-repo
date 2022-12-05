@@ -328,7 +328,7 @@ export default function InclusiveFormSectionOne(props : any) {
                 <OtherCheckbox name='awardsOther' keyName='value' />
             </FormCard>
 
-            <FormCard label='Literary Awards'>
+            <FormCard label='SMART Reading Award' description='If this book has won the SMART Reading Award, enter the year (YYYY) it won. Otherwise, leave this question blank.'>
                 <ControlledTextField 
                     name='smartAward'
                     defaultValue=''
