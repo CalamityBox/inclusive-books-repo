@@ -5,14 +5,15 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 
-export default function FormCard(props : { label : string, description?: string, children: any }) {
-
-    const [variant, setVariant] = React.useState<"outlined" | "elevation" | undefined>('outlined')
+export default function FormCard(props : { label : string, description?: string, children: any, required?: boolean }) {
 
     return (
-        <Card variant={variant} sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left', p: 5, borderRadius: 3 }} onMouseEnter={() => setVariant('elevation')} onMouseLeave={() => setVariant('outlined')}>
+        <Card variant='outlined' sx={{ display: 'flex', flexDirection: 'column', textAlign: 'left', p: 5, borderRadius: 3 }}>
             <Box sx={{ mb: 2 }}>
-                <Typography variant='h4' component='h3'>{props.label}</Typography>
+                <Typography variant='h5' component='h3' fontWeight={500}>
+                    {props.label}
+                    {!!props.required ? <span style={{ color: 'red' }}> *</span> : ''}
+                </Typography>
                 {props.description ? <Typography>{props.description}</Typography> : ''}
             </Box>
             {props.children}

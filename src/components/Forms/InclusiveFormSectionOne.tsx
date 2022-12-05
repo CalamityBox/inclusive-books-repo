@@ -40,7 +40,7 @@ export default function InclusiveFormSectionOne(props : any) {
 
     return (
         <>
-            <FormCard label='Book Title' description='Enter the title of the book. Please use proper case for the title. "This Is An Example Of Proper Case."'>
+            <FormCard label='Book Title' description='Enter the title of the book. Please use proper case for the title. "This Is An Example Of Proper Case."' required={true}>
                 <ControlledTextField name='title' defaultValue=''  isError={!!errors?.title} errorMessage={createErrorMessage(errors.title)} />
             </FormCard>
 
@@ -67,11 +67,11 @@ export default function InclusiveFormSectionOne(props : any) {
                 </Grid>
             </FormCard>
 
-            <FormCard label='Contributors' description='Enter the names of all contributors for this book.'>
+            <FormCard label='Contributors' description='Enter the names of all contributors for this book.' required={true}>
                 <ContributorsSubsection getValues={getValues} watch={watch} setValue={setValue} />
             </FormCard>
 
-            <FormCard label='Genre'>
+            <FormCard label='Genre' required={true}>
                 <ControlledRadio 
                     name='genre' 
                     label='Genre' 
@@ -82,7 +82,7 @@ export default function InclusiveFormSectionOne(props : any) {
                 />
             </FormCard>
 
-            <FormCard label='Grade Level'>
+            <FormCard label='Grade Level' required={true}>
                 <ControlledCheckboxGroup 
                     label='Grade Level' 
                     name='grade' 
@@ -93,7 +93,7 @@ export default function InclusiveFormSectionOne(props : any) {
                 />
             </FormCard>
 
-            <FormCard label='AR Level' description="Accelerated Reader (AR) is used by many schools to track students' reading comprehension. Each number range represents the reading level for each grade. For example, 3.5 represents a 3rd grade reading level halfway through the school year.">
+            <FormCard label='AR Level' description="Accelerated Reader (AR) is used by many schools to track students' reading comprehension. Each number range represents the reading level for each grade. For example, 3.5 represents a 3rd grade reading level halfway through the school year." required={true}>
                 <ControlledTextField 
                     name='arLevel' 
                     defaultValue=''  
@@ -104,15 +104,15 @@ export default function InclusiveFormSectionOne(props : any) {
                 />
             </FormCard>
 
-            <FormCard label='Description / Summary'>
+            <FormCard label='Description / Summary' required={true}>
                 <ControlledTextField name='description' defaultValue=''  isError={!!errors?.description} errorMessage={createErrorMessage(errors.description)} multiline={true} />
             </FormCard>
 
-            <FormCard label='Editions'>
+            <FormCard label='Editions' required={true}>
                 <Editions />
             </FormCard>
 
-            <FormCard label='Identity-based v. Identity-independent'>
+            <FormCard label='Identity-based v. Identity-independent' required={true}>
                 <ControlledRadio 
                     name='identityBased'
                     label='Identity Based'
@@ -123,7 +123,7 @@ export default function InclusiveFormSectionOne(props : any) {
                 />
             </FormCard>
 
-            <FormCard label='Joy-based v. Adversity-based'>
+            <FormCard label='Joy-based v. Adversity-based' required={true}>
                 <ControlledRadio 
                     name='joyBased'
                     label='Joy Based'
@@ -134,7 +134,7 @@ export default function InclusiveFormSectionOne(props : any) {
                 />
             </FormCard>
 
-            <FormCard label='General Subject Matter'>
+            <FormCard label='General Subject Matter' required={true}>
                 <ControlledCheckboxGroup 
                     label='General Subject Matter' 
                     name='generalSubject' 
