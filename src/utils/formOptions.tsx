@@ -1,3 +1,5 @@
+import { ICountry } from "./Interfaces";
+
 export interface simpleFormOption {
     value: string;
     label: string;
@@ -330,13 +332,6 @@ export const awardOptions: simpleFormOption[] = [
     { value: 'walter', label: 'Walter Dean Myers Award', tooltip: '' },
     { value: 'eisner', label: 'Will Eisner Award', tooltip: '' }
 ]
-
-interface ICountry {
-    code: string;
-    label: string;
-    race?: '' | 'asian' | 'eastAsian' | 'centralAsian' | 'southAsian' | 'southeastAsian' | 'blackAfrican' | 'centralAfrican' | 'eastAfrican' | 'westAfrican' | 'northAfrican' | 'southernAfrican' | 'indigenous' | 'firstNations' | 'nativeAmerican' | 'jewish' | 'latinx' | 'middleEastern' | 'muslim' | 'pacificIslander' | 'afroCaribbean' | 'latinoCaribbean' | 'afroLatino'
-    region?: '' | 'Asia' | 'North America' | 'South America' | 'Africa' | 'Europe' | 'Middle East' | 'Antarctica' | 'Australia' | 'Caribbean' | 'Central America' | 'Eastern Europe'
-}
 
 export const countryOptions: ICountry[] = [
     { code: 'AD', label: 'Andorra', race: '', region: 'Europe' },

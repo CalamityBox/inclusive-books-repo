@@ -8,12 +8,14 @@ import { useForm, SubmitHandler, Controller, FormProvider, useFieldArray } from 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '@mui/material'
 import InclusiveFormSectionOne from '../../components/Forms/InclusiveFormSectionOne'
-import { inclusiveFormSchema, IFormInputs } from '../../utils/inclusiveFormSchema'
+import { inclusiveFormSchema, defaultValues } from '../../utils/inclusiveFormSchema'
+import { IFormInputs } from '../../utils/Interfaces'
 
 export default function InclusiveCatalogingForm(props : any) {
 
     const methods = useForm<IFormInputs>({
         mode: 'onBlur',
+        defaultValues: defaultValues,
         resolver: yupResolver(inclusiveFormSchema)
     })
 

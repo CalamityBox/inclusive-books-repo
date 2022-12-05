@@ -1,48 +1,266 @@
 import * as yup from 'yup'
-import { identityBasedOptions, joyBasedOptions } from './formOptions';
+import { identityBasedOptions, joyBasedOptions } from './formOptions'
+import { IFormInputs } from './Interfaces'
 
-export interface IFormInputs {
+export const defaultValues: IFormInputs = {
+
+    title: '',
+    subtitle: '',
+    series: '',
+    seriesNumber: '',
     
-    title: string;
-    subtitle: string;
-    submit: any;
-    series: string;
-    seriesNumber: string;
-    
-    contributors: {
-        name: string;
-        type: string;
-    }[]
+    contributors: [
+        { name: '', type: '' }
+    ],
 
-    genre: string;
+    genre: '',
 
-    editions: {
-        format: string;
-        publicationDate: string;
-        coverUrl: string;
-        isbn: string;
-    }[]
+    editions: [
+        {
+            format: '',
+            publicationDate: '',
+            coverUrl: '',
+            isbn: []
+        }
+    ],
 
-    description: string;
+    description: '',
 
     grade: {
-        birth3: boolean;
-        preK: boolean;
-        firstGrade: boolean;
-        secondGrade: boolean;
-        thirdGrade: boolean;
-        fourthGrade: boolean;
-        fifthGrade: boolean;
-        middleSchool: boolean;
-        highSchool: boolean;
-        adult: boolean;
-    }
+        birth3: false,
+        preK: false,
+        firstGrade: false,
+        secondGrade: false,
+        thirdGrade: false,
+        fourthGrade: false,
+        fifthGrade: false,
+        middleSchool: false,
+        highSchool: false,
+        adult: false
+    },
 
-    arLevel: number;
-    identityBased: string;
-    joyBased: string;
+    arLevel: '',
+    identityBased: '',
+    joyBased: '',
 
+    generalSubject: {
+        activism: false,
+        bullying: false,
+        comingOfAge: false,
+        consent: false,
+        friendship: false,
+        environment: false,
+        family: false,
+        stem: false
+    },
+
+    generalSubjectOther: [],
+
+    sensitiveContent: {
+        bigotry: false,
+        childSoldiers: false,
+        colonialism: false,
+        culturalAppropriation: false,
+        deadnaming: false,
+        depression: false,
+        incarceration: false,
+        internment: false,
+        genocide: false,
+        gunViolence: false,
+        police: false,
+        racism: false,
+        refugees: false,
+        segregation: false,
+        sexualAssault: false,
+        slavery: false,
+        selfHarm: false,
+        suicide: false,
+        war: false
+    },
+
+    sensitiveContentOther: [],
+
+    nationalityEthnicity: [],
+
+    raceCulture: {
+
+        afroLatino: false,
+
+        asian: false,
+        centralAsian: false,
+        eastAsian: false,
+        southAsian: false,
+        southeastAsian: false,
+
+        blackAfrican: false,
+        afroCaribbean: false,
+        centralAfrican: false,
+        eastAfrican: false,
+        northernAfrican: false,
+        southernAfrican: false,
+        westAfrican: false,
+
+        indigenous: false,
+        firstNations: false,
+        nativeAmerican: false,
+
+        jewish: false,
+        latinx: false,
+        middleEastern: false,
+        muslim: false,
+        pacificIslander: false
+    },
+
+    raceCultureOther: [],
+
+    raceCultureContent: {
+        multiRacial: false,
+        culturalHoliday: false,
+        folklore: false,
+        immigration: false,
+        firstGeneration: false,
+        secondGeneration: false,
+    },
+
+    raceCultureContentOther: [],
+
+    genderSexuality: {
+        lgbtq: false,
+        aromantic: false,
+        asexual: false,
+
+        bisexual: false,
+        fluid: false,
+        omnisexual: false,
+        pansexual: false,
+        multisexual: false,
+
+        gay: false,
+        intersex: false,
+        lesbian: false,
+        queer: false,
+        questioning: false,
+
+        transgender: false,
+        agender: false,
+        genderfluid: false,
+        nonbinary: false,
+        transMan: false,
+        transWoman: false,
+
+        twoSpirit: false,
+    },
+
+    genderSexualityOther: [],
+
+    genderSexualityContent: {
+        comingOut: false,
+        pride: false,
+    },
+
+    genderSexualityContentOther: [],
+
+    familyStructure: {
+        adopted: false,
+        fosterParents: false,
+        incarceratedParent: false,
+        singleParent: false,
+        multigenerational: false,
+        raisedByRelative: false,
+        twoMoms: false,
+        twoDads: false,
+        nonbinaryParents: false,
+    },
+
+    familyStructureOther: [],
+
+    familyStructureContent: {
+        differentRace: false,
+    },
+
+    familyStructureContentOther: [],
+
+    neurodivergent: {
+        anxiety: false,
+        adhd: false,
+        autism: false,
+        bipolar: false,
+        depression: false,
+        dyslexia: false,
+        epilepsy: false,
+        nonVerbal: false,
+        ocd: false,
+        synesthesia: false,
+    },
+
+    neurodivergentOther: [],
+
+    neurodivergentContent: {
+        socialSituations: false,
+    },
+
+    neurodivergentContentOther: [],
+
+    body: {
+        bodyCharacteristics: false,
+        bodyHair: false,
+        bodyType: false,
+        fat: false,
+    },
+
+    bodyOther: [],
+
+    bodyContent: {
+        bodyShaming: false,
+        bodyPositivity: false,
+    },
+
+    bodyContentOther: [],
+
+    disability: {
+        blind: false,
+        deaf: false,
+        hearingAid: false,
+        missingLimb: false,
+        mobilityAid: false,
+        cane: false,
+        prosthetic: false,
+        wheelchair: false,
+        serviceAnimal: false,
+    },
+
+    disabilityOther: [],
+
+    disabilityContent: {
+        option1: false
+    },
+
+    disabilityContentOther: [],
+
+    awards: {
+        americas: false,
+        americanIndian: false,
+        arabAmerican: false,
+        asianPacific: false,
+        batchelder: false,
+        caldecott: false,
+        carter: false,
+        coretta: false,
+        lambda: false,
+        newberry: false,
+        nationalBook: false,
+        neustadt: false,
+        pura: false,
+        schneider: false,
+        stonewall: false,
+        tomasRivera: false,
+        walter: false,
+        eisner: false,
+    },
+
+    awardsOther: [],
     
+    smartAward: '',
 
 }
 
