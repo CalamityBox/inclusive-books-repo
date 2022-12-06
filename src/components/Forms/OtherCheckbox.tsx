@@ -12,14 +12,14 @@ export default function OtherCheckbox(props : { name: string, keyName: string, e
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: 'generalSubjectOther',
-        keyName: 'generalSubjectOtherId'
+        name: props.name,
+        keyName: `${props.name}Id`
     })
 
     const isError = errors.hasOwnProperty(props.name)
 
     const textFields = fields.map((item, index) => (
-        <Box key={item.generalSubjectOtherId} sx={{ m: 0, p: 0, display: 'flex' }}>
+        <Box key={item[`${props.name}Id`]} sx={{ m: 0, p: 0, display: 'flex' }}>
             <FormControlLabel label='Other:' control={<Checkbox checked={true} />} />
             
             <ControlledTextField
@@ -38,11 +38,11 @@ export default function OtherCheckbox(props : { name: string, keyName: string, e
         <>
             {textFields}
             <OptionalAddButton
-                handleClick={() => append({ generalSubjectOtherId: fields.length, value: '' })}
+                handleClick={() => append({ id: fields.length, value: '' })}
                 isVisible={fields.length <= 10}
                 isError={isError}
-                errorTooltip='You must fix errors before adding subjects'
-                defaultTooltip='Add subject'
+                errorTooltip='You must fix errors before adding items'
+                defaultTooltip='Add item'
             />
         </>
     )

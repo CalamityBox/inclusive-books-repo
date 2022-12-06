@@ -78,7 +78,8 @@ export const defaultValues: IFormInputs = {
         war: false
     },
 
-    sensitiveContentOther: [],
+    sensitiveContentOther: [
+    ],
 
     nationalityEthnicity: [],
 

@@ -92,6 +92,11 @@ export interface ICountry {
     region?: '' | 'Asia' | 'North America' | 'South America' | 'Africa' | 'Europe' | 'Middle East' | 'Antarctica' | 'Australia' | 'Caribbean' | 'Central America' | 'Eastern Europe'
 }
 
+export interface IDynamicOtherString {
+    id: number | string;
+    value: string;
+}
+
 export interface IFormInputs {
     
     title: string;
@@ -143,7 +148,7 @@ export interface IFormInputs {
         stem: boolean;
     }
 
-    generalSubjectOther: string[];
+    generalSubjectOther: IDynamicOtherString[];
 
     sensitiveContent: {
         bigotry: boolean;
@@ -167,7 +172,7 @@ export interface IFormInputs {
         war: boolean;
     }
 
-    sensitiveContentOther: string[];
+    sensitiveContentOther: IDynamicOtherString[];
 
     nationalityEthnicity: (ICountry | string)[];
 
@@ -200,7 +205,7 @@ export interface IFormInputs {
         pacificIslander: boolean;
     }
 
-    raceCultureOther: string[];
+    raceCultureOther: IDynamicOtherString[];
 
     raceCultureContent: {
         multiRacial: boolean;
@@ -211,7 +216,7 @@ export interface IFormInputs {
         secondGeneration: boolean;
     }
 
-    raceCultureContentOther: string[];
+    raceCultureContentOther: IDynamicOtherString[];
 
     genderSexuality: {
         lgbtq: boolean;
@@ -240,14 +245,14 @@ export interface IFormInputs {
         twoSpirit: boolean;
     }
 
-    genderSexualityOther: string[];
+    genderSexualityOther: IDynamicOtherString[];
 
     genderSexualityContent: {
         comingOut: boolean;
         pride: boolean;
     }
 
-    genderSexualityContentOther: string[];
+    genderSexualityContentOther: IDynamicOtherString[];
 
     familyStructure: {
         adopted: boolean;
@@ -261,13 +266,13 @@ export interface IFormInputs {
         nonbinaryParents: boolean;
     }
 
-    familyStructureOther: string[];
+    familyStructureOther: IDynamicOtherString[];
 
     familyStructureContent: {
         differentRace: boolean;
     }
 
-    familyStructureContentOther: string[];
+    familyStructureContentOther: IDynamicOtherString[];
 
     neurodivergent: {
         anxiety: boolean;
@@ -282,13 +287,13 @@ export interface IFormInputs {
         synesthesia: boolean;
     }
 
-    neurodivergentOther: string[];
+    neurodivergentOther: IDynamicOtherString[];
 
     neurodivergentContent: {
         socialSituations: boolean;
     }
 
-    neurodivergentContentOther: string[];
+    neurodivergentContentOther: IDynamicOtherString[];
 
     body: {
         bodyCharacteristics: boolean;
@@ -297,14 +302,14 @@ export interface IFormInputs {
         fat: boolean;
     }
 
-    bodyOther: string[];
+    bodyOther: IDynamicOtherString[];
 
     bodyContent: {
         bodyShaming: boolean;
         bodyPositivity: boolean;
     }
 
-    bodyContentOther: string[];
+    bodyContentOther: IDynamicOtherString[];
 
     disability: {
         blind: boolean;
@@ -318,13 +323,13 @@ export interface IFormInputs {
         serviceAnimal: boolean;
     }
 
-    disabilityOther: string[];
+    disabilityOther: IDynamicOtherString[];
 
     disabilityContent: {
         option1: boolean;
     }
 
-    disabilityContentOther: string[];
+    disabilityContentOther: IDynamicOtherString[];
 
     awards: {
         americas: boolean;
@@ -347,7 +352,7 @@ export interface IFormInputs {
         eisner: boolean;
     }
 
-    awardsOther: string[],
+    awardsOther: IDynamicOtherString[],
     
     smartAward: string;
 
