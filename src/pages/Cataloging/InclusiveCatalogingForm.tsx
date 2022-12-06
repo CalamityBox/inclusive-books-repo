@@ -11,11 +11,11 @@ import InclusiveFormSectionOne from '../../components/Forms/InclusiveFormSection
 import { inclusiveFormSchema, defaultValues } from '../../utils/inclusiveFormSchema'
 import { IFormInputs } from '../../utils/Interfaces'
 
-export default function InclusiveCatalogingForm(props : any) {
+export default function InclusiveCatalogingForm(props : { defaultValues?: IFormInputs }) {
 
     const methods = useForm<IFormInputs>({
         mode: 'onBlur',
-        defaultValues: defaultValues,
+        defaultValues: !!props?.defaultValues ? props.defaultValues : defaultValues,
         resolver: yupResolver(inclusiveFormSchema)
     })
 

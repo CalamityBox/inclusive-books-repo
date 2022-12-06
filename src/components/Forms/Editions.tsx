@@ -23,10 +23,6 @@ export default function Editions(props : any) {
         keyName: 'editionsId'
     })
 
-    React.useEffect(() => {
-        append({  editionId: fields.length.toString(), format: '', publicationDate: '' })
-    },[])
-
     const editions = fields.map((item,index) => (
         <React.Fragment key={item.editionsId}>
 

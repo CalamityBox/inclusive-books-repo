@@ -31,10 +31,6 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
         keyName: 'contributorsId'
     })
 
-    React.useEffect(() => {
-        append({  contributorId: fields.length.toString(), name: '', type: 'Author' })
-    },[])
-
     const contributorComponents = fields
         .map((item, index) => (
             <React.Fragment key={item.contributorsId}>

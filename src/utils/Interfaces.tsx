@@ -88,8 +88,10 @@ export interface filterCategoryInterface {
 export interface ICountry {
     code: string;
     label: string;
-    race?: '' | 'asian' | 'eastAsian' | 'centralAsian' | 'southAsian' | 'southeastAsian' | 'blackAfrican' | 'centralAfrican' | 'eastAfrican' | 'westAfrican' | 'northAfrican' | 'southernAfrican' | 'indigenous' | 'firstNations' | 'nativeAmerican' | 'jewish' | 'latinx' | 'middleEastern' | 'muslim' | 'pacificIslander' | 'afroCaribbean' | 'latinoCaribbean' | 'afroLatino'
+    race?: '' | 'asian' | 'eastAsian' | 'centralAsian' | 'southAsian' | 'southeastAsian' | 'blackAfrican' | 'centralAfrican' | 'eastAfrican' | 'westAfrican' | 'northAfrican' | 'southernAfrican' | 'indigenous' | 'firstNations' | 'nativeAmerican' | 'jewish' | 'latinx' | 'middleEastern' | 'muslim' | 'pacificIslander' | 'afroCaribbean' | 'latinoCaribbean' | 'afroLatino',
+    parentRace?: 'asian' | 'blackAfrican' | 'indigenous'
     region?: '' | 'Asia' | 'North America' | 'South America' | 'Africa' | 'Europe' | 'Middle East' | 'Antarctica' | 'Australia' | 'Caribbean' | 'Central America' | 'Eastern Europe'
+    commonNames?: string[];
 }
 
 export interface IDynamicOtherString {
@@ -355,5 +357,44 @@ export interface IFormInputs {
     awardsOther: IDynamicOtherString[],
     
     smartAward: string;
+
+}
+
+export interface IGoogleBook {
+    accessInfo: any;
+    etag: string;
+    id: string;
+    kind: string;
+    saleInfo: any;
+    searchInfo: any;
+    selfLink: string;
+    setSelectedBook: any;
+    volumeInfo: {
+        allowAnonLogging: any;
+        authors?: string[];
+        averageRating: number;
+        canonicalVolumeLink: string;
+        categories: string[];
+        contentVersion: string;
+        description: string;
+        imageLinks: {
+            smallThumbnail: string;
+            thumbnail: string;
+        }
+        industryIdentifiers: { type: 'ISBN_10' | 'ISBN_13', identifier: string }[];
+        infoLink: string;
+        language: string;
+        maturityRating: string;
+        pageCount: number;
+        panelizationSummary: any;
+        previewLink: string;
+        printType: string;
+        publishedDate: string;
+        publisher: string;
+        ratingsCount: number;
+        readingModes: any;
+        subtitle?: string;
+        title: string;
+    }
 
 }

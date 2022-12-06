@@ -120,7 +120,7 @@ export const defaultValues: IFormInputs = {
         folklore: false,
         immigration: false,
         firstGeneration: false,
-        secondGeneration: false,
+        secondGeneration: false
     },
 
     raceCultureContentOther: [],
@@ -149,14 +149,14 @@ export const defaultValues: IFormInputs = {
         transMan: false,
         transWoman: false,
 
-        twoSpirit: false,
+        twoSpirit: false
     },
 
     genderSexualityOther: [],
 
     genderSexualityContent: {
         comingOut: false,
-        pride: false,
+        pride: false
     },
 
     genderSexualityContentOther: [],
@@ -170,7 +170,7 @@ export const defaultValues: IFormInputs = {
         raisedByRelative: false,
         twoMoms: false,
         twoDads: false,
-        nonbinaryParents: false,
+        nonbinaryParents: false
     },
 
     familyStructureOther: [],
@@ -191,13 +191,13 @@ export const defaultValues: IFormInputs = {
         epilepsy: false,
         nonVerbal: false,
         ocd: false,
-        synesthesia: false,
+        synesthesia: false
     },
 
     neurodivergentOther: [],
 
     neurodivergentContent: {
-        socialSituations: false,
+        socialSituations: false
     },
 
     neurodivergentContentOther: [],
@@ -206,14 +206,14 @@ export const defaultValues: IFormInputs = {
         bodyCharacteristics: false,
         bodyHair: false,
         bodyType: false,
-        fat: false,
+        fat: false
     },
 
     bodyOther: [],
 
     bodyContent: {
         bodyShaming: false,
-        bodyPositivity: false,
+        bodyPositivity: false
     },
 
     bodyContentOther: [],
@@ -227,7 +227,7 @@ export const defaultValues: IFormInputs = {
         cane: false,
         prosthetic: false,
         wheelchair: false,
-        serviceAnimal: false,
+        serviceAnimal: false
     },
 
     disabilityOther: [],
@@ -256,12 +256,12 @@ export const defaultValues: IFormInputs = {
         stonewall: false,
         tomasRivera: false,
         walter: false,
-        eisner: false,
+        eisner: false
     },
 
     awardsOther: [],
     
-    smartAward: '',
+    smartAward: ''
 
 }
 

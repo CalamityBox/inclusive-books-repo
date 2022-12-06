@@ -1,32 +1,40 @@
 import React from 'react'
 
 // UI Components
-import Card from '@mui/material/Card'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormLabel from '@mui/material/FormLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import Select from '@mui/material/Select'
-import TextField from '@mui/material/TextField'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-
-// Hook Form
-import { Controller, FieldError, FieldErrorsImpl, Merge, useFormContext } from 'react-hook-form'
-import ControlledTextField from './ControlledTextField'
-import FormCard from './FormCard'
-import Box from '@mui/material/Box'
-import { Grid, IconButton } from '@mui/material'
-import ControlledSelect from './ControlledSelect'
-import { handleContributorError, hasContributorError, createErrorMessage } from '../../utils/handleErrors'
 import ContributorsSubsection from './ContributorsSubsection'
 import ControlledRadio from './ControlledRadio'
 import ControlledCheckboxGroup from './ControlledCheckboxGroup'
-
-import { awardOptions, bodyContentOptions, bodyOptions, countryOptions, disabilityContentOptions, disabilityOptions, familyStructureContentOptions, familyStructureOptions, genderSexualityContentOptions, genderSexualityOptions, generalSubjectOptions, genreOptions, gradeOptions, identityBasedOptions, joyBasedOptions, neurodivergentContentOptions, neurodivergentOptions, raceCultureContentOptions, raceCultureOptions, sensitiveContentOptions } from '../../utils/formOptions'
+import ControlledTextField from './ControlledTextField'
+import FormCard from './FormCard'
+import { Grid } from '@mui/material'
 import Editions from './Editions'
 import OtherCheckbox from './OtherCheckbox'
 import CountriesAutocomplete from './CountriesAutocomplete'
+
+// Hook Form
+import { useFormContext } from 'react-hook-form'
+import { createErrorMessage } from '../../utils/handleErrors'
+
+import { awardOptions, 
+    bodyContentOptions, 
+    bodyOptions, 
+    countryOptions, 
+    disabilityContentOptions, 
+    disabilityOptions, 
+    familyStructureContentOptions, 
+    familyStructureOptions, 
+    genderSexualityContentOptions, 
+    genderSexualityOptions, 
+    generalSubjectOptions, 
+    genreOptions, 
+    gradeOptions, 
+    identityBasedOptions, 
+    joyBasedOptions, 
+    neurodivergentContentOptions, 
+    neurodivergentOptions, 
+    raceCultureContentOptions, 
+    raceCultureOptions, 
+    sensitiveContentOptions } from '../../utils/formOptions'
 
 export default function InclusiveFormSectionOne(props : any) {
 
