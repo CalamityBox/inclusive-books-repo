@@ -7,8 +7,6 @@ import Typography from '@mui/material/Typography'
 
 export default function GoogleBookCard(props : any) {
 
-    console.log('props are',props)
-
     const imageSrc = `https://books.google.com/books/publisher/content/images/frontcover/${props.id}?fife=w400-h600&source=gbs_api`
 
     function createEllipsedText(string: string, maxLength: number) {
