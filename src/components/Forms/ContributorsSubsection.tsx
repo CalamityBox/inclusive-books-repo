@@ -63,7 +63,7 @@ export default function ContributorsSubsection(props : { getValues: Function, wa
             </Grid>
 
             <OptionalAddButton 
-                handleClick={() => append({ contributorId: fields.length.toString(), name: '', type: '' })}
+                handleClick={() => append({ contributorId: fields.length.toString(), contributor: null, type: '' })}
                 isError={!!errors?.contributors}
                 errorTooltip='Fix errors before adding contributors.'
                 defaultTooltip='Add contributor'
