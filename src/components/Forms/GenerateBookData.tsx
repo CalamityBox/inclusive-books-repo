@@ -13,10 +13,6 @@ export default function GenerateBookData(props : any) {
     const [bookCards, setBookCards] = React.useState<any>([])
     const [selectedBook,setSelectedBook] = React.useState(undefined)
 
-    function handleBookSelect(book : any) {
-        setSelectedBook(book)
-    }
-
     function handleGoogleBooksAPICall(search: string) {
 
         if (search.length > 0) {

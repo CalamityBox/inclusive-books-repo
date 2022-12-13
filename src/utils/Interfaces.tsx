@@ -398,3 +398,14 @@ export interface IGoogleBook {
     }
 
 }
+
+export interface IContributor {
+    name: string;
+    id: string;
+    description?: string;
+    profilePictureUrl?: string;
+    books?: {
+        id: string;
+        type: string[]
+    }[]
+}

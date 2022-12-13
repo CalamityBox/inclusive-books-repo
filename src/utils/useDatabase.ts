@@ -1,7 +1,7 @@
 import React from "react"
 import { getDatabase, ref, child, get } from "firebase/database"
 
-export default function useDatabase() {
+export default function useDatabase(path: string) {
 
     const [data, setData] = React.useState<any>(null)
     const [isLoading, setIsLoading] = React.useState(true)
@@ -10,7 +10,7 @@ export default function useDatabase() {
 
     React.useEffect(() => {
 
-        get(child(dbRef, 'inclusiveBooks'))
+        get(child(dbRef, path))
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     setData(snapshot.val())
@@ -23,6 +23,10 @@ export default function useDatabase() {
         })
 
     },[])
+
+    React.useEffect(() => {
+        setIsLoading(data === null)
+    },[data])
 
     return [data, isLoading]
 }
