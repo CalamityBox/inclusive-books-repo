@@ -49,7 +49,7 @@ export default function InclusiveFormSectionOne(props : any) {
 
     return (
         <>
-            {/* <ContributorsAutocomplete /> */}
+            <ContributorsAutocomplete />
             
             <FormCard label='Book Title' description='Enter the title of the book. Please use proper case for the title. "This Is An Example Of Proper Case."' required={true}>
                 <ControlledTextField name='title' defaultValue=''  isError={!!errors?.title} errorMessage={createErrorMessage(errors.title)} />
