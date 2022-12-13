@@ -107,7 +107,7 @@ export interface IFormInputs {
     seriesNumber: string;
     
     contributors: {
-        name: string;
+        contributor: IContributor | null;
         type: string;
     }[]
 

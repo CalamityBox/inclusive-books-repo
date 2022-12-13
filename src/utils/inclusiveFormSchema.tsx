@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { identityBasedOptions, joyBasedOptions } from './formOptions'
-import { IFormInputs } from './Interfaces'
+import { IFormInputs, IContributor } from './Interfaces'
 
 export const defaultValues: IFormInputs = {
 
@@ -10,7 +10,7 @@ export const defaultValues: IFormInputs = {
     seriesNumber: '',
     
     contributors: [
-        { name: '', type: '' }
+        { contributor: null, type: '' }
     ],
 
     genre: '',
@@ -265,14 +265,20 @@ export const defaultValues: IFormInputs = {
 
 }
 
-export const nameSchema = yup.string().required()
+export const contributor = yup.object().shape({
+    name: yup.string(),
+    id: yup.string(),
+    description: yup.string(),
+    profilePictureUrl: yup.string()
+})
+
 export const typeSchema = yup.string().required()
 
 export const requiredStringSchema = yup.string().required()
 export const requiredNumberSchema = yup.number().required()
 
 export const contributorSchema = yup.object().shape({
-    name: nameSchema,
+    contributor: contributor,
     type: typeSchema
 })
 

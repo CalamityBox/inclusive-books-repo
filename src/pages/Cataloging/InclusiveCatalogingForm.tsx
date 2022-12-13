@@ -27,7 +27,7 @@ export default function InclusiveCatalogingForm(props : { defaultValues?: IFormI
     // console.log('watch select',methods.watch('contributorType1'))
 
     // console.log('form data:',methods.watch())
-    // console.log('errors are',methods.formState.errors)
+    console.log('errors are',methods.formState.errors)
 
     return (
         <>

@@ -10,7 +10,7 @@ import { matchSorter } from 'match-sorter'
 import { shortenString } from '../../utils/handleStrings'
 import InfoTooltip from '../InfoTooltip'
 
-export default function ContributorsAutocomplete(props: { setSelected?: Function }) {
+export default function ContributorsAutocomplete(props: { name: string, label: string, setSelected?: Function, isError: boolean, errorMessage: string }) {
 
     const { control } = useFormContext()
     const [options, isLoading] = useDatabase('contributors')
@@ -22,7 +22,7 @@ export default function ContributorsAutocomplete(props: { setSelected?: Function
     return (
         <>
             <Controller
-                name={'contributorName'}
+                name={props.name}
                 control={control}
                 rules={{ required: true }}
 
@@ -68,7 +68,10 @@ export default function ContributorsAutocomplete(props: { setSelected?: Function
                         renderInput={(params) => (
                             <TextField 
                                 {...params} 
-                                placeholder={'Contributor Name'} 
+                                label={props.label}
+                                placeholder={'Contributor Name'}
+                                error={props.isError}
+                                helperText={props.isError ? props.errorMessage : ''}
                             />
                         )}
                     />
