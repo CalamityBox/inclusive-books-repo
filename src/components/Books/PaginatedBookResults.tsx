@@ -21,7 +21,7 @@ import { Typography } from '@mui/material'
 
 export default function PaginatedBookResults(props : any) {
 
-    const [data, isLoading] = useDatabase()
+    const [data, isLoading] = useDatabase('inclusiveBooks')
 
     const [searchText, setSearchText] = React.useState('')
     const [isSearchReadOnly,setIsSearchReadOnly] = React.useState(false)

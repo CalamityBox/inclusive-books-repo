@@ -176,7 +176,7 @@ export const defaultValues: IFormInputs = {
     familyStructureOther: [],
 
     familyStructureContent: {
-        differentRace: false,
+        differentRace: false
     },
 
     familyStructureContentOther: [],

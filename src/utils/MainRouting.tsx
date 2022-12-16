@@ -25,6 +25,7 @@ import Protected from '../components/Protected'
 import CatalogingDashboard from '../pages/Cataloging/CatalogingDashboard'
 import InclusiveCatalogingForm from '../pages/Cataloging/InclusiveCatalogingForm'
 import GenerateBookData from '../components/Forms/GenerateBookData'
+import ContributorCatalogingPage from '../pages/Cataloging/ContributorCatalogingPage'
 
 export default function MainRouting() {
     return (
@@ -60,6 +61,7 @@ export default function MainRouting() {
             <Route path='cataloging'>
                 <Route path='dashboard' element={<Protected><CatalogingDashboard /></Protected>} />
                 <Route path ='inclusive-cataloging' element={<Protected><InclusiveCatalogingForm /></Protected>} />
+                <Route path ='contributor-cataloging' element={<Protected><ContributorCatalogingPage /></Protected>} />
                 <Route path='generate-book-data' element={<Protected><GenerateBookData /></Protected>} />
             </Route>
 

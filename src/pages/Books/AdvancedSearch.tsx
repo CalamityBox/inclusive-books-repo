@@ -22,7 +22,7 @@ export default function AdvancedSearch() {
     const [chips, setChips, handleChipClick, handleChipDelete, chipFilter] = useChipsCustom()
 
     const [searchResults, setSearchResults] = React.useState([])
-    const [data, isLoading] = useDatabase()
+    const [data, isLoading] = useDatabase('inclusiveBooks')
 
     // Pagination
     const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)

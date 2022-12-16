@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { Autocomplete, Avatar, Box, Card, Chip, TextField, Typography } from '@mui/material'
+import { Autocomplete, Avatar, Box, TextField, Typography } from '@mui/material'
 
 import { Controller, useFormContext } from 'react-hook-form'
 import { IContributor } from '../../utils/Interfaces'
 import useDatabase from '../../utils/useDatabase'
 import { nanoid } from 'nanoid'
 import { matchSorter } from 'match-sorter'
-import { shortenString } from '../../utils/handleStrings'
 import InfoTooltip from '../InfoTooltip'
 
 export default function ContributorsAutocomplete(props: { name: string, label: string, setSelected?: Function, isError: boolean, errorMessage: string }) {
@@ -16,8 +15,6 @@ export default function ContributorsAutocomplete(props: { name: string, label: s
     const [options, isLoading] = useDatabase('contributors')
 
     const filterOptions = (options: any, { inputValue }: any) => matchSorter(options, inputValue,{ keys: ['name'] })
-
-    // console.log('options are :',options)
 
     return (
         <>
@@ -29,7 +26,9 @@ export default function ContributorsAutocomplete(props: { name: string, label: s
                 render={({ field: { onChange, ..._field } }) => (
                     <Autocomplete
                         {..._field}
-                        options={!!options ? options.sort((a: any,b: any) => a.name.localeCompare(b.name)) : []}
+                        openOnFocus={false}
+                        onMouseDownCapture={(e) => e.stopPropagation()}
+                        options={!!options ? options : []}
                         onChange={(_,data : any) => {
                             onChange(data)
                             // console.log('data is',data)
