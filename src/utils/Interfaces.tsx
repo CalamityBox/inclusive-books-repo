@@ -296,15 +296,43 @@ interface IAwards {
     eisner: boolean;
 }
 
+export interface ICatalogingReview {
+    reviewer: {
+        name: string;
+        id: string;
+    },
+    oversimplification: string;
+    tokenism: string;
+    success: string;
+    supporting: string;
+    erasure: string;
+    dominantPopulation: string;
+    underrepresented: string;
+    friendships: string;
+    achievement: string;
+    culture: string;
+    jobsRoles: string;
+    families: string;
+    centralCharacters: string;
+    identity: string;
+    multilingual: string;
+    recommendation: string;
+    review: string;
+}[]
+
 export interface IFormInputs {
+
+    googleBooksId?: string;
     
     title: string;
     subtitle: string;
     series: string;
     seriesNumber: string;
+
+    publisher?: string;
     
     contributors: {
-        contributor: IContributor | null;
+        contributor: { name: string, id: string } | null;
         type: string;
     }[]
 
@@ -361,6 +389,8 @@ export interface IFormInputs {
     awards: IAwards;
     awardsOther: IDynamicOtherString[],
     smartAward: string;
+
+    cataloging: ICatalogingReview[]
 
 }
 

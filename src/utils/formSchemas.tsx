@@ -344,3 +344,23 @@ export const ContributorFormSchema = yup.object().shape({
     disabilityOther: CheckboxOtherSchema
 
 })
+
+export const ReviewFormSchema = yup.object().shape({
+    oversimplification: yup.string().required('You must select a value.'),
+    tokenism: yup.string().required('You must select a value.'),
+    success: yup.string().required('You must select a value.'),
+    supporting: yup.string().required('You must select a value.'),
+    erasure: yup.string().required('You must select a value.'),
+    dominantPopulation: yup.string().required('You must select a value.'),
+    underrepresented: yup.string().required('You must select a value.'),
+    friendships: yup.string().required('You must select a value.'),
+    achievement: yup.string().required('You must select a value.'),
+    culture: yup.string().required('You must select a value.'),
+    jobsRoles: yup.string().required('You must select a value.'),
+    families: yup.string().required('You must select a value.'),
+    centralCharacters: yup.string().required('You must select a value.'),
+    identity: yup.string().required('You must select a value.'),
+    multilingual: yup.string().required('You must select a value.'),
+    recommendation: yup.string().required('You must select a value.'),
+    review: yup.string().required('You must enter a review.')
+})

@@ -6,7 +6,7 @@ import Container from '@mui/material/Container'
 // Forms
 import { useForm, SubmitHandler, Controller, FormProvider, useFieldArray } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button } from '@mui/material'
+import { Box, Button, Step, StepLabel, Stepper } from '@mui/material'
 import InclusiveFormSectionOne from '../../components/Forms/InclusiveFormSectionOne'
 import { inclusiveFormSchema, defaultValues } from '../../utils/inclusiveFormSchema'
 import { IFormInputs } from '../../utils/Interfaces'
@@ -23,14 +23,24 @@ export default function InclusiveCatalogingForm(props : { defaultValues?: IFormI
         console.log('form data:',data)
     }
 
-    // console.log('watch name',methods.watch('contributorName1'))
-    // console.log('watch select',methods.watch('contributorType1'))
+    const [step, setStep] = React.useState(0)
 
-    // console.log('form data:',methods.watch())
-    console.log('errors are',methods.formState.errors)
+    const steps = [
+        'Select a Book',
+        'Add Contributors',
+        'Book Information',
+        'Review'
+    ]
 
     return (
         <>
+            <Stepper activeStep={step} sx={{ mb: 4 }}>
+                {steps.map((label) => (
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
+                ))}
+            </Stepper>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(formSubmitHandler)}>
                     <Container 

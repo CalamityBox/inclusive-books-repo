@@ -39,7 +39,7 @@ export default function ContributorsAutocomplete(props: { name: string, label: s
                         }}
                         
                         getOptionLabel={option => option.name}
-                        groupBy={option => option.name[0]}
+                        // groupBy={option => option.name[0]}
 
                         filterOptions={filterOptions}
 

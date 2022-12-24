@@ -157,21 +157,22 @@ export function convertGoogleBookToDefaultFormValues(GoogleBook: IGoogleBook) {
 
     const bookDescriptionKeyWords = bookDescriptionForSearch.split(' ')
 
-    console.log('book description is',bookDescriptionForSearch)
-    console.log('book keywords are',bookDescriptionKeyWords)
-
     let defaultValues: IFormInputs = {
+
+        googleBooksId: GoogleBook.id,
 
         title: GoogleBook.volumeInfo.title,
         subtitle: !!GoogleBook.volumeInfo?.subtitle ? GoogleBook.volumeInfo.subtitle : '',
         series: '',
         seriesNumber: '',
+
+        publisher: !!GoogleBook.volumeInfo?.publisher ? GoogleBook.volumeInfo.publisher : '',
         
         // Ternary: if no authors, set default for one blank author. If it has authors, map each author to a contributor object
         contributors: !!GoogleBook.volumeInfo?.authors ? 
-            GoogleBook.volumeInfo.authors.map((authorName: string) => ({ name: authorName, type: 'Author' })) 
+            GoogleBook.volumeInfo.authors.map((authorName: string) => ({ contributor: { name: authorName, id: '' }, type: 'Author' })) 
             : 
-            [{ name: '', type: 'Author' }],
+            [{ contributor: { name: '', id: '' }, type: 'Author' }],
     
         genre: '',
     
@@ -422,7 +423,9 @@ export function convertGoogleBookToDefaultFormValues(GoogleBook: IGoogleBook) {
     
         awardsOther: [],
         
-        smartAward: ''
+        smartAward: '',
+
+        cataloging: []
     
     }
 
