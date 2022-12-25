@@ -1,8 +1,8 @@
 import React from "react"
-import { getDatabase, ref, child, get, set, push } from "firebase/database"
+import { getDatabase, ref, child, get, set, push, onValue } from "firebase/database"
 import { unpackBooksObject } from "./bookConversions"
 
-export function readDatabase(path: string, convertBooks?: boolean) {
+export function readDatabase(path: string) {
 
     const [data, setData] = React.useState<any>(null)
     const [isLoading, setIsLoading] = React.useState(true)
@@ -30,6 +30,24 @@ export function readDatabase(path: string, convertBooks?: boolean) {
     },[data])
 
     return [data, isLoading]
+
+}
+
+export function readDatabaseRealtime(path: string) {
+
+    const [output, setOutput] = React.useState([])
+
+    const database = getDatabase()
+    const reference = ref(database, path)
+
+    React.useEffect(() => {
+        onValue(reference, (snapshot) => {
+            const data = snapshot.val()
+            setOutput(data)
+        })
+    },[])
+
+    return [output, setOutput]
 
 }
 

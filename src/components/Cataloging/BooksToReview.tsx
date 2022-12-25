@@ -8,9 +8,9 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { IFormInputs, IGoogleBook } from '../../utils/Interfaces'
+import { IGoogleBook } from '../../utils/Interfaces'
 import { shortenString } from '../../utils/handleStrings'
-import { pushDatabase, readDatabase } from '../../utils/useDatabase'
+import { pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
 import ReviewStatus from './ReviewStatus'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -24,22 +24,23 @@ export default function BooksToReview() {
     // Dialog
     const [open, setOpen] = React.useState(false)
 
-    let [books, isLoading] = readDatabase('booksToReview')
-    console.log('books',books)
+    const [books, setBooks] = readDatabaseRealtime('booksToReview')
 
     function createRows(books: any) {
-        return books.map(
-            (book: any) => (
-                <TableRow key={nanoid()}>
-                    <TableCell><img src={book.editions[0].coverUrl} style={{ width: 65, height: 65, objectFit: 'cover' }} /></TableCell>
-                    <TableCell align='left'>{book.title}</TableCell>
-                    <TableCell align='left'>{book?.contributors[0]?.contributor?.name}</TableCell>
-                    <TableCell align='left'>{shortenString(book.description, 45)}</TableCell>
-                    <TableCell align='center'><ReviewStatus size='medium' reviews={book.cataloging} /></TableCell>
-                    <TableCell align='center'><Button variant='outlined'>Add Review</Button></TableCell>
-                </TableRow>
+        return books
+            .reverse()
+            .map(
+                (book: any) => (
+                    <TableRow key={nanoid()}>
+                        <TableCell><img src={book.editions[0].coverUrl} style={{ width: 65, height: 65, objectFit: 'cover' }} /></TableCell>
+                        <TableCell align='left'>{book.title}</TableCell>
+                        <TableCell align='left'>{book?.contributors[0]?.contributor?.name}</TableCell>
+                        <TableCell align='left'>{shortenString(book.description, 45)}</TableCell>
+                        <TableCell align='center'><ReviewStatus size='medium' reviews={book.cataloging} /></TableCell>
+                        <TableCell align='center'><Button variant='outlined'>Add Review</Button></TableCell>
+                    </TableRow>
+                )
             )
-        )
     }
 
     function selectBook(book: IGoogleBook) {
