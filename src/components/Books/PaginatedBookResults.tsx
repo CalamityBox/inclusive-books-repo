@@ -12,7 +12,7 @@ import BookCard from './BookCard'
 import { matchSorter } from "match-sorter"
 import { nanoid } from 'nanoid'
 import usePaginationCustom from '../../utils/usePaginationCustom'
-import useDatabase from '../../utils/useDatabase'
+import { readDatabase } from '../../utils/useDatabase'
 
 // Data
 import useChipsCustom from '../../utils/useChipsCustom'
@@ -21,7 +21,7 @@ import { Typography } from '@mui/material'
 
 export default function PaginatedBookResults(props : any) {
 
-    const [data, isLoading] = useDatabase('inclusiveBooks')
+    const [data, isLoading] = readDatabase('inclusiveBooks')
 
     const [searchText, setSearchText] = React.useState('')
     const [isSearchReadOnly,setIsSearchReadOnly] = React.useState(false)

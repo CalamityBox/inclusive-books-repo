@@ -4,7 +4,7 @@ import { Autocomplete, Avatar, Box, TextField, Typography } from '@mui/material'
 
 import { Controller, useFormContext } from 'react-hook-form'
 import { IContributor } from '../../utils/Interfaces'
-import useDatabase from '../../utils/useDatabase'
+import { readDatabase } from '../../utils/useDatabase'
 import { nanoid } from 'nanoid'
 import { matchSorter } from 'match-sorter'
 import InfoTooltip from '../InfoTooltip'
@@ -12,7 +12,7 @@ import InfoTooltip from '../InfoTooltip'
 export default function ContributorsAutocomplete(props: { name: string, label: string, setSelected?: Function, isError: boolean, errorMessage: string }) {
 
     const { control } = useFormContext()
-    const [options, isLoading] = useDatabase('contributors')
+    const [options, isLoading] = readDatabase('contributors')
 
     const filterOptions = (options: any, { inputValue }: any) => matchSorter(options, inputValue,{ keys: ['name'] })
 

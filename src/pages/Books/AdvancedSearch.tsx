@@ -13,7 +13,7 @@ import Pagination from '@mui/material/Pagination'
 import usePaginationCustom from '../../utils/usePaginationCustom'
 import { nanoid } from 'nanoid'
 import useFilterOptions from '../../utils/useFilterOptions'
-import useDatabase from '../../utils/useDatabase'
+import { readDatabase } from '../../utils/useDatabase'
 import useChipsCustom from '../../utils/useChipsCustom'
 
 export default function AdvancedSearch() {
@@ -22,7 +22,7 @@ export default function AdvancedSearch() {
     const [chips, setChips, handleChipClick, handleChipDelete, chipFilter] = useChipsCustom()
 
     const [searchResults, setSearchResults] = React.useState([])
-    const [data, isLoading] = useDatabase('inclusiveBooks')
+    const [data, isLoading] = readDatabase('inclusiveBooks')
 
     // Pagination
     const [page, setPage, handlePageChange, BOOKS_PER_PAGE] = usePaginationCustom(1, 10)

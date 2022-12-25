@@ -1,7 +1,8 @@
 import React from "react"
-import { getDatabase, ref, child, get } from "firebase/database"
+import { getDatabase, ref, child, get, set, push } from "firebase/database"
+import { unpackBooksObject } from "./bookConversions"
 
-export default function useDatabase(path: string) {
+export function readDatabase(path: string, convertBooks?: boolean) {
 
     const [data, setData] = React.useState<any>(null)
     const [isLoading, setIsLoading] = React.useState(true)
@@ -29,4 +30,26 @@ export default function useDatabase(path: string) {
     },[data])
 
     return [data, isLoading]
+
+}
+
+export function writeDatabase(path: string, data: any) {
+
+    const database = getDatabase()
+
+    set(
+        ref(database, path), data
+    )
+
+}
+
+export function pushDatabase(path: string, data: any) {
+
+    const database = getDatabase()
+
+    const dataRef = ref(database, path)
+    const newRef = push(dataRef)
+
+    set(newRef,data)
+
 }

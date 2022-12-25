@@ -1,17 +1,15 @@
+import React from 'react'
+
 import { Container } from '@mui/material'
 import { matchSorter } from 'match-sorter'
 import { nanoid } from 'nanoid'
-import React from 'react'
-import InclusiveCatalogingForm from '../../pages/Cataloging/InclusiveCatalogingForm'
-import { convertGoogleBookToDefaultFormValues } from '../../utils/bookConversions'
 import GoogleBooksCard from '../Books/GoogleBooksCard'
 import SearchBar from '../SearchBar'
 
-export default function GenerateBookData(props : any) {
+export default function GoogleBooksSearch(props : { selectBook?: Function }) {
     
     const [results, setResults] = React.useState<any>([])
     const [bookCards, setBookCards] = React.useState<any>([])
-    const [selectedBook,setSelectedBook] = React.useState(undefined)
 
     function handleGoogleBooksAPICall(search: string) {
 
@@ -39,24 +37,17 @@ export default function GenerateBookData(props : any) {
     React.useEffect(() => {
         setBookCards(
             results.map(
-                (book : any) => <GoogleBooksCard key={nanoid()} {...book} setSelectedBook={setSelectedBook} />
+                (book : any) => <GoogleBooksCard key={nanoid()} {...book} selectBook={props.selectBook} />
             )
         )
     },[results])
 
     return (
-        <>
-            {
-                selectedBook === undefined ?
-                    <>
-                        <SearchBar placeholder='Search for a book by title' callbackFunction={handleGoogleBooksAPICall} />
-                        <Container maxWidth={false} sx={{ maxWidth: '700px', mt: 2 }}>
-                            {bookCards.length === 0 ? <></> : bookCards}
-                        </Container>
-                    </>
-                    :
-                    <InclusiveCatalogingForm defaultValues={convertGoogleBookToDefaultFormValues(selectedBook)} />
-            }
-        </>
+        <Container maxWidth='md'>
+            <SearchBar placeholder='Search for a book by title' callbackFunction={handleGoogleBooksAPICall} autoFocus={true} />
+            <Container sx={{ height: 500, overflow: 'scroll', mt: 3 }}>
+                {bookCards.length === 0 ? <></> : bookCards}
+            </Container>
+        </Container>
     )
 }

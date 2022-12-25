@@ -435,3 +435,15 @@ export function convertGoogleBookToDefaultFormValues(GoogleBook: IGoogleBook) {
     return defaultValues
 
 }
+
+export function unpackBooksObject(books: any) {
+    // Input: an object where each ID corresponds to a book; Output: an array of these books
+    const output = []
+
+    for (const [key, value] of Object.entries(books)) {
+        output.push(value)
+    }
+
+    console.log('returning',output)
+    return output
+}

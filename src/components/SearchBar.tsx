@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 
 
 
-export default function SearchBar(props : { label?: string, placeholder?: string, isDisabled?: boolean, defaultValue?: string, callbackFunction: Function }) {
+export default function SearchBar(props : { label?: string, placeholder?: string, isDisabled?: boolean, defaultValue?: string, autoFocus?: boolean, callbackFunction: Function }) {
 
     const [value, setValue] = React.useState(!!props.defaultValue ? props.defaultValue : '')
 
@@ -33,6 +33,7 @@ export default function SearchBar(props : { label?: string, placeholder?: string
             disabled={!!props.isDisabled}
             variant='outlined'
             size='medium'
+            autoFocus={!!props.autoFocus}
             fullWidth
             sx={{ backgroundColor: 'white' }}
 
