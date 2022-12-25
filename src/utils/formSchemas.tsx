@@ -364,3 +364,23 @@ export const ReviewFormSchema = yup.object().shape({
     recommendation: yup.string().required('You must select a value.'),
     review: yup.string().required('You must enter a review.')
 })
+
+export const ReviewFormDefaultValues = {
+    oversimplification: '',
+    tokenism: '',
+    success: '',
+    supporting: '',
+    erasure: '',
+    dominantPopulation: '',
+    underrepresented: '',
+    friendships: '',
+    achievement: '',
+    culture: '',
+    jobsRoles: '',
+    families: '',
+    centralCharacters: '',
+    identity: '',
+    multilingual: '',
+    recommendation: '',
+    review: ''
+}

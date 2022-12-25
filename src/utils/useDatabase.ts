@@ -1,6 +1,7 @@
 import React from "react"
-import { getDatabase, ref, child, get, set, push, onValue } from "firebase/database"
+import { getDatabase, ref, child, get, set, push, onValue, update } from "firebase/database"
 import { unpackBooksObject } from "./bookConversions"
+import { ICatalogingReview, IFormInputs } from "./Interfaces"
 
 export function readDatabase(path: string) {
 
@@ -69,5 +70,11 @@ export function pushDatabase(path: string, data: any) {
     const newRef = push(dataRef)
 
     set(newRef,data)
+
+}
+
+export function submitReview(bookId: string, review: ICatalogingReview) {
+
+    writeDatabase(`booksToReview/${bookId}/cataloging`,[review])
 
 }

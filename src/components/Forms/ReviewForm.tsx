@@ -1,11 +1,12 @@
 import React from 'react'
+import { ReviewFormDefaultValues, ReviewFormSchema } from '../../utils/formSchemas'
 
 import ControlledRadio from './ControlledRadio'
 import ControlledTextField from './ControlledTextField'
 import FormCard from './FormCard'
 import FormWrapper from './FormWrapper'
 
-export default function ReviewForm(props : { defaultValues: any, schema: any }) {
+export default function ReviewForm(props: { handleSubmit?: Function }) {
 
     const yesNoUnsureOptions = [
         { value: 'yes', label: 'Yes' },
@@ -13,12 +14,8 @@ export default function ReviewForm(props : { defaultValues: any, schema: any }) 
         { value: 'unsure', label: 'Unsure' },
     ]
 
-    function handleReviewSubmit() {
-        
-    }
-
     return (
-        <FormWrapper defaultValues={props.defaultValues} schema={props.schema} formSubmitHandler={handleReviewSubmit}>
+        <FormWrapper defaultValues={ReviewFormDefaultValues} schema={ReviewFormSchema} formSubmitHandler={props.handleSubmit}>
 
             <FormCard label='Oversimplification & Stereotypes' required={true} description="Are there simplified generalizations of [a population's] interests, food, families? Are costumes/customs capriciously appropriated?  Are there any excessive or unwarranted generalizations of groups?">
                 <ControlledRadio

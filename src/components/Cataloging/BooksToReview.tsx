@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 // Table
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -20,6 +22,9 @@ import { convertGoogleBookToDefaultFormValues, unpackBooksObject } from '../../u
 import { nanoid } from 'nanoid'
 
 export default function BooksToReview() {
+
+    // Navigation
+    const navigate = useNavigate()
 
     // Dialog
     const [open, setOpen] = React.useState(false)
@@ -49,16 +54,40 @@ export default function BooksToReview() {
             .slice(sliceStart, sliceEnd)
             .map(
                 (book: any) => (
-                    <TableRow key={nanoid()}>
+                    <TableRow key={nanoid()} hover>
                         <TableCell><img src={book.editions[0].coverUrl} style={{ width: 65, height: 65, objectFit: 'cover' }} /></TableCell>
                         <TableCell align='left'>{book.title}</TableCell>
                         <TableCell align='left'>{book?.contributors[0]?.contributor?.name}</TableCell>
                         <TableCell align='left'>{shortenString(book.description, 45)}</TableCell>
                         <TableCell align='center'><ReviewStatus size='medium' reviews={book.cataloging} /></TableCell>
-                        <TableCell align='center'><Button variant='outlined'>Add Review</Button></TableCell>
+                        <TableCell align='center'><Button variant='outlined' disabled={!!book.cataloging && book.cataloging.length >= 3}>Add Review</Button></TableCell>
                     </TableRow>
                 )
             )
+    }
+
+    function generateRows(books: object) {
+
+        const output = []
+
+        for (const [key, book] of Object.entries(books)) {
+            output.push(
+                <TableRow key={nanoid()} hover>
+                    <TableCell><img src={book.editions[0].coverUrl} style={{ width: 65, height: 65, objectFit: 'cover' }} /></TableCell>
+                    <TableCell align='left'>{book.title}</TableCell>
+                    <TableCell align='left'>{book?.contributors[0]?.contributor?.name}</TableCell>
+                    <TableCell align='left'>{shortenString(book.description, 45)}</TableCell>
+                    <TableCell align='center'><ReviewStatus size='large' reviews={book.cataloging} /></TableCell>
+                    <TableCell align='center'><Button variant='outlined' disabled={!!book.cataloging && book.cataloging.length >= 3} onClick={() => navigate(`/cataloging/reviewing/${key}`)}>Add Review</Button></TableCell>
+                </TableRow>
+            )
+        }
+
+        const sliceStart = page * rowsPerPage
+        const sliceEnd = sliceStart + rowsPerPage
+
+        return output.reverse().slice(sliceStart, sliceEnd)
+
     }
 
     function selectBook(book: IGoogleBook) {
@@ -67,7 +96,7 @@ export default function BooksToReview() {
 
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }}>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{ maxHeight: '70vh' }}>
                 <Typography 
                     sx={{ flex: '1 1 100%', my: 3, ml: 3, textAlign: 'left' }}
                     variant="h4"
@@ -76,7 +105,7 @@ export default function BooksToReview() {
                 >
                     Books to Review
                 </Typography>
-                <Table aria-label='Table of books that need additional reviews.'>
+                <Table stickyHeader aria-label='Table of books that need additional reviews.'>
                     <TableHead>
                         <TableRow>
                             <TableCell align='center'>Cover</TableCell>
@@ -91,7 +120,7 @@ export default function BooksToReview() {
                     <TableBody>
                         {
                             !!books ?
-                                createRows( unpackBooksObject(books) )
+                                generateRows(books)
                                 :
                                 <></>
                         }
