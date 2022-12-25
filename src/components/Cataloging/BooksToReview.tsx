@@ -14,7 +14,7 @@ import { pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
 import ReviewStatus from './ReviewStatus'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import { Box, Dialog, DialogContentText, DialogTitle } from '@mui/material'
+import { Box, Dialog, DialogContentText, DialogTitle, TablePagination, Typography } from '@mui/material'
 import GoogleBooksSearch from '../Forms/GoogleBooksSearch'
 import { convertGoogleBookToDefaultFormValues, unpackBooksObject } from '../../utils/bookConversions'
 import { nanoid } from 'nanoid'
@@ -24,11 +24,29 @@ export default function BooksToReview() {
     // Dialog
     const [open, setOpen] = React.useState(false)
 
+    // Pagination
+    const [page, setPage] = React.useState(0)
+    const [rowsPerPage, setRowsPerPage] = React.useState(5)
+
+    function handlePageChange(event: unknown, newPage: number) {
+        setPage(newPage)
+    }
+
+    function handleRowsPerPageChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setRowsPerPage( parseInt(event.target.value,10) )
+        setPage(0)
+    }
+
     const [books, setBooks] = readDatabaseRealtime('booksToReview')
 
     function createRows(books: any) {
+
+        const sliceStart = page * rowsPerPage
+        const sliceEnd = sliceStart + rowsPerPage
+
         return books
             .reverse()
+            .slice(sliceStart, sliceEnd)
             .map(
                 (book: any) => (
                     <TableRow key={nanoid()}>
@@ -50,8 +68,15 @@ export default function BooksToReview() {
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }}>
             <TableContainer component={Paper}>
+                <Typography 
+                    sx={{ flex: '1 1 100%', my: 3, ml: 3, textAlign: 'left' }}
+                    variant="h4"
+                    id="table-title"
+                    component="div"
+                >
+                    Books to Review
+                </Typography>
                 <Table aria-label='Table of books that need additional reviews.'>
-
                     <TableHead>
                         <TableRow>
                             <TableCell align='center'>Cover</TableCell>
@@ -74,6 +99,16 @@ export default function BooksToReview() {
 
                 </Table>
             </TableContainer>
+
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 15]}
+                component="div"
+                count={Object.keys(books).length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleRowsPerPageChange}
+            />
 
             <Button 
                 variant='contained'
@@ -100,9 +135,9 @@ export default function BooksToReview() {
                     </Box>
                     <GoogleBooksSearch 
                         selectBook={(book: IGoogleBook) => {
-                            console.log('running select book function')
-                            selectBook(book)}
-                        } 
+                            selectBook(book)
+                            setOpen(false)
+                        }} 
                     />
                     <Button variant='outlined' sx={{ width: 'max-content', mx: 'auto' }}>Not finding your book?</Button>
                 </Container>  
