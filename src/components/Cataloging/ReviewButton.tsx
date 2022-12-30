@@ -52,7 +52,7 @@ export default function ReviewButton(props: { bookKey: string, userId: string, r
 
     return (
         <Button 
-            variant='outlined'
+            variant={buttonText === 'Review' ? 'outlined' : 'contained'}
             sx={{ width: '100%' }}
             onClick={() => navigate(buttonText === 'Review' ? `/cataloging/reviewing/${props.bookKey}/${props.userId}` : `/cataloging/${catalogingPath}/${props.bookKey}`)}
         >

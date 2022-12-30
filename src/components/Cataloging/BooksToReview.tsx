@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { useNavigate } from 'react-router-dom'
-
 // Table
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -16,7 +14,7 @@ import { pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
 import ReviewStatus from './ReviewStatus'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import { Box, Dialog, DialogContentText, DialogTitle, IconButton, TablePagination, Typography } from '@mui/material'
+import { Box, Dialog, DialogContentText, DialogTitle, TablePagination, Typography } from '@mui/material'
 import GoogleBooksSearch from '../Forms/GoogleBooksSearch'
 import { convertGoogleBookToDefaultFormValues } from '../../utils/bookConversions'
 import { nanoid } from 'nanoid'
@@ -30,9 +28,6 @@ export default function BooksToReview() {
 
     // User
     const { user } = UserAuth()
-
-    // Navigation
-    const navigate = useNavigate()
 
     // Dialog
     const [open, setOpen] = React.useState(false)

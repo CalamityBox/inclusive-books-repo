@@ -63,7 +63,9 @@ export default function MainRouting() {
 
             <Route path='cataloging'>
                 <Route path='dashboard' element={<Protected><CatalogingDashboard /></Protected>} />
-                <Route path ='inclusive-cataloging' element={<Protected><InclusiveCatalogingForm /></Protected>} />
+                <Route path='inclusive-cataloging' element={<Protected><InclusiveCatalogingForm /></Protected>} >
+                    <Route path=':bookId' />
+                </Route>
                 <Route path ='contributor-cataloging' element={<Protected><ContributorCatalogingPage /></Protected>} />
                 <Route path ='reviewing' element={<Protected><BookReviewPage /></Protected>} >
                     <Route path=':bookId' >
