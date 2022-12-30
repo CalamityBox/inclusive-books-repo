@@ -25,9 +25,11 @@ export default function ReviewStatus(props: { size?: "small" | "inherit" | "medi
 
     if (!!props?.reviews) {
 
-        let index = 0
+        let index = 0 // Need this to know where the status icon should go
 
         for (const [key, review] of Object.entries(props.reviews)) {
+
+            console.log(`${index} recommendation for this book is`,review.recommendation)
 
             switch (review.recommendation) {
 
@@ -51,9 +53,11 @@ export default function ReviewStatus(props: { size?: "small" | "inherit" | "medi
                     status[index] = <SentimentNeutralIcon fontSize={props.size} color='warning' key={nanoid()} />
                     break
             }
+
+            index += 1
+
         }
 
-        index += 1
     }
 
 

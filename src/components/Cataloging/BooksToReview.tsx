@@ -24,6 +24,7 @@ import { UserAuth } from '../../contexts/AuthContext'
 import useTablePagination from '../../utils/useTablePagination'
 
 import DeleteIcon from '@mui/icons-material/Delete'
+import ReviewButton from './ReviewButton'
 
 export default function BooksToReview() {
 
@@ -56,9 +57,7 @@ export default function BooksToReview() {
                     <TableCell align='left'>{shortenString(book.description, 35)}</TableCell>
                     <TableCell align='center'><ReviewStatus size='large' reviews={book.cataloging} /></TableCell>
                     <TableCell align='center'>
-                        <Button variant='outlined' disabled={!!book.cataloging && book.cataloging.length >= 3} onClick={() => navigate(`/cataloging/reviewing/${key}/${user.uid}`)}>
-                            Review
-                        </Button>
+                        <ReviewButton bookKey={key} userId={user.uid} reviews={book.cataloging} />
                     </TableCell>
                     <TableCell align='center'>
                         <IconButton onClick={() => deleteFromDatabase(`booksToReview/${key}`)}>
