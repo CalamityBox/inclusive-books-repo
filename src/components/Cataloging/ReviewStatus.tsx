@@ -36,7 +36,9 @@ export default function ReviewStatus(props: { size?: "small" | "inherit" | "medi
                 case 'inclusive':
                     status[index] = (
                         <EnhancedDefaultTooltip key={nanoid()} placement='bottom' title={parseName(review.reviewer.name)} body={review.review}>
-                            <SentimentSatisfiedAltIcon fontSize={props.size} color='success' />
+                            <div tabIndex={0}>
+                                <SentimentSatisfiedAltIcon fontSize={props.size} color='success' />
+                            </div>
                         </EnhancedDefaultTooltip>
                     )
                     break
@@ -44,13 +46,21 @@ export default function ReviewStatus(props: { size?: "small" | "inherit" | "medi
                 case 'questionable':
                     status[index] = (
                         <EnhancedDefaultTooltip key={nanoid()} placement='bottom' title={parseName(review.reviewer.name)} body={review.review}>
-                            <SentimentVeryDissatisfiedIcon fontSize={props.size} color='error' />
+                            <div tabIndex={0}>
+                                <SentimentVeryDissatisfiedIcon fontSize={props.size} color='error' />
+                            </div>
                         </EnhancedDefaultTooltip>
                     )
                     break
 
                 case 'neutral':
-                    status[index] = <SentimentNeutralIcon fontSize={props.size} color='warning' key={nanoid()} />
+                    status[index] = (
+                        <EnhancedDefaultTooltip key={nanoid()} placement='bottom' title={parseName(review.reviewer.name)} body={review.review}>
+                            <div tabIndex={0}>
+                                <SentimentNeutralIcon fontSize={props.size} color='warning' key={nanoid()} />
+                            </div>
+                        </EnhancedDefaultTooltip>
+                    )
                     break
             }
 
