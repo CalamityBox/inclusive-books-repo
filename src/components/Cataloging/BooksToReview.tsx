@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { IGoogleBook } from '../../utils/Interfaces'
 import { shortenString } from '../../utils/handleStrings'
-import { deleteFromDatabase, pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
+import { pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
 import ReviewStatus from './ReviewStatus'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -23,8 +23,8 @@ import { nanoid } from 'nanoid'
 import { UserAuth } from '../../contexts/AuthContext'
 import useTablePagination from '../../utils/useTablePagination'
 
-import DeleteIcon from '@mui/icons-material/Delete'
 import ReviewButton from './ReviewButton'
+import DeleteDialog from '../DeleteDialog'
 
 export default function BooksToReview() {
 
@@ -60,9 +60,7 @@ export default function BooksToReview() {
                         <ReviewButton bookKey={key} userId={user.uid} reviews={book.cataloging} />
                     </TableCell>
                     <TableCell align='center'>
-                        <IconButton onClick={() => deleteFromDatabase(`booksToReview/${key}`)}>
-                            <DeleteIcon />
-                        </IconButton>
+                        <DeleteDialog databasePath={`booksToReview/${key}`} completionMessage={`${book.title} has been deleted.`} />
                     </TableCell>
                 </TableRow>
             )
@@ -79,8 +77,6 @@ export default function BooksToReview() {
         pushDatabase('booksToReview',convertGoogleBookToDefaultFormValues(book))
         setPage(0)
     }
-
-    
 
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }}>
