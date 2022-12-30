@@ -12,16 +12,23 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { IGoogleBook } from '../../utils/Interfaces'
 import { shortenString } from '../../utils/handleStrings'
-import { pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
+import { deleteFromDatabase, pushDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
 import ReviewStatus from './ReviewStatus'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import { Box, Dialog, DialogContentText, DialogTitle, TablePagination, Typography } from '@mui/material'
+import { Box, Dialog, DialogContentText, DialogTitle, IconButton, TablePagination, Typography } from '@mui/material'
 import GoogleBooksSearch from '../Forms/GoogleBooksSearch'
-import { convertGoogleBookToDefaultFormValues, unpackBooksObject } from '../../utils/bookConversions'
+import { convertGoogleBookToDefaultFormValues } from '../../utils/bookConversions'
 import { nanoid } from 'nanoid'
+import { UserAuth } from '../../contexts/AuthContext'
+import useTablePagination from '../../utils/useTablePagination'
+
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function BooksToReview() {
+
+    // User
+    const { user } = UserAuth()
 
     // Navigation
     const navigate = useNavigate()
@@ -30,41 +37,11 @@ export default function BooksToReview() {
     const [open, setOpen] = React.useState(false)
 
     // Pagination
-    const [page, setPage] = React.useState(0)
-    const [rowsPerPage, setRowsPerPage] = React.useState(5)
-
-    function handlePageChange(event: unknown, newPage: number) {
-        setPage(newPage)
-    }
-
-    function handleRowsPerPageChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setRowsPerPage( parseInt(event.target.value,10) )
-        setPage(0)
-    }
+    const DEFAULT_PAGE = 0
+    const DEFAULT_ROWS_PER_PAGE = 5
+    const [page, rowsPerPage, setPage, setRowsPerPage, handlePageChange, handleRowsPerPageChange] = useTablePagination(DEFAULT_PAGE, DEFAULT_ROWS_PER_PAGE)
 
     const [books, setBooks] = readDatabaseRealtime('booksToReview')
-
-    function createRows(books: any) {
-
-        const sliceStart = page * rowsPerPage
-        const sliceEnd = sliceStart + rowsPerPage
-
-        return books
-            .reverse()
-            .slice(sliceStart, sliceEnd)
-            .map(
-                (book: any) => (
-                    <TableRow key={nanoid()} hover>
-                        <TableCell><img src={book.editions[0].coverUrl} style={{ width: 65, height: 65, objectFit: 'cover' }} /></TableCell>
-                        <TableCell align='left'>{book.title}</TableCell>
-                        <TableCell align='left'>{book?.contributors[0]?.contributor?.name}</TableCell>
-                        <TableCell align='left'>{shortenString(book.description, 45)}</TableCell>
-                        <TableCell align='center'><ReviewStatus size='medium' reviews={book.cataloging} /></TableCell>
-                        <TableCell align='center'><Button variant='outlined' disabled={!!book.cataloging && book.cataloging.length >= 3}>Add Review</Button></TableCell>
-                    </TableRow>
-                )
-            )
-    }
 
     function generateRows(books: object) {
 
@@ -76,9 +53,18 @@ export default function BooksToReview() {
                     <TableCell><img src={book.editions[0].coverUrl} style={{ width: 65, height: 65, objectFit: 'cover' }} /></TableCell>
                     <TableCell align='left'>{book.title}</TableCell>
                     <TableCell align='left'>{book?.contributors[0]?.contributor?.name}</TableCell>
-                    <TableCell align='left'>{shortenString(book.description, 45)}</TableCell>
+                    <TableCell align='left'>{shortenString(book.description, 35)}</TableCell>
                     <TableCell align='center'><ReviewStatus size='large' reviews={book.cataloging} /></TableCell>
-                    <TableCell align='center'><Button variant='outlined' disabled={!!book.cataloging && book.cataloging.length >= 3} onClick={() => navigate(`/cataloging/reviewing/${key}`)}>Add Review</Button></TableCell>
+                    <TableCell align='center'>
+                        <Button variant='outlined' disabled={!!book.cataloging && book.cataloging.length >= 3} onClick={() => navigate(`/cataloging/reviewing/${key}/${user.uid}`)}>
+                            Review
+                        </Button>
+                    </TableCell>
+                    <TableCell align='center'>
+                        <IconButton onClick={() => deleteFromDatabase(`booksToReview/${key}`)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </TableCell>
                 </TableRow>
             )
         }
@@ -92,7 +78,10 @@ export default function BooksToReview() {
 
     function selectBook(book: IGoogleBook) {
         pushDatabase('booksToReview',convertGoogleBookToDefaultFormValues(book))
+        setPage(0)
     }
+
+    
 
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', rowGap: 3 }}>
@@ -113,7 +102,8 @@ export default function BooksToReview() {
                             <TableCell align='left'>Author</TableCell>
                             <TableCell align='left'>Description</TableCell>
                             <TableCell align='center'>Review Status</TableCell>
-                            <TableCell align='center'>Add Review</TableCell>
+                            <TableCell align='center'></TableCell>
+                            <TableCell align='center'></TableCell>
                         </TableRow>
                     </TableHead>
 

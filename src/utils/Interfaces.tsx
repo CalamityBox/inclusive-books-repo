@@ -390,7 +390,7 @@ export interface IFormInputs {
     awardsOther: IDynamicOtherString[],
     smartAward: string;
 
-    cataloging: ICatalogingReview[]
+    cataloging: {}
 
 }
 

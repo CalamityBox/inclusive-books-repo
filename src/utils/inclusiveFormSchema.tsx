@@ -261,7 +261,9 @@ export const defaultValues: IFormInputs = {
 
     awardsOther: [],
     
-    smartAward: ''
+    smartAward: '',
+
+    cataloging: {}
 
 }
 

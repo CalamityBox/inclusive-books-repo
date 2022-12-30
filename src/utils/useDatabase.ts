@@ -1,11 +1,11 @@
 import React from "react"
-import { getDatabase, ref, child, get, set, push, onValue, update } from "firebase/database"
+import { getDatabase, ref, child, get, set, push, onValue, update, remove } from "firebase/database"
 import { unpackBooksObject } from "./bookConversions"
 import { ICatalogingReview, IFormInputs } from "./Interfaces"
 
 export function readDatabase(path: string) {
 
-    const [data, setData] = React.useState<any>(null)
+    const [data, setData] = React.useState<any>(undefined)
     const [isLoading, setIsLoading] = React.useState(true)
 
     const dbRef = ref(getDatabase())
@@ -18,16 +18,17 @@ export function readDatabase(path: string) {
                     setData(snapshot.val())
                     setIsLoading(false)
                 } else {
-                    console.log("No data available")
+                    console.log('No data available')
+                    setData(false)
                 }
         }).catch((error) => {
-            console.error(error);
+            console.log(error)
         })
 
     },[])
 
     React.useEffect(() => {
-        setIsLoading(data === null)
+        setIsLoading(data === undefined || data === null)
     },[data])
 
     return [data, isLoading]
@@ -73,8 +74,17 @@ export function pushDatabase(path: string, data: any) {
 
 }
 
-export function submitReview(bookId: string, review: ICatalogingReview) {
+export function deleteFromDatabase(path: string) {
 
-    writeDatabase(`booksToReview/${bookId}/cataloging`,[review])
+    const database = getDatabase()
+    const dataRef = ref(database, path)
+
+    remove(dataRef)
+
+}
+
+export function submitReview(bookId: string, userId: string, review: ICatalogingReview) {
+
+    writeDatabase(`booksToReview/${bookId}/cataloging/${userId}`, review)
 
 }
