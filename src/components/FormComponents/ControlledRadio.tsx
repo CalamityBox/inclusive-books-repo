@@ -1,14 +1,14 @@
 import React from 'react'
 
 import { Controller, useFormContext } from 'react-hook-form'
-import { Button, FormControlLabel, FormHelperText, IconButton, Radio, RadioGroup, Tooltip, Typography } from '@mui/material'
-import InfoIcon from '@mui/icons-material/Info'
+import { FormControlLabel, FormHelperText, Radio, RadioGroup, Typography } from '@mui/material'
 import { nanoid } from 'nanoid'
 import InfoTooltip from '../InfoTooltip'
+import { simpleFormOption } from '../../utils/formOptions'
 
-export default function ControlledRadio(props : { label: string, name: string, defaultValue?: string, options: { value: string, label: string, tooltip?: string, examples?: string }[], isError?: boolean, errorMessage?: string }) {
+export default function ControlledRadio(props : { label: string, name: string, defaultValue?: string, options: simpleFormOption[] }) {
 
-    const { control } = useFormContext()
+    const { control, formState: { errors } } = useFormContext()
 
     const options = props.options.map(
         option => (
@@ -31,7 +31,16 @@ export default function ControlledRadio(props : { label: string, name: string, d
 
     return (
         <>
-            {props.isError ? <FormHelperText error>{props.errorMessage}</FormHelperText> : <></>}
+            {
+                !!errors[props.name] ? 
+                    <FormHelperText error>
+                        <>
+                            {errors[props.name]?.message}
+                        </>
+                    </FormHelperText> 
+                    : 
+                    <></>
+            }
             <Controller 
                 name={props.name}
                 defaultValue={props.defaultValue}

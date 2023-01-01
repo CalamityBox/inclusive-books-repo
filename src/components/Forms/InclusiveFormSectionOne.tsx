@@ -35,7 +35,6 @@ import { awardOptions,
     raceCultureContentOptions, 
     raceCultureOptions, 
     sensitiveContentOptions } from '../../utils/formOptions'
-import ContributorsAutocomplete from '../FormComponents/ContributorsAutocomplete'
 
 export default function InclusiveFormSectionOne(props : any) {
 
@@ -83,10 +82,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Genre' required={true}>
                 <ControlledRadio 
                     name='genre' 
-                    label='Genre' 
-                    defaultValue='' 
-                    isError={!!errors?.genre}
-                    errorMessage={createErrorMessage(errors.genre)}
+                    label='Genre'
                     options={genreOptions}
                 />
             </FormCard>
@@ -125,9 +121,6 @@ export default function InclusiveFormSectionOne(props : any) {
                 <ControlledRadio 
                     name='identityBased'
                     label='Identity Based'
-                    defaultValue=''
-                    isError={!!errors?.identityBased}
-                    errorMessage={createErrorMessage(errors.identityBased)}
                     options={identityBasedOptions}
                 />
             </FormCard>
@@ -136,9 +129,6 @@ export default function InclusiveFormSectionOne(props : any) {
                 <ControlledRadio 
                     name='joyBased'
                     label='Joy Based'
-                    defaultValue=''
-                    isError={!!errors?.joyBased}
-                    errorMessage={createErrorMessage(errors.joyBased)}
                     options={joyBasedOptions}
                 />
             </FormCard>
