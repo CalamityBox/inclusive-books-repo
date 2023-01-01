@@ -36,7 +36,7 @@ import { awardOptions,
     raceCultureOptions, 
     sensitiveContentOptions } from '../../utils/formOptions'
 
-export default function InclusiveFormSectionOne(props : any) {
+export default function InclusiveBookForm(props : any) {
 
     const {
         control,

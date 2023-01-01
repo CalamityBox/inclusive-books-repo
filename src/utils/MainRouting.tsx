@@ -23,12 +23,9 @@ import Book from '../components/Books/Book'
 import SignIn from '../pages/SignIn'
 import Protected from '../components/Protected'
 import CatalogingDashboard from '../pages/Cataloging/CatalogingDashboard'
-import InclusiveCatalogingForm from '../pages/Cataloging/InclusiveCatalogingForm'
-import GenerateBookData from '../components/FormComponents/GoogleBooksSearch'
 import ContributorCatalogingPage from '../pages/Cataloging/ContributorCatalogingPage'
-import ReviewForm from '../components/Forms/ReviewForm'
-import { ReviewFormSchema } from './formSchemas'
 import BookReviewPage from '../pages/Cataloging/BookReviewPage'
+import InclusiveCatalogingPage from '../pages/Cataloging/InclusiveCatalogingPage'
 
 export default function MainRouting() {
     return (
@@ -63,7 +60,7 @@ export default function MainRouting() {
 
             <Route path='cataloging'>
                 <Route path='dashboard' element={<Protected><CatalogingDashboard /></Protected>} />
-                <Route path='inclusive-cataloging' element={<Protected><InclusiveCatalogingForm /></Protected>} >
+                <Route path='inclusive-cataloging' element={<Protected><InclusiveCatalogingPage /></Protected>} >
                     <Route path=':bookId' />
                 </Route>
                 <Route path ='contributor-cataloging' element={<Protected><ContributorCatalogingPage /></Protected>} />

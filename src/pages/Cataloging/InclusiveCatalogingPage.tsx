@@ -7,11 +7,11 @@ import Container from '@mui/material/Container'
 import { useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Step, StepLabel, Stepper } from '@mui/material'
-import InclusiveFormSectionOne from '../../components/Forms/InclusiveFormSectionOne'
 import { inclusiveFormSchema, defaultValues } from '../../utils/inclusiveFormSchema'
 import { IFormInputs } from '../../utils/Interfaces'
+import InclusiveBookForm from '../../components/Forms/InclusiveBookForm'
 
-export default function InclusiveCatalogingForm(props : { defaultValues?: IFormInputs }) {
+export default function InclusiveCatalogingPage(props : { defaultValues?: IFormInputs }) {
 
     const methods = useForm<IFormInputs>({
         mode: 'onBlur',
@@ -48,7 +48,7 @@ export default function InclusiveCatalogingForm(props : { defaultValues?: IFormI
                         maxWidth='md'
                     >
                         
-                        <InclusiveFormSectionOne />
+                        <InclusiveBookForm />
 
                         <Button type='submit' variant='contained' sx={{ margin: 'auto' }}>Submit</Button>
 
