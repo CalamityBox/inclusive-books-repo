@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { bodyOptions, countryOptions, disabilityOptions, familyStructureOptions, genderSexualityOptions, neurodivergentOptions, raceCultureOptions } from '../../utils/formOptions'
-import CountriesAutocomplete from './CountriesAutocomplete'
-import ControlledCheckbox from './ControlledCheckbox'
-import ControlledCheckboxGroup from './ControlledCheckboxGroup'
-import ControlledTextField from './ControlledTextField'
-import FormCard from './FormCard'
-import FormWrapper from './FormWrapper'
+import CountriesAutocomplete from '../FormComponents/CountriesAutocomplete'
+import ControlledCheckbox from '../FormComponents/ControlledCheckbox'
+import ControlledCheckboxGroup from '../FormComponents/ControlledCheckboxGroup'
+import ControlledTextField from '../FormComponents/ControlledTextField'
+import FormCard from '../FormComponents/FormCard'
+import FormWrapper from '../FormComponents/FormWrapper'
 
 export default function ContributorForm(props: { defaultValues: any, schema: any }) {
 

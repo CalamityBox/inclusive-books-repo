@@ -2,16 +2,16 @@ import React from 'react'
 
 import { Box, Divider, Grid, IconButton, Tooltip } from '@mui/material'
 import { useFieldArray, useFormContext } from 'react-hook-form'
-import ControlledSelect from './ControlledSelect'
+import ControlledSelect from '../FormComponents/ControlledSelect'
 
 import { editionOptions } from '../../utils/formOptions'
-import ControlledTextField from './ControlledTextField'
+import ControlledTextField from '../FormComponents/ControlledTextField'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 import { isError } from '../../utils/handleErrors'
-import OptionalRemoveButton from './OptionalRemoveButton'
-import OptionalAddButton from './OptionalAddButton'
-import ControlledAutocomplete from './ControlledAutocomplete'
+import OptionalRemoveButton from '../FormComponents/OptionalRemoveButton'
+import OptionalAddButton from '../FormComponents/OptionalAddButton'
+import ControlledAutocomplete from '../FormComponents/ControlledAutocomplete'
 
 export default function Editions(props : any) {
 

@@ -2,14 +2,14 @@ import React from 'react'
 
 // UI Components
 import ContributorsSubsection from './ContributorsSubsection'
-import ControlledRadio from './ControlledRadio'
-import ControlledCheckboxGroup from './ControlledCheckboxGroup'
-import ControlledTextField from './ControlledTextField'
-import FormCard from './FormCard'
+import ControlledRadio from '../FormComponents/ControlledRadio'
+import ControlledCheckboxGroup from '../FormComponents/ControlledCheckboxGroup'
+import ControlledTextField from '../FormComponents/ControlledTextField'
+import FormCard from '../FormComponents/FormCard'
 import { Grid } from '@mui/material'
 import Editions from './Editions'
-import OtherCheckbox from './OtherCheckbox'
-import CountriesAutocomplete from './CountriesAutocomplete'
+import OtherCheckbox from '../FormComponents/OtherCheckbox'
+import CountriesAutocomplete from '../FormComponents/CountriesAutocomplete'
 
 // Hook Form
 import { useFormContext } from 'react-hook-form'
@@ -35,7 +35,7 @@ import { awardOptions,
     raceCultureContentOptions, 
     raceCultureOptions, 
     sensitiveContentOptions } from '../../utils/formOptions'
-import ContributorsAutocomplete from './ContributorsAutocomplete'
+import ContributorsAutocomplete from '../FormComponents/ContributorsAutocomplete'
 
 export default function InclusiveFormSectionOne(props : any) {
 

@@ -2,10 +2,10 @@ import React from 'react'
 import { ReviewFormDefaultValues, ReviewFormSchema } from '../../utils/formSchemas'
 import { ICatalogingReview } from '../../utils/Interfaces'
 
-import ControlledRadio from './ControlledRadio'
-import ControlledTextField from './ControlledTextField'
-import FormCard from './FormCard'
-import FormWrapper from './FormWrapper'
+import ControlledRadio from '../FormComponents/ControlledRadio'
+import ControlledTextField from '../FormComponents/ControlledTextField'
+import FormCard from '../FormComponents/FormCard'
+import FormWrapper from '../FormComponents/FormWrapper'
 
 export default function ReviewForm(props: { handleSubmit?: Function, defaultValues?: ICatalogingReview }) {
 

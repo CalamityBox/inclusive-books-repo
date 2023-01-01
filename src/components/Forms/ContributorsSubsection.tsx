@@ -1,15 +1,15 @@
 import React from 'react'
 
 import Grid from '@mui/material/Grid'
-import ControlledSelect from './ControlledSelect'
+import ControlledSelect from '../FormComponents/ControlledSelect'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
 import { contributorOptions } from '../../utils/formOptions'
 
 import { isError } from '../../utils/handleErrors'
-import OptionalAddButton from './OptionalAddButton'
-import OptionalRemoveButton from './OptionalRemoveButton'
-import ContributorsAutocomplete from './ContributorsAutocomplete'
+import OptionalAddButton from '../FormComponents/OptionalAddButton'
+import OptionalRemoveButton from '../FormComponents/OptionalRemoveButton'
+import ContributorsAutocomplete from '../FormComponents/ContributorsAutocomplete'
 
 export default function ContributorsSubsection(props : { getValues: Function, watch: Function, setValue: Function }) {
 
