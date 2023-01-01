@@ -201,30 +201,9 @@ export default function ContributorsAutocomplete(props: { name: string, label: s
 
                         filterOptions={filterOptions}
 
-                        renderOption={(props, option: IContributor) => [props, option]
-                        //     (
-                        //     <Box key={nanoid()} component="li" {...props}>
-                        //         <Avatar
-                        //             alt={option.name}
-                        //             src={!!option?.profilePictureUrl ? option.profilePictureUrl : ''}
-                        //             imgProps={{ loading: 'lazy' }}
-                        //             sx={{ mr: 2 }}
-                        //         />
-                        //         <Typography>{option.name}</Typography>
-                        //         {
-                        //             !!option?.description ?
-                        //                 <InfoTooltip isVisible={true}>
-                        //                     <Typography variant='h6'>{option.name}</Typography>
-                        //                     <Typography>{option.description}</Typography>
-                        //                 </InfoTooltip>
-                        //                 :
-                        //                 <></>
-                        //         }
-                        //     </Box>
-                        // )
-                        }
+                        renderOption={(props, option: any) => [props, option]}
 
-                        renderGroup={(params) => params}
+                        renderGroup={(params: any) => params}
 
                         renderInput={(params) => (
                             <TextField 

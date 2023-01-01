@@ -443,3 +443,80 @@ export interface IContributor {
         type: string[]
     }[]
 }
+
+export interface IInclusiveBook {
+
+    metadata: {
+        timestamp: string;
+        cataloger: {
+            name: string;
+            id: string;
+        }
+    }
+
+    title: string;
+    subtitle: string;
+    fullTitle: string;
+
+    description: string;
+
+    gradeLevels: ('Pre-K' | 'Kindergarten' | '1st Grade' | '2nd Grade' | '3rd Grade' | '4th Grade' | '5th Grade' | 'Middle School' | 'High School' | 'Adult')[];
+    arLevel: number;
+
+    genres: string[];
+    sensitiveContent: string[];
+    generalSubject: string[];
+    identityBased: string;
+    adversityBased: string;
+    firstPublicationYear: number;
+
+    isbnList: string[];
+    contributorNameList: string[];
+    identitiesList: string[];
+    awards: string[];
+
+    contributors: {
+        name: string;
+        id: string;
+        role: ('Author' | 'Illustrator' | 'Editor' | 'Translator' | 'Contributor')[]
+    }[]
+
+    representation: {
+        raceCulture: {
+            label: 'Race / Culture',
+            identities: string[];
+            content: string[];
+        }
+        nationalityEthnicity: {
+            label: 'Nationality / Ethnicity / Tribal Affiliation',
+            identities: string[];
+            content: string[];
+        }
+        genderSexuality: {
+            label: 'Gender / Sexuality',
+            identities: string[];
+            content: string[];
+        }
+        familyStructure: {
+            label: 'Family Structure',
+            identities: string[];
+            content: string[];
+        }
+        neurodivergent: {
+            label: 'Neurodivergent',
+            identities: string[];
+            content: string[];
+        }
+        body: {
+            label: 'Body Identity',
+            identities: string[];
+            content: string[];
+        }
+        disability: {
+            label: 'Disability',
+            identities: string[];
+            content: string[];
+        }
+    }
+
+}
