@@ -4,9 +4,9 @@ import React from 'react'
 import Container from '@mui/material/Container'
 
 // Forms
-import { useForm, SubmitHandler, Controller, FormProvider, useFieldArray } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Button, Step, StepLabel, Stepper } from '@mui/material'
+import { Button, Step, StepLabel, Stepper } from '@mui/material'
 import InclusiveFormSectionOne from '../../components/Forms/InclusiveFormSectionOne'
 import { inclusiveFormSchema, defaultValues } from '../../utils/inclusiveFormSchema'
 import { IFormInputs } from '../../utils/Interfaces'
