@@ -90,10 +90,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Grade Level' required={true}>
                 <ControlledCheckboxGroup 
                     label='Grade Level' 
-                    name='grade' 
-                    defaultValue=''
-                    isError={!!errors.grade}
-                    errorMessage={createErrorMessage(errors.grade)}
+                    name='grade'
                     options={gradeOptions}
                 />
             </FormCard>
@@ -136,10 +133,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='General Subject Matter' required={true}>
                 <ControlledCheckboxGroup 
                     label='General Subject Matter' 
-                    name='generalSubject' 
-                    defaultValue=''
-                    isError={!!errors?.generalSubject}
-                    errorMessage={createErrorMessage(errors.generalSubject)}
+                    name='generalSubject'
                     options={generalSubjectOptions}
                 />
                 <OtherCheckbox name='generalSubjectOther' keyName='value' />
@@ -148,10 +142,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Sensitive Content' description='Select any sensitive content in the book so that we can provide warnings to people ahead of time.'>
                 <ControlledCheckboxGroup 
                     label='Sensitive Content' 
-                    name='sensitiveContent' 
-                    defaultValue=''
-                    isError={!!errors?.sensitiveContent}
-                    errorMessage={createErrorMessage(errors.sensitiveContent)}
+                    name='sensitiveContent'
                     options={sensitiveContentOptions}
                 />
                 <OtherCheckbox name='sensitiveContentOther' keyName='value' />
@@ -169,10 +160,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Race / Culture'>
                 <ControlledCheckboxGroup 
                     label='Race / Culture' 
-                    name='raceCulture' 
-                    defaultValue=''
-                    isError={!!errors?.raceCulture}
-                    errorMessage={createErrorMessage(errors.raceCulture)}
+                    name='raceCulture'
                     options={raceCultureOptions}
                 />
                 <OtherCheckbox name='raceCultureOther' keyName='value' />
@@ -181,10 +169,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Race / Culture Content'>
                 <ControlledCheckboxGroup 
                     label='Race / Culture Content' 
-                    name='raceCultureContent' 
-                    defaultValue=''
-                    isError={!!errors?.raceCultureContent}
-                    errorMessage={createErrorMessage(errors.raceCultureContent)}
+                    name='raceCultureContent'
                     options={raceCultureContentOptions}
                 />
                 <OtherCheckbox name='raceCultureContentOther' keyName='value' />
@@ -194,10 +179,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Gender and Sexuality'>
                 <ControlledCheckboxGroup 
                     label='Gender and Sexuality' 
-                    name='genderSexuality' 
-                    defaultValue=''
-                    isError={!!errors?.genderSexuality}
-                    errorMessage={createErrorMessage(errors.genderSexuality)}
+                    name='genderSexuality'
                     options={genderSexualityOptions}
                 />
                 <OtherCheckbox name='genderSexualityOther' keyName='value' />
@@ -206,10 +188,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Gender and Sexuality Content'>
                 <ControlledCheckboxGroup 
                     label='Gender and Sexuality Content' 
-                    name='genderSexualityContent' 
-                    defaultValue=''
-                    isError={!!errors?.genderSexualityContent}
-                    errorMessage={createErrorMessage(errors.genderSexualityContent)}
+                    name='genderSexualityContent'
                     options={genderSexualityContentOptions}
                 />
                 <OtherCheckbox name='genderSexualityContentOther' keyName='value' />
@@ -219,10 +198,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Family Structure'>
                 <ControlledCheckboxGroup 
                     label='Family Structure' 
-                    name='familyStructure' 
-                    defaultValue=''
-                    isError={!!errors?.familyStructure}
-                    errorMessage={createErrorMessage(errors.familyStructure)}
+                    name='familyStructure'
                     options={familyStructureOptions}
                 />
                 <OtherCheckbox name='familyStructureOther' keyName='value' />
@@ -231,10 +207,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Family Structure Content'>
                 <ControlledCheckboxGroup 
                     label='Family Structure Content' 
-                    name='familyStructureContent' 
-                    defaultValue=''
-                    isError={!!errors?.familyStructureContent}
-                    errorMessage={createErrorMessage(errors.familyStructureContent)}
+                    name='familyStructureContent'
                     options={familyStructureContentOptions}
                 />
                 <OtherCheckbox name='familyStructureContentOther' keyName='value' />
@@ -244,10 +217,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Neurodivergent'>
                 <ControlledCheckboxGroup 
                     label='Neurodivergent' 
-                    name='neurodivergent' 
-                    defaultValue=''
-                    isError={!!errors?.neurodivergent}
-                    errorMessage={createErrorMessage(errors.neurodivergent)}
+                    name='neurodivergent'
                     options={neurodivergentOptions}
                 />
                 <OtherCheckbox name='neurodivergentOther' keyName='value' />
@@ -256,10 +226,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Neurodivergent Content'>
                 <ControlledCheckboxGroup 
                     label='Neurodivergent Content' 
-                    name='neurodivergentContent' 
-                    defaultValue=''
-                    isError={!!errors?.neurodivergentContent}
-                    errorMessage={createErrorMessage(errors.neurodivergentContent)}
+                    name='neurodivergentContent'
                     options={neurodivergentContentOptions}
                 />
                 <OtherCheckbox name='neurodivergentOther' keyName='value' />
@@ -269,10 +236,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Body'>
                 <ControlledCheckboxGroup 
                     label='Body' 
-                    name='body' 
-                    defaultValue=''
-                    isError={!!errors?.body}
-                    errorMessage={createErrorMessage(errors.body)}
+                    name='body'
                     options={bodyOptions}
                 />
                 <OtherCheckbox name='bodyOther' keyName='value' />
@@ -281,10 +245,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Body Content'>
                 <ControlledCheckboxGroup 
                     label='Body Content' 
-                    name='bodyContent' 
-                    defaultValue=''
-                    isError={!!errors?.bodyContent}
-                    errorMessage={createErrorMessage(errors.bodyContent)}
+                    name='bodyContent'
                     options={bodyContentOptions}
                 />
                 <OtherCheckbox name='bodyOther' keyName='value' />
@@ -294,10 +255,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Disability'>
                 <ControlledCheckboxGroup 
                     label='Disability' 
-                    name='disability' 
-                    defaultValue=''
-                    isError={!!errors?.disability}
-                    errorMessage={createErrorMessage(errors.disability)}
+                    name='disability'
                     options={disabilityOptions}
                 />
                 <OtherCheckbox name='disabilityOther' keyName='value' />
@@ -306,10 +264,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Disability Content'>
                 <ControlledCheckboxGroup 
                     label='Disability Content' 
-                    name='disabilityContent' 
-                    defaultValue=''
-                    isError={!!errors?.disabilityContent}
-                    errorMessage={createErrorMessage(errors.disabilityContent)}
+                    name='disabilityContent'
                     options={disabilityContentOptions}
                 />
                 <OtherCheckbox name='disabilityOther' keyName='value' />
@@ -318,10 +273,7 @@ export default function InclusiveFormSectionOne(props : any) {
             <FormCard label='Literary Awards'>
                 <ControlledCheckboxGroup 
                     label='Literary Awards' 
-                    name='awards' 
-                    defaultValue=''
-                    isError={!!errors?.awards}
-                    errorMessage={createErrorMessage(errors.awards)}
+                    name='awards'
                     options={awardOptions}
                 />
                 <OtherCheckbox name='awardsOther' keyName='value' />

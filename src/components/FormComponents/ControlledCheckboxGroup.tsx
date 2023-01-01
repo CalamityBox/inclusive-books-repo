@@ -4,12 +4,11 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { Checkbox, FormControlLabel, FormGroup, FormHelperText, Typography } from '@mui/material'
 import { nanoid } from 'nanoid'
 import InfoTooltip from '../InfoTooltip'
-import { FieldPath } from 'firebase/firestore'
 import { simpleFormOption } from '../../utils/formOptions'
 
-export default function ControlledCheckboxGroup(props : { label: string, name: string, defaultValue?: string, options: simpleFormOption[], isError?: boolean, errorMessage?: string }) {
+export default function ControlledCheckboxGroup(props : { label: string, name: string, defaultValue?: string, options: simpleFormOption[] }) {
 
-    const { control, setValue, watch } = useFormContext()
+    const { control, setValue, watch, formState: { errors } } = useFormContext()
 
     const name = props.name
 
@@ -65,7 +64,16 @@ export default function ControlledCheckboxGroup(props : { label: string, name: s
 
     return (
         <>
-            {props.isError ? <FormHelperText error>{props.errorMessage}</FormHelperText> : <></>}
+            {
+                !!errors[props.name] ? 
+                    <FormHelperText error>
+                        <>
+                            {errors[props.name]?.message}
+                        </>
+                    </FormHelperText> 
+                    : 
+                    <></>
+            }
             <FormGroup>
                 {options}
             </FormGroup>
