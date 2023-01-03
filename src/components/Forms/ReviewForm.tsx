@@ -1,13 +1,10 @@
 import React from 'react'
-import { ReviewFormDefaultValues, ReviewFormSchema } from '../../utils/formSchemas'
-import { ICatalogingReview } from '../../utils/Interfaces'
 
 import ControlledRadio from '../FormComponents/ControlledRadio'
 import ControlledTextField from '../FormComponents/ControlledTextField'
 import FormCard from '../FormComponents/FormCard'
-import FormWrapper from '../FormComponents/FormWrapper'
 
-export default function ReviewForm(props: { handleSubmit?: Function, defaultValues?: ICatalogingReview }) {
+export default function ReviewForm() {
 
     const yesNoUnsureOptions = [
         { value: 'yes', label: 'Yes' },
@@ -16,8 +13,7 @@ export default function ReviewForm(props: { handleSubmit?: Function, defaultValu
     ]
 
     return (
-        <FormWrapper defaultValues={!!props?.defaultValues ? props.defaultValues : ReviewFormDefaultValues} schema={ReviewFormSchema} formSubmitHandler={props.handleSubmit}>
-
+        <>
             <FormCard label='Oversimplification & Stereotypes' required={true} description="Are there simplified generalizations of [a population's] interests, food, families? Are costumes/customs capriciously appropriated?  Are there any excessive or unwarranted generalizations of groups?">
                 <ControlledRadio
                     label='oversimplification'
@@ -156,7 +152,6 @@ export default function ReviewForm(props: { handleSubmit?: Function, defaultValu
                     multiline={true}
                 />
             </FormCard>
-
-        </FormWrapper>
+        </>
     )
 }

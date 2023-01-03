@@ -5,9 +5,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { useParams } from 'react-router-dom'
 import ReviewForm from '../../components/Forms/ReviewForm'
 import { UserAuth } from '../../contexts/AuthContext'
-import { readDatabase, submitReview } from '../../utils/useDatabase'
+import { readDatabase, submitReview, writeDatabase } from '../../utils/useDatabase'
 
 import { useNavigate } from 'react-router-dom'
+import FormWrapper from '../../components/FormComponents/FormWrapper'
+import { ReviewFormSchema } from '../../utils/formSchemas'
 
 export default function BookReviewPage() {
 
@@ -23,6 +25,8 @@ export default function BookReviewPage() {
     const [submitted, setSubmitted] = React.useState(false)
     
     function handleSubmit(data: any) {
+
+        console.log('submitted')
         
         setSubmitted(true)
         
@@ -31,6 +35,10 @@ export default function BookReviewPage() {
             id: user.uid
         }
         // console.log('submitting data',data)
+        !!bookId ? submitReview(bookId, user.uid, data) : console.log('id undefined')
+    }
+
+    function handleBlur(data: any) {
         !!bookId ? submitReview(bookId, user.uid, data) : console.log('id undefined')
     }
     
@@ -50,10 +58,9 @@ export default function BookReviewPage() {
                             <CircularProgress />
                         </Box>
                         :
-                        <ReviewForm 
-                            handleSubmit={handleSubmit}
-                            defaultValues={!!defaultValues ? defaultValues : undefined}
-                        />
+                        <FormWrapper defaultValues={defaultValues} schema={ReviewFormSchema} formSubmitHandler={handleSubmit} handleBlur={handleBlur} >
+                            <ReviewForm />
+                        </FormWrapper>
             }
         </>
     )

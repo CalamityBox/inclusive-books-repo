@@ -13,6 +13,7 @@ import InclusiveBookForm from '../../components/Forms/InclusiveBookForm'
 
 export default function InclusiveCatalogingPage(props : { defaultValues?: IFormInputs }) {
 
+    // Leaving form exposed instead of using FormWrapper component to use the form methods
     const methods = useForm<IFormInputs>({
         mode: 'onBlur',
         defaultValues: !!props?.defaultValues ? props.defaultValues : defaultValues,
@@ -23,11 +24,12 @@ export default function InclusiveCatalogingPage(props : { defaultValues?: IFormI
         console.log('form data:',data)
     }
 
+    // Steps
     const [step, setStep] = React.useState(0)
 
     const steps = [
-        'Select a Book',
         'Add Contributors',
+        'Select a Book',
         'Book Information',
         'Review'
     ]
