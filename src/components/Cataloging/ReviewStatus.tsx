@@ -29,7 +29,7 @@ export default function ReviewStatus(props: { size?: "small" | "inherit" | "medi
 
         for (const [key, review] of Object.entries(props.reviews)) {
 
-            console.log(`${index} recommendation for this book is`,review.recommendation)
+            // console.log(`${index} recommendation for this book is`,review.recommendation)
 
             switch (review.recommendation) {
 
