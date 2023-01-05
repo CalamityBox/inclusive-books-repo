@@ -8,13 +8,21 @@ export function AuthContextProvider(props : any) {
 
     const [user, setUser] = useState<any>({})
 
-    function googleSignIn() {
+    function googleSignInWithRedirect() {
         const provider = new GoogleAuthProvider()
         provider.setCustomParameters({
             hd: 'smartreading.org'
         })
         // signInWithPopup(auth, provider)
         signInWithRedirect(auth, provider)
+    }
+
+    function googleSignInWithPopup() {
+        const provider = new GoogleAuthProvider()
+        provider.setCustomParameters({
+            hd: 'smartreading.org'
+        })
+        signInWithPopup(auth, provider)
     }
 
     function logout() {
@@ -34,7 +42,7 @@ export function AuthContextProvider(props : any) {
     },[])
     
     return (
-        <AuthContext.Provider  value={{ googleSignIn, user, logout }}>
+        <AuthContext.Provider  value={{ googleSignInWithRedirect, googleSignInWithPopup, user, logout }}>
             {props.children}
         </AuthContext.Provider>
     )

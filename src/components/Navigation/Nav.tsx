@@ -14,7 +14,7 @@ import UserMenu from './UserMenu'
 
 export default function Nav(props : { menuPaths: MenuPath[] }) {
 
-    const {googleSignIn, user} = UserAuth()
+    const {googleSignInWithPopup, user} = UserAuth()
 
     const activeStyle = { color: '#6c5ce7', textDecoration: 'underline', textUnderlineOffset: '10px', textDecorationThickness: '2px' }
     const inactiveStyle = { color: 'black' }
@@ -55,7 +55,7 @@ export default function Nav(props : { menuPaths: MenuPath[] }) {
                     
                         <UserMenu user={user} /> : 
                     
-                        <Button variant='outlined' sx={{ marginLeft: 'auto' }} onClick={googleSignIn}>
+                        <Button variant='outlined' sx={{ marginLeft: 'auto' }} onClick={googleSignInWithPopup}>
                             Sign In
                         </Button>
                 }
