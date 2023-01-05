@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material'
 import React from 'react'
 
 import { Navigate } from 'react-router-dom'
@@ -13,7 +14,12 @@ export default function Protected(props : any) {
 
     return (
         <>
-            {props.children}
+            {
+                user.hasOwnProperty('accessToken') ?
+                    props.children
+                    :
+                    <CircularProgress />
+            }
         </>
     )
 }
