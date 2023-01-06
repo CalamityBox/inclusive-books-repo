@@ -5,7 +5,12 @@ import { raceCultureParents } from '../../utils/formOptions'
 
 import { Controller, useFormContext } from 'react-hook-form'
 
+// Context
+import { CanEditContext } from './FormWrapper'
+
 export default function CountriesAutocomplete(props: { name: string, options: any, label: string }) {
+
+    const canEdit = React.useContext(CanEditContext)
 
     const { control, watch, setValue } = useFormContext()
     const { name, options, label } = props
@@ -19,6 +24,7 @@ export default function CountriesAutocomplete(props: { name: string, options: an
             render={({ field: { onChange, ..._field } }) => (
                 <Autocomplete
                     {..._field}
+                    disabled={!canEdit}
                     multiple
                     freeSolo
                     options={options}

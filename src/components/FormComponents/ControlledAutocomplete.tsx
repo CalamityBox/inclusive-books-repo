@@ -3,7 +3,12 @@ import React from 'react'
 import { Autocomplete, Box, Chip, TextField } from '@mui/material'
 import { Controller, useFormContext } from 'react-hook-form'
 
+// Context
+import { CanEditContext } from './FormWrapper'
+
 export default function CountriesAutocomplete(props: { name: string, options: any, label: string, keyPattern?: RegExp, maxLength?: number, placeholder?: string, multiple?: boolean, freeSolo?: boolean, isError: boolean, helperText: string }) {
+
+    const canEdit = React.useContext(CanEditContext)
 
     const { control } = useFormContext()
     const { name, options, label, placeholder, multiple, freeSolo, isError, helperText } = props
@@ -17,6 +22,7 @@ export default function CountriesAutocomplete(props: { name: string, options: an
             render={({ field: { onChange, ..._field } }) => (
                 <Autocomplete
                     {..._field}
+                    disabled={!canEdit}
                     multiple={!!multiple}
                     freeSolo={!!freeSolo}
                     options={options}

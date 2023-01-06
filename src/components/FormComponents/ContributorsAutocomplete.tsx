@@ -3,7 +3,6 @@ import React from 'react'
 import { Avatar, Box, ListSubheader, TextField, Typography, useMediaQuery } from '@mui/material'
 import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete'
 import { Controller, useFormContext } from 'react-hook-form'
-import { IContributor } from '../../utils/Interfaces'
 import { readDatabase } from '../../utils/useDatabase'
 import { nanoid } from 'nanoid'
 import { matchSorter } from 'match-sorter'
@@ -14,7 +13,12 @@ import { VariableSizeList, ListChildComponentProps } from 'react-window'
 import Popper from '@mui/material/Popper'
 import { useTheme, styled } from '@mui/material/styles'
 
+// Context
+import { CanEditContext } from './FormWrapper'
+
 export default function ContributorsAutocomplete(props: { name: string, label: string, setSelected?: Function, isError: boolean, errorMessage: string }) {
+
+    const canEdit = React.useContext(CanEditContext)
 
     const { control } = useFormContext()
     const [options, isLoading] = readDatabase('contributors')
@@ -181,6 +185,7 @@ export default function ContributorsAutocomplete(props: { name: string, label: s
                 render={({ field: { onChange, ..._field } }) => (
                     <Autocomplete
                         {..._field}
+                        disabled={!canEdit}
                         openOnFocus={false}
                         disableListWrap
                         PopperComponent={StyledPopper}

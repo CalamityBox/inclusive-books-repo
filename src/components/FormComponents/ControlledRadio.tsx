@@ -6,7 +6,12 @@ import { nanoid } from 'nanoid'
 import InfoTooltip from '../InfoTooltip'
 import { simpleFormOption } from '../../utils/formOptions'
 
+// Context
+import { CanEditContext } from './FormWrapper'
+
 export default function ControlledRadio(props : { label: string, name: string, defaultValue?: string, options: simpleFormOption[] }) {
+
+    const canEdit = React.useContext(CanEditContext)
 
     const { control, formState: { errors } } = useFormContext()
 
@@ -14,6 +19,7 @@ export default function ControlledRadio(props : { label: string, name: string, d
         option => (
             <FormControlLabel
                 key={nanoid()} 
+                disabled={!canEdit}
                 value={option.value} 
                 control={<Radio />} 
                 label={

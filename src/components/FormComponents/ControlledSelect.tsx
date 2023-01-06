@@ -8,7 +8,12 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { nanoid } from 'nanoid'
 import { TextField } from '@mui/material'
 
+// Context
+import { CanEditContext } from './FormWrapper'
+
 export default function ControlledSelection(props : { label?: string, name: string, defaultValue?: string, options: { value: string, label: string }[], isDisabled?: boolean, isError?: boolean, errorMessage?: string }) {
+
+    const canEdit = React.useContext(CanEditContext)
 
     const { control } = useFormContext()
 
@@ -29,7 +34,7 @@ export default function ControlledSelection(props : { label?: string, name: stri
                     select
                     fullWidth
                     defaultValue={props.defaultValue}
-                    disabled={!!props.isDisabled}
+                    disabled={!!props.isDisabled || !canEdit}
                     label={props.label} 
                     variant='outlined' 
                     error={props.isError}

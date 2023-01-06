@@ -6,7 +6,12 @@ import { nanoid } from 'nanoid'
 import InfoTooltip from '../InfoTooltip'
 import { simpleFormOption } from '../../utils/formOptions'
 
+// Context
+import { CanEditContext } from './FormWrapper'
+
 export default function ControlledCheckboxGroup(props : { label: string, name: string, defaultValue?: string, options: simpleFormOption[] }) {
+
+    const canEdit = React.useContext(CanEditContext)
 
     const { control, setValue, watch, formState: { errors } } = useFormContext()
 
@@ -25,6 +30,7 @@ export default function ControlledCheckboxGroup(props : { label: string, name: s
                         render={({field: props}) => (
                             <Checkbox 
                                 {...props} 
+                                disabled={!canEdit}
                                 checked={props.value} 
                                 sx={option.hasOwnProperty('parent') ? childStyles : {}} 
                                 onChange={(e) => {
