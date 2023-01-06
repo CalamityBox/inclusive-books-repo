@@ -22,7 +22,7 @@ export default function InclusiveCatalogingPage(props : { defaultValues?: IFormI
     // Steps
     const [step, setStep] = React.useState(0)
 
-    const steps = [
+    const steps: ('Add Contributors' | 'Select a Book' | 'Book Information' | 'Review')[] = [
         'Add Contributors',
         'Select a Book',
         'Book Information',
@@ -42,7 +42,7 @@ export default function InclusiveCatalogingPage(props : { defaultValues?: IFormI
                 isLoading ?
                     <CircularProgress />
                     :
-                    <FormWrapper defaultValues={data} schema={inclusiveFormSchema} submitButtonText='Final Review' formSubmitHandler={() => setStep('Review')}>
+                    <FormWrapper defaultValues={data} schema={inclusiveFormSchema} submitButtonText='Final Review' formSubmitHandler={() => setStep(steps.indexOf('Review'))}>
                         <InclusiveBookForm />
                     </FormWrapper>
             }

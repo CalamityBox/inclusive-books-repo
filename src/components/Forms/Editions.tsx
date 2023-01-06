@@ -4,7 +4,7 @@ import { Box, Divider, Grid, IconButton, Tooltip } from '@mui/material'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import ControlledSelect from '../FormComponents/ControlledSelect'
 
-import { editionOptions } from '../../utils/formOptions'
+import { editionOptions, languageOptions } from '../../utils/formOptions'
 import ControlledTextField from '../FormComponents/ControlledTextField'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
@@ -79,6 +79,18 @@ export default function Editions(props : any) {
                             multiple={true}
                             freeSolo={true}
                             isError={isError(errors?.editions,'isbn',index)}
+                            helperText={'Required.'}
+                        />
+                    </Grid>
+
+                    <Grid item lg={11}>
+                        <ControlledAutocomplete
+                            name={`editions[${index}].languages`}
+                            label='Language(s)'
+                            options={languageOptions}
+                            multiple={true}
+                            freeSolo={true}
+                            isError={isError(errors?.editions,'languages',index)}
                             helperText={'Required.'}
                         />
                     </Grid>

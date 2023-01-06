@@ -20,6 +20,7 @@ export const defaultValues: IFormInputs = {
             format: '',
             publicationDate: '',
             coverUrl: '',
+            languages: [],
             isbn: []
         }
     ],
@@ -316,6 +317,7 @@ export const inclusiveFormSchema = yup.object().shape({
         format: yup.string().required(),
         publicationDate: yup.number().required(),
         coverUrl: yup.string().required(),
+        languages: yup.string().required(),
         isbn: yup.array().of(yup.string()).required()
     })),
 

@@ -96,6 +96,7 @@ interface IEdition {
     format: string;
     publicationDate: string;
     coverUrl: string;
+    languages: string[];
     isbn: string[];
 }
 

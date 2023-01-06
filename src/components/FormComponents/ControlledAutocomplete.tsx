@@ -27,11 +27,11 @@ export default function CountriesAutocomplete(props: { name: string, options: an
                     freeSolo={!!freeSolo}
                     options={options}
                     onChange={(_,data : any) => onChange(data)}
-                    getOptionLabel={(option) => option.label}
+                    getOptionLabel={(option) => option.label ?? option}
 
                     renderOption={(props, option) => (
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                            {option.label}
+                            {option}
                         </Box>
                     )}
 
