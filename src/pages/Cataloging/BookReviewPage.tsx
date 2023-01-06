@@ -16,7 +16,7 @@ export default function BookReviewPage() {
     
     const navigate = useNavigate()
     
-    const { bookId } = useParams()
+    const { bookId, userId } = useParams()
     // console.log('book id is:',bookId)
     
     const { user } = UserAuth()
@@ -58,7 +58,7 @@ export default function BookReviewPage() {
                             <CircularProgress />
                         </Box>
                         :
-                        <FormWrapper defaultValues={defaultValues} schema={ReviewFormSchema} formSubmitHandler={handleSubmit} handleBlur={handleBlur} >
+                        <FormWrapper defaultValues={defaultValues} schema={ReviewFormSchema} formSubmitHandler={handleSubmit} handleBlur={handleBlur} canEdit={user.uid === userId} >
                             <ReviewForm />
                         </FormWrapper>
             }
