@@ -6,7 +6,9 @@ import { Alert, Button, Container } from '@mui/material'
 
 export const CanEditContext = React.createContext(true)
 
-export default function FormWrapper(props: { defaultValues: any, schema: any, children: any, formSubmitHandler?: any, handleBlur?: SubmitHandler<any>, canEdit?: boolean }) {
+export default function FormWrapper(props: { defaultValues: any, schema: any, children: any, submitButtonText?: string, formSubmitHandler?: any, handleBlur?: SubmitHandler<any>, canEdit?: boolean }) {
+
+    const [submitted, setSubmitted] = React.useState(false)
 
     // Not using form wrapper to leave methods exposed; need to use getValue to submit form data when step changes
     const methods = useForm({
@@ -31,7 +33,7 @@ export default function FormWrapper(props: { defaultValues: any, schema: any, ch
             <CanEditContext.Provider value={canEdit}>
                 <form 
                     onSubmit={methods.handleSubmit(handleSubmit)} 
-                    onBlur={methods.handleSubmit(!!props?.handleBlur ? props.handleBlur : () => {})}
+                    onBlur={!!props?.handleBlur && methods.formState.isValid ? methods.handleSubmit(props.handleBlur) : () => {}} // only uses onBlur functionality if it has prop, form has been submitted, and form is valid
                 >
                     <Container maxWidth={false} sx={{ display: 'flex', flexDirection: 'column', rowGap: 3, maxWidth: 900 }}>
                         {
@@ -46,7 +48,7 @@ export default function FormWrapper(props: { defaultValues: any, schema: any, ch
                         {
                             canEdit ?
                                 <Button type='submit' variant='contained' sx={{ margin: 'auto' }}>
-                                    Submit
+                                    {!!props?.submitButtonText ? props.submitButtonText : 'Submit'}
                                 </Button>
                                 :
                                 <></>
