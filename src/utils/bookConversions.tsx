@@ -178,6 +178,8 @@ export function convertGoogleBookToDefaultFormValues(GoogleBook: IGoogleBook) {
     
         editions: [
             {
+                editionTitle: '',
+                editionSubtitle: '',
                 format: '',
                 publicationDate: GoogleBook.volumeInfo.publishedDate.slice(0,4),
                 coverUrl: `https://books.google.com/books/publisher/content/images/frontcover/${GoogleBook.id}?fife=w400-h600&source=gbs_api`,

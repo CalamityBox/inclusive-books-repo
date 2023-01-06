@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Divider, Grid, IconButton, Tooltip } from '@mui/material'
+import { Box, Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import ControlledSelect from '../FormComponents/ControlledSelect'
 
@@ -26,12 +26,42 @@ export default function Editions(props : any) {
     const editions = fields.map((item,index) => (
         <React.Fragment key={item.editionsId}>
 
+
             <Box sx={index > 0 ? {mt: 6} : {}}>
 
+                <Typography variant='h6' sx={{ mb: 1 }}>Edition {index + 1}</Typography>
+                
                 <Grid container spacing={1.5} sx={{ alignItems: 'flex-start' }}>
+
+                    {
+                        index > 0 ? // First edition is the 'canonical edition', so the title and subtitle will match. Therefore, only render option to add alt title and subtitle in later editions
+                            <>
+                                <Grid item lg={11}>
+                                    <ControlledTextField 
+                                        label='Edition Title (Only if edition is different language)' 
+                                        name={`editions[${index}].editionTitle`} 
+                                        defaultValue='' 
+                                        isError={isError(errors?.editions,'editionTitle',index)}
+                                        maxLength={100}
+                                    />
+                                </Grid>
+                                <Grid item lg={11}>
+                                    <ControlledTextField 
+                                        label='Edition Subtitle (Only if edition is different language)' 
+                                        name={`editions[${index}].editionSubtitle`} 
+                                        defaultValue='' 
+                                        isError={isError(errors?.editions,'editionSubtitle',index)}
+                                        maxLength={100}
+                                    />
+                                </Grid>
+                            </>
+                            :
+                            <></>
+                    }
+
                     <Grid item lg={5.5}>
                         <ControlledSelect 
-                            label='Format' 
+                            label='Format *' 
                             name={`editions[${index}].format`} 
                             defaultValue='' 
                             options={editionOptions} 
@@ -42,7 +72,7 @@ export default function Editions(props : any) {
 
                     <Grid item lg={5.5}>
                         <ControlledTextField 
-                            label='Publication Date' 
+                            label='Publication Date *' 
                             name={`editions[${index}].publicationDate`} 
                             defaultValue='' 
                             isError={isError(errors?.editions,'publicationDate',index)}
@@ -57,7 +87,7 @@ export default function Editions(props : any) {
 
                     <Grid item lg={11}>
                         <ControlledTextField 
-                            label='Cover URL' 
+                            label='Cover URL *' 
                             name={`editions[${index}].coverUrl`} 
                             defaultValue='' 
                             isError={isError(errors?.editions,'coverUrl',index)}
@@ -72,7 +102,7 @@ export default function Editions(props : any) {
                     <Grid item lg={11}>
                         <ControlledAutocomplete 
                             name={`editions[${index}].isbn`}
-                            label='ISBN'
+                            label='ISBN *'
                             keyPattern={/[\d-]/}
                             maxLength={17}
                             options={[]}
@@ -86,7 +116,7 @@ export default function Editions(props : any) {
                     <Grid item lg={11}>
                         <ControlledAutocomplete
                             name={`editions[${index}].languages`}
-                            label='Language(s)'
+                            label='Language(s) *'
                             options={languageOptions}
                             multiple={true}
                             freeSolo={true}

@@ -17,6 +17,8 @@ export const defaultValues: IFormInputs = {
 
     editions: [
         {
+            editionTitle: '',
+            editionSubtitle: '',
             format: '',
             publicationDate: '',
             coverUrl: '',
@@ -314,6 +316,8 @@ export const inclusiveFormSchema = yup.object().shape({
     genre: yup.string().required('You must select a genre.'),
 
     editions: yup.array().of(yup.object().shape({
+        editionTitle: yup.string(),
+        editionSubtitle: yup.string(),
         format: yup.string().required(),
         publicationDate: yup.number().required(),
         coverUrl: yup.string().required(),

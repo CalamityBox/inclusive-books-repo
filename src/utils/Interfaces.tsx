@@ -93,6 +93,8 @@ export interface IDynamicOtherString {
 }
 
 interface IEdition {
+    editionTitle: string;
+    editionSubtitle: string;
     format: string;
     publicationDate: string;
     coverUrl: string;
