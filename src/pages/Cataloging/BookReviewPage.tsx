@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Button, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useParams } from 'react-router-dom'
 import ReviewForm from '../../components/Forms/ReviewForm'
@@ -16,19 +16,15 @@ export default function BookReviewPage() {
     const navigate = useNavigate()
     
     const { bookId, userId } = useParams()
-    // console.log('book id is:',bookId)
     
     const { user } = UserAuth()
     
     function handleSubmit(data: any) {
-
-        console.log('submitting data')
         
         data.reviewer = {
             name: user.displayName,
             id: user.uid
         }
-        // console.log('submitting data',data)
         !!bookId ? submitReview(bookId, user.uid, data) : console.log('id undefined')
     }
 
@@ -36,8 +32,7 @@ export default function BookReviewPage() {
         !!bookId ? submitReview(bookId, user.uid, data) : console.log('id undefined')
     }
     
-    const [defaultValues, isLoading] = readDatabase(`booksToReview/${bookId}/cataloging/${user.uid}`)
-    console.log('default values are',defaultValues)
+    const [defaultValues, isLoading] = readDatabase(`booksToReview/${bookId}/cataloging/${userId}`)
 
     return (
         <>

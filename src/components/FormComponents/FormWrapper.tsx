@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { Alert, Box, Button, Card, Container, Typography } from '@mui/material'
+import { Alert, AlertTitle, Box, Button, Container, Typography } from '@mui/material'
 
 export const CanEditContext = React.createContext(true)
 
@@ -16,10 +16,6 @@ export default function FormWrapper(props: { defaultValues: any, schema: any, ch
         defaultValues: props.defaultValues,
         resolver: yupResolver(props.schema)
     })
-
-    function defaultFormSubmitHandler(data : any) {
-        console.log('form data:',data)
-    }
 
     function handleSubmit(data: any) {
 
@@ -70,6 +66,7 @@ export default function FormWrapper(props: { defaultValues: any, schema: any, ch
                                             <></>
                                             :
                                             <Alert severity='info'>
+                                                <AlertTitle sx={{ textAlign: 'left' }}>Read-only Mode</AlertTitle>
                                                 You are viewing this form in read-only mode because you do not have permission to edit.
                                             </Alert>
                                     }
