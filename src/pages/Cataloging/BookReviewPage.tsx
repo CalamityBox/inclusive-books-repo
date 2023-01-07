@@ -9,10 +9,9 @@ import { readDatabase, submitReview, writeDatabase } from '../../utils/useDataba
 
 import { useNavigate } from 'react-router-dom'
 import FormWrapper from '../../components/FormComponents/FormWrapper'
-import { ReviewFormSchema } from '../../utils/formSchemas'
+import { ReviewFormDefaultValues, ReviewFormSchema } from '../../utils/formSchemas'
 
 export default function BookReviewPage() {
-
     
     const navigate = useNavigate()
     
@@ -21,14 +20,9 @@ export default function BookReviewPage() {
     
     const { user } = UserAuth()
     
-    // Handle submit status and function
-    const [submitted, setSubmitted] = React.useState(false)
-    
     function handleSubmit(data: any) {
 
-        console.log('submitted')
-        
-        setSubmitted(true)
+        console.log('submitting data')
         
         data.reviewer = {
             name: user.displayName,
@@ -43,24 +37,27 @@ export default function BookReviewPage() {
     }
     
     const [defaultValues, isLoading] = readDatabase(`booksToReview/${bookId}/cataloging/${user.uid}`)
+    console.log('default values are',defaultValues)
 
     return (
         <>
             {
-                submitted ?
-                    <>
-                        <Typography variant='h4' sx={{ mt: '30vh', mb: 2 }}>Thank you for your response!</Typography>
-                        <Button variant='contained' onClick={() => navigate('/cataloging/dashboard')}>Back to Cataloging</Button>
-                    </>
+                isLoading ?
+                    <Box sx={{ display: 'flex', mt: '50vh' }}>
+                        <CircularProgress />
+                    </Box>
                     :
-                    isLoading ?
-                        <Box sx={{ display: 'flex', mt: '50vh' }}>
-                            <CircularProgress />
-                        </Box>
-                        :
-                        <FormWrapper defaultValues={defaultValues} schema={ReviewFormSchema} formSubmitHandler={handleSubmit} handleBlur={handleBlur} canEdit={user.uid === userId} >
-                            <ReviewForm />
-                        </FormWrapper>
+                    <FormWrapper 
+                        defaultValues={!!defaultValues ? defaultValues : ReviewFormDefaultValues} 
+                        schema={ReviewFormSchema} 
+                        formSubmitHandler={handleSubmit} 
+                        handleBlur={handleBlur} 
+                        canEdit={user.uid === userId}
+                        postSubmitButtonText='Back to Cataloging'
+                        handlePostSubmit={() => navigate('/cataloging/dashboard')}
+                    >
+                        <ReviewForm />
+                    </FormWrapper>
             }
         </>
     )
