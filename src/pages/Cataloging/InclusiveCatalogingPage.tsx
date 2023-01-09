@@ -1,51 +1,68 @@
 import React from 'react'
 
-// Components
-import Container from '@mui/material/Container'
-
-// Forms
-import { useForm, FormProvider } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, CircularProgress, Step, StepLabel, Stepper } from '@mui/material'
-import { inclusiveFormSchema, defaultValues } from '../../utils/inclusiveFormSchema'
-import { IFormInputs } from '../../utils/Interfaces'
+import { Step, StepLabel, Stepper } from '@mui/material'
+import { inclusiveFormSchema } from '../../utils/inclusiveFormSchema'
 import InclusiveBookForm from '../../components/Forms/InclusiveBookForm'
 import FormWrapper from '../../components/FormComponents/FormWrapper'
 import { useParams } from 'react-router-dom'
-import { readDatabase } from '../../utils/useDatabase'
+import { readDatabase, readDatabaseRealtime } from '../../utils/useDatabase'
+import Loading from '../../components/Loading'
+import ContributorDisambiguation from '../../components/Cataloging/ContributorDisambiguation'
+import Container from '@mui/system/Container'
 
-export default function InclusiveCatalogingPage(props : { defaultValues?: IFormInputs }) {
+export default function InclusiveCatalogingPage() {
 
     const { bookId } = useParams()
-    const [data, isLoading] = readDatabase(`booksToReview/${bookId}`)
+    const [bookData, isLoading] = readDatabase(`booksToReview/${bookId}`)
+    const [contributors, isContributorsLoading] = readDatabase('contributors')
+
+    console.log('book data is',bookData)
+    // console.log('book id is',bookId)
+    // console.log('is book data loading',isBookLoading)
+    // console.log('is contributor loading',isContributorsLoading)
 
     // Steps
     const [step, setStep] = React.useState(0)
 
-    const steps: ('Add Contributors' | 'Select a Book' | 'Book Information' | 'Review')[] = [
+    const steps: ('Add Contributors' | 'Book Information' | 'Review')[] = [
         'Add Contributors',
-        'Select a Book',
         'Book Information',
         'Review'
     ]
 
     return (
-        <>
-            <Stepper activeStep={step} sx={{ mb: 4 }}>
-                {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            {
-                isLoading ?
-                    <CircularProgress />
-                    :
-                    <FormWrapper defaultValues={data} schema={inclusiveFormSchema} submitButtonText='Final Review' formSubmitHandler={() => setStep(steps.indexOf('Review'))}>
-                        <InclusiveBookForm />
-                    </FormWrapper>
-            }
-        </>
+        <Container>
+            <Loading isLoading={!!isLoading && isContributorsLoading}>
+                {/* Nesting the stepper inside the form wrapper means that the form state of the InclusiveBookForm will be preserved even if the step changes and another component is rendered */}
+                <FormWrapper
+                    defaultValues={bookData} 
+                    schema={inclusiveFormSchema} 
+                    submitButtonText='Final Review' 
+                    formSubmitHandler={() => setStep(steps.indexOf('Review'))}
+                    hideSubmitButton={step !== 1}
+                >
+
+                    <Stepper activeStep={step} sx={{ mb: 4 }}>
+                        {steps.map((label) => (
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
+
+                    {
+                        step === 0 ?
+                            <ContributorDisambiguation book={bookData} contributorData={contributors} selectContributorCallback={() => {}} />
+                            :
+                            step === 1 ?
+                                <InclusiveBookForm />
+                                :
+                                <>Final Review</>
+                    }
+
+                </FormWrapper>
+
+            </Loading>
+        </Container>
     )
 }

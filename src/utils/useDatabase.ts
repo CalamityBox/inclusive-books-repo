@@ -5,6 +5,8 @@ import { ICatalogingReview, IFormInputs } from "./Interfaces"
 
 export function readDatabase(path: string) {
 
+    console.log('reading database')
+
     const [data, setData] = React.useState<any>(undefined)
     const [isLoading, setIsLoading] = React.useState(true)
 
@@ -15,6 +17,7 @@ export function readDatabase(path: string) {
         get(child(dbRef, path))
             .then((snapshot) => {
                 if (snapshot.exists()) {
+                    console.log('setting data to',snapshot.val())
                     setData(snapshot.val())
                     setIsLoading(false)
                 } else {

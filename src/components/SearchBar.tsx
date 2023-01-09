@@ -7,9 +7,11 @@ import TextField from '@mui/material/TextField'
 
 
 
-export default function SearchBar(props : { label?: string, placeholder?: string, isDisabled?: boolean, defaultValue?: string, autoFocus?: boolean, callbackFunction: Function }) {
+export default function SearchBar(props : { label?: string, placeholder?: string, isDisabled?: boolean, defaultValue?: string, autoFocus?: boolean, callbackFunction: Function, size?: "small" | "medium", fullWidth?: boolean }) {
 
     const [value, setValue] = React.useState(!!props.defaultValue ? props.defaultValue : '')
+
+    console.log('value is',value)
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setValue(event.target.value)
@@ -18,7 +20,9 @@ export default function SearchBar(props : { label?: string, placeholder?: string
     React.useEffect(() => {
 
         const timer = setTimeout(() => {
-            props.callbackFunction(value)
+            console.log('using effect')
+            const callback = props.callbackFunction
+            callback(value)
         }, 200)
         
         return () => clearTimeout(timer)
@@ -32,9 +36,9 @@ export default function SearchBar(props : { label?: string, placeholder?: string
             placeholder={props.placeholder}
             disabled={!!props.isDisabled}
             variant='outlined'
-            size='medium'
+            size={props?.size ?? 'medium'}
             autoFocus={!!props.autoFocus}
-            fullWidth
+            fullWidth={props?.fullWidth ?? true}
             sx={{ backgroundColor: 'white' }}
 
             onChange={(event) => handleChange(event)}
